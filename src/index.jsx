@@ -3,7 +3,7 @@ import "react-app-polyfill/stable";
 
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
+import "./resources/styles/default.scss";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 

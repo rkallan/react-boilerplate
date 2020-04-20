@@ -5,8 +5,15 @@ module.exports = {
         node: true,
         jest: true,
     },
-    extends: ["eslint:recommended", "plugin:jsx-a11y/recommended", "plugin:react/recommended", "plugin:prettier/recommended"],
-    plugins: ["react", "react-hooks", "jsx-a11y", "prettier", "babel"],
+    extends: [
+        "./rkallan-eslint-config",
+        "./rkallan-eslint-config-react",
+        "eslint:recommended",
+        "plugin:jsx-a11y/recommended",
+        "plugin:react/recommended",
+        "plugin:prettier/recommended",
+    ],
+    plugins: ["react", "react-hooks", "jsx-a11y", "prettier"],
     globals: {
         Atomics: "readonly",
         SharedArrayBuffer: "readonly",
