@@ -10,15 +10,18 @@ import { HelmetProvider } from "react-helmet-async";
 import { createBrowserHistory } from "history";
 import store from "Store";
 import "i18n";
-
-import "./resources/styles/default.scss";
+import { Loading } from "rkallan-ui-library";
 import configureMockApi from "mockApi";
 import * as serviceWorker from "./serviceWorker";
 
 configureMockApi();
 
 const Template = loadable(() => import("./Template"), {
-    fallback: <div>Loading...</div>,
+    fallback: <Loading />,
+});
+
+const TemplateProvider = loadable(() => import("rkallan-ui-library/TemplateProvider"), {
+    fallback: <Loading />,
 });
 
 const history = createBrowserHistory();
@@ -27,11 +30,13 @@ const TemplateApplication = (
     <React.StrictMode>
         <HelmetProvider context={helmetContext}>
             <Provider store={store}>
-                <Suspense fallback="">
-                    <Router history={history}>
-                        <Template />
-                    </Router>
-                </Suspense>
+                <TemplateProvider>
+                    <Suspense fallback={<Loading />}>
+                        <Router history={history}>
+                            <Template />
+                        </Router>
+                    </Suspense>
+                </TemplateProvider>
             </Provider>
         </HelmetProvider>
     </React.StrictMode>

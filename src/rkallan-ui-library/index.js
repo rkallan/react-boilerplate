@@ -10,5 +10,6 @@ import Logo from "./Logo";
 import Select from "./Select";
 import SidePanel from "./SidePanel";
 import SliderButton from "./SliderButton";
+import TemplateProvider from "./TemplateProvider";
 
-export { Accordion, Button, Form, Icons, InputTypeRadio, InputTypeRange, InputTypeText, Loading, Logo, Select, SidePanel, SliderButton };
+export { Accordion, Button, Form, Icons, InputTypeRadio, InputTypeRange, InputTypeText, Loading, Logo, Select, SidePanel, SliderButton, TemplateProvider };

@@ -1,0 +1,13 @@
+@import "./src/resources/styles/variables/variables";
+@import "./src/resources/styles/mixins/mixins";
+
+.container {
+    position: sticky;
+    height: 4.5rem;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    padding: 0.75rem;
+    background: safe-hsla($colorWhite);
+}

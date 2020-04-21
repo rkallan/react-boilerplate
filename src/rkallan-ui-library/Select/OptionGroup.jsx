@@ -21,7 +21,7 @@ OptionGroup.propTypes = {
         id: PropTypes.number,
         text: PropTypes.string,
         attributes: PropTypes.shape({
-            value: PropTypes.oneOfType(["string", "number", "bool"]),
+            value: PropTypes.any,
         }),
     }).isRequired,
 };

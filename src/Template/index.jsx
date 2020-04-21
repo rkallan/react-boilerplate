@@ -11,7 +11,17 @@ import { getThemeColorScheme } from "features/theme/themeSelector";
 import styles from "./resources/styles/template.module.scss";
 import defaultPageData from "./constants/defaultPageData";
 
-const Routes = loadable(() => import(/* webpackChunkName: "Routes" */ "Routes"));
+const Routes = loadable(() => import(/* webpackChunkName: "Routes" */ "Routes"), {
+    fallback: <div>Loading...</div>,
+});
+
+const Header = loadable(() => import(/* webpackChunkName: "Header" */ "features/Header"), {
+    fallback: <div>Loading...</div>,
+});
+
+const Footer = loadable(() => import(/* webpackChunkName: "Footer" */ "features/Footer"), {
+    fallback: <div>Loading...</div>,
+});
 
 function Template() {
     const { t } = useTranslation("template");
@@ -32,9 +42,11 @@ function Template() {
                 <meta name="description" content={t(`template:${description}`)} />
                 <body theme={themeColorScheme} />
             </Helmet>
+            <Header />
             <main className={styles.main} variant="container">
                 <Routes />
             </main>
+            <Footer />
         </>
     );
 }
