@@ -7,20 +7,20 @@ import useColorScheme from "rkallan-react-hooks/useColorScheme";
 
 import { setThemeColorScheme } from "features/theme/themeSlice";
 import { getThemeColorScheme } from "features/theme/themeSelector";
-
+import { Loading } from "rkallan-ui-library";
 import styles from "./resources/styles/template.module.scss";
 import defaultPageData from "./constants/defaultPageData";
 
 const Routes = loadable(() => import(/* webpackChunkName: "Routes" */ "Routes"), {
-    fallback: <div>Loading...</div>,
+    fallback: <Loading />,
 });
 
 const Header = loadable(() => import(/* webpackChunkName: "Header" */ "features/Header"), {
-    fallback: <div>Loading...</div>,
+    fallback: <Loading />,
 });
 
 const Footer = loadable(() => import(/* webpackChunkName: "Footer" */ "features/Footer"), {
-    fallback: <div>Loading...</div>,
+    fallback: <Loading />,
 });
 
 function Template() {

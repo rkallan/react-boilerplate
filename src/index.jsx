@@ -16,11 +16,11 @@ import * as serviceWorker from "./serviceWorker";
 
 configureMockApi();
 
-const Template = loadable(() => import("./Template"), {
+const Template = loadable(() => import(/* webpackChunkName: "Template" */ "./Template"), {
     fallback: <Loading />,
 });
 
-const TemplateProvider = loadable(() => import("rkallan-ui-library/TemplateProvider"), {
+const TemplateProvider = loadable(() => import(/* webpackChunkName: "TemplateProvider" */ "rkallan-ui-library/TemplateProvider"), {
     fallback: <Loading />,
 });
 
