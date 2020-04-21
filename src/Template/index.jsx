@@ -30,6 +30,7 @@ function Template() {
                 <html lang={htmlAttribute.lang} itemScope={htmlAttribute.itemscope} itemType={htmlAttribute.itemtype} />
                 <title>{t(`template:${title}`)}</title>
                 <meta name="description" content={t(`template:${description}`)} />
+                <body theme={themeColorScheme} />
             </Helmet>
             <main className={styles.main} variant="container">
                 <Routes />
