@@ -1,5 +1,5 @@
 import { useState } from "react";
-import useRouter from "../useRouter";
+import { useLocation } from "react-router-dom";
 
 const useQueryParam = () => {
     const covertQueryParamsToObject = (location) => {
@@ -21,7 +21,7 @@ const useQueryParam = () => {
         return covertQueryParamsToObject(location);
     };
 
-    const { location } = useRouter();
+    const location = useLocation();
     const [queryParams, setQueryParams] = useState(queryParamsAsObject(location));
 
     const getQueryParam = (key) => {
