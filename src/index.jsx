@@ -6,6 +6,7 @@ import { render, hydrate } from "react-dom";
 import { Router } from "react-router-dom";
 import { Provider } from "react-redux";
 import loadable from "@loadable/component";
+import { HelmetProvider } from "react-helmet-async";
 import { createBrowserHistory } from "history";
 import store from "Store";
 import "i18n";
@@ -21,16 +22,18 @@ const Template = loadable(() => import("./Template"), {
 });
 
 const history = createBrowserHistory();
-
+const helmetContext = {};
 const TemplateApplication = (
     <React.StrictMode>
-        <Provider store={store}>
-            <Suspense fallback="">
-                <Router history={history}>
-                    <Template />
-                </Router>
-            </Suspense>
-        </Provider>
+        <HelmetProvider context={helmetContext}>
+            <Provider store={store}>
+                <Suspense fallback="">
+                    <Router history={history}>
+                        <Template />
+                    </Router>
+                </Suspense>
+            </Provider>
+        </HelmetProvider>
     </React.StrictMode>
 );
 
