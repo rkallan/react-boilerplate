@@ -1,4 +1,5 @@
 import apiCall from "./apiCall";
+import base64Url from "./base64Url";
 import { convertToGivenSeperator, camelCase, capitalizeFirstLetterWord, ucFirst } from "./convertString";
 import {
     replaceElementAttributeValue,
@@ -18,6 +19,8 @@ import { flattenObject, flattenArray } from "./flattenObject";
 import { getRandomInt, getRandomAlphanumericInsensitive } from "./getRandom";
 import getType from "./getType";
 import getValueOfElement from "./getValueOfElement";
+import handleResponse from "./handleResponse";
+import { createToken, decodeToken } from "./jwtToken";
 import keyEvent from "./keyEvent";
 import requestOptions from "./requestOptions";
 import { roundNearest, roundDown, roundUp } from "./roundNumber";
@@ -26,6 +29,7 @@ import { validations, formPostValidation, getValidationTypes, isElementValid } f
 
 export {
     apiCall,
+    base64Url,
     convertToGivenSeperator,
     camelCase,
     capitalizeFirstLetterWord,
@@ -49,6 +53,9 @@ export {
     getRandomInt,
     getRandomAlphanumericInsensitive,
     getValueOfElement,
+    handleResponse,
+    createToken,
+    decodeToken,
     keyEvent,
     requestOptions,
     roundNearest,

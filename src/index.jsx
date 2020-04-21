@@ -4,12 +4,17 @@ import "react-app-polyfill/stable";
 import React, { Suspense } from "react";
 import { render, hydrate } from "react-dom";
 import { Router } from "react-router-dom";
+import { Provider } from "react-redux";
 import loadable from "@loadable/component";
 import { createBrowserHistory } from "history";
+import store from "Store";
 import "i18n";
 
 import "./resources/styles/default.scss";
+import configureMockApi from "mockApi";
 import * as serviceWorker from "./serviceWorker";
+
+configureMockApi();
 
 const Template = loadable(() => import("./Template"), {
     fallback: <div>Loading...</div>,
@@ -19,11 +24,13 @@ const history = createBrowserHistory();
 
 const TemplateApplication = (
     <React.StrictMode>
-        <Suspense fallback="">
-            <Router history={history}>
-                <Template />
-            </Router>
-        </Suspense>
+        <Provider store={store}>
+            <Suspense fallback="">
+                <Router history={history}>
+                    <Template />
+                </Router>
+            </Suspense>
+        </Provider>
     </React.StrictMode>
 );
 
