@@ -1,0 +1,181 @@
+@import "./src/resources/styles/variables/variables";
+@import "./src/resources/styles/mixins/mixins";
+
+.container {
+    &[variant="margin-right"] {
+        margin-right: 0.5rem;
+    }
+
+    &[variant="icon-only"] {
+        .unit {
+            .content {
+                .icon {
+                    margin: 0;
+                }
+            }
+        }
+    }
+
+    &[variant="text-only"] {
+        .unit {
+            .content {
+                .icon {
+                    margin: 0;
+                    width: 0;
+                    height: 0;
+                }
+            }
+        }
+    }
+
+    .checkbox {
+        position: absolute;
+        width: 0;
+        height: 0;
+        color: safe-hsla($colorWhite);
+
+        &:checked + label {
+            .unit {
+                &[variant~="color-white"] {
+                    background: safe-hsla($colorWhite);
+                }
+
+                &[variant~="color-big-stone"] {
+                    background: safe-hsla(map-get($colorLaRioja, default));
+                    .content {
+                        &[variant="left"] {
+                            color: safe-hsla(map-get($colorBigStone, default));
+                        }
+                        &[variant="right"] {
+                            color: safe-hsla(map-get($colorBigStone, default));
+                        }
+                    }
+                }
+
+                &[variant~="color-sky-blue"] {
+                    background: safe-hsla(map-get($colorSkyBlue, default));
+                    .content {
+                        &[variant="left"] {
+                            color: safe-hsla($colorWhite);
+                        }
+                        &[variant="right"] {
+                            color: safe-hsla(map-get($colorBigStone, default));
+                        }
+                    }
+                }
+
+                &[variant~="color-la-rioja"] {
+                    background: safe-hsla(map-get($colorLaRioja, default));
+                }
+
+                &[variant~="color-lipstick"] {
+                    background: safe-hsla(map-get($colorLipstick, default));
+                }
+
+                background: safe-hsla(map-get($colorSkyBlue, default));
+
+                .circle {
+                    left: calc(100% - 1.9rem);
+                }
+
+                .content {
+                    &[variant="left"] {
+                        opacity: map-get($opacity, show);
+                    }
+                    &[variant="right"] {
+                        opacity: map-get($opacity, hidden);
+                    }
+                }
+            }
+        }
+
+        &:focus + label {
+            .unit {
+                .circle {
+                    background: safe-hsla(map-get($colorBigStone, lighter));
+                }
+            }
+        }
+
+        &:disabled + label {
+            pointer-events: none;
+            .unit {
+                opacity: map-get($opacity, disabled);
+                cursor: default;
+            }
+        }
+    }
+
+    label {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin: 0;
+
+        .labelText {
+            text-transform: uppercase;
+            margin-right: 0.5rem;
+        }
+    }
+
+    .unit {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-width: 4rem;
+        height: 2rem;
+        border-radius: 1.25rem;
+        align-items: center;
+        background: scale-color(map-get($colorBigStone, lighter), $lightness: 40%);
+        transition: map-get($transition, default);
+
+        .circle {
+            position: absolute;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 100%;
+            background: white;
+            top: 0.25rem;
+            left: 0.3rem;
+            transition: map-get($transition, default);
+        }
+
+        .content {
+            display: flex;
+            flex-direction: row;
+            text-align: left;
+            height: 2rem;
+            max-height: 2rem;
+            margin: 0 2.25rem 0 0.75rem;
+            opacity: map-get($opacity, hidden);
+            transition: map-get($transition, default);
+            align-items: center;
+            overflow: hidden;
+
+            .text {
+                line-height: 1.7rem;
+            }
+
+            .icon {
+                width: 1.825rem;
+                height: 1.25rem;
+                margin: 0 0.25rem 0 0;
+            }
+
+            &[variant="right"] {
+                margin: -2rem 0.75rem 0 2.1rem;
+                opacity: map-get($opacity, show);
+                align-self: flex-end;
+                color: safe-hsla(map-get($colorBigStone, default));
+
+                .icon {
+                    margin: 0 0 0 0.25rem;
+                }
+            }
+
+            svg {
+                align-self: center;
+            }
+        }
+    }
+}

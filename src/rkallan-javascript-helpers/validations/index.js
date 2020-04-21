@@ -26,7 +26,7 @@ const validations = {
             case "object":
                 return Object.keys(value).length === 0;
             case "number":
-                return isNaN(value);
+                return Number.isNaN(value);
             default:
                 return true;
         }
@@ -252,7 +252,7 @@ const validations = {
 
         if (isNotEmpty && isNotEmpty.error) return { ...isNotEmpty, message: errorMessage };
 
-        if (getType(value) === "number" && !isNaN(value)) return { error: false, message: undefined };
+        if (getType(value) === "number" && !Number.isNaN(value)) return { error: false, message: undefined };
 
         if (getType(value) === "string") {
             if (value.startsWith("00") || value.startsWith("-00"))
@@ -312,7 +312,7 @@ const validations = {
         return { error: true, message: errorMessage };
     },
     alphabetic: (value) => {
-        let errorMessage = `is not alphabetic`;
+        const errorMessage = `is not alphabetic`;
         const isNotEmpty = validations.isNotEmpty(value);
 
         if (isNotEmpty && isNotEmpty.error) return { ...isNotEmpty, message: errorMessage };
@@ -326,7 +326,7 @@ const validations = {
         };
     },
     alphanumeric: (value) => {
-        let errorMessage = `is not alphanumeric`;
+        const errorMessage = `is not alphanumeric`;
         const isNotEmpty = validations.isNotEmpty(value);
 
         if (isNotEmpty && isNotEmpty.error) return { ...isNotEmpty, message: errorMessage };
@@ -340,7 +340,7 @@ const validations = {
         };
     },
     tel: (value) => {
-        let errorMessage = `is not a phonenumber`;
+        const errorMessage = `is not a phonenumber`;
         const isNotEmpty = validations.isNotEmpty(value);
 
         if (isNotEmpty && isNotEmpty.error) return { ...isNotEmpty, message: errorMessage };
@@ -354,7 +354,7 @@ const validations = {
         };
     },
     isBoolean: (value) => {
-        let errorMessage = `is not a boolean`;
+        const errorMessage = `is not a boolean`;
         const isNotEmpty = validations.isNotEmpty(value);
 
         if (isNotEmpty && isNotEmpty.error) return { ...isNotEmpty, message: errorMessage };
@@ -373,7 +373,7 @@ const validations = {
         return { error: true, message: errorMessage };
     },
     dateFuture: (value) => {
-        let errorMessage = `is not a valid date in the future`;
+        const errorMessage = `is not a valid date in the future`;
         const isNotEmpty = validations.isNotEmpty(value);
 
         if (isNotEmpty && isNotEmpty.error) return { ...isNotEmpty, message: errorMessage };
@@ -413,7 +413,7 @@ const validations = {
         },
         // Check a password between 6 to 18 characters which contain at least one numeric digit, one uppercase and one lowercase letter.
         medium: (value) => {
-            let errorMessage = `password must be between 6 to 18 characters which contain at least one numeric digit, one uppercase and one lowercase letter`;
+            const errorMessage = `password must be between 6 to 18 characters which contain at least one numeric digit, one uppercase and one lowercase letter`;
             const isNotEmpty = validations.isNotEmpty(value);
 
             if (isNotEmpty && isNotEmpty.error) return { ...isNotEmpty, message: errorMessage };
@@ -426,7 +426,7 @@ const validations = {
         },
         // Check a password between 7 to 21 characters which contain at least one numeric digit and a special character.
         strong: (value) => {
-            let errorMessage = `password must be between 7 to 21 characters which contain at least one numeric digit and a special character`;
+            const errorMessage = `password must be between 7 to 21 characters which contain at least one numeric digit and a special character`;
             const isNotEmpty = validations.isNotEmpty(value);
 
             if (isNotEmpty && isNotEmpty.error) return { ...isNotEmpty, message: errorMessage };
@@ -439,7 +439,7 @@ const validations = {
         },
         // Check a password between 8 to 24 characters which contain at least one lowercase letter, one uppercase letter, one numeric digit, and one special character.
         veryStrong: (value) => {
-            let errorMessage = `password must be between 8 to 24 characters which contain at least one lowercase letter, one uppercase letter, one numeric digit, and one special character`;
+            const errorMessage = `password must be between 8 to 24 characters which contain at least one lowercase letter, one uppercase letter, one numeric digit, and one special character`;
             const isNotEmpty = validations.isNotEmpty(value);
 
             if (isNotEmpty && isNotEmpty.error) return { ...isNotEmpty, message: errorMessage };
@@ -452,7 +452,7 @@ const validations = {
         },
     },
     ipadress: (value) => {
-        let errorMessage = `is not a valid ip address`;
+        const errorMessage = `is not a valid ip address`;
         const isNotEmpty = validations.isNotEmpty(value);
 
         if (isNotEmpty && isNotEmpty.error) return { ...isNotEmpty, message: errorMessage };

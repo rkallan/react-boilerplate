@@ -1,4 +1,4 @@
-import { objectFlatten, flattenArray } from "./index";
+import { flattenArray } from "./index";
 
 describe("Helpers flattenObject", () => {
     test("Testing flattenObject - flattenArray() => empty {} or empty [] or [{},{}] or {a:[], b:[]} must return []", async () => {
@@ -19,6 +19,7 @@ describe("Helpers flattenObject", () => {
         expect(result).toStrictEqual(expectedResult);
         expect(result2).toStrictEqual(expectedResult);
         expect(result3).toStrictEqual(expectedResult);
+        expect(result4).toStrictEqual(expectedResult);
         expect(result5).toStrictEqual(expectedResult);
     });
     test("Testing flattenObject - flattenArray() => {} must be converted to flatten array", async () => {
@@ -165,7 +166,7 @@ describe("Helpers flattenObject", () => {
         expect(result).toBeUndefined();
     });
     test("Testing flattenObject - flattenArray() => string must be return undefined", async () => {
-        const data = "Content Guru";
+        const data = "Rotterdam Rijnmond";
 
         const result = await flattenArray(data);
 

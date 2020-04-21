@@ -1,0 +1,146 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: #0bbaef;
+}
+
+.container .label {
+    font-size: 0.85rem;
+    line-height: 1rem;
+    margin: 0.375rem 0.5rem 0 0;
+    color: #0bbaef;
+}
+
+.container .unit {
+    flex: 1;
+}
+
+.container .inputRange {
+    cursor: pointer;
+    color: currentColor;
+}
+
+.container .inputRange[type="range"] {
+    -webkit-appearance: none;
+    margin: 0;
+    width: 100%;
+}
+
+.container .inputRange[type="range"]:focus {
+    outline: 0;
+}
+
+.container .inputRange[type="range"]:focus::-webkit-slider-thumb {
+    color: #952360;
+}
+
+.container .inputRange[type="range"]:focus::-webkit-slider-runnable-track {
+    background: currentColor;
+}
+
+.container .inputRange[type="range"]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 0.25rem;
+    cursor: pointer;
+    box-shadow: none;
+    background: currentColor;
+    border-radius: 1rem;
+    border: 0;
+}
+
+.container .inputRange[type="range"]::-webkit-slider-thumb {
+    box-shadow: none;
+    border: 0;
+    height: 1rem;
+    width: 1rem;
+    border-radius: 100%;
+    background: currentColor;
+    cursor: pointer;
+    -webkit-appearance: none;
+    margin-top: -0.35rem;
+}
+
+.container .inputRange[type="range"]::-moz-range-track {
+    width: 100%;
+    height: 0.25rem;
+    cursor: pointer;
+    box-shadow: none;
+    background: currentColor;
+    border-radius: 1rem;
+    border: 0;
+}
+
+.container .inputRange[type="range"]::-moz-range-thumb {
+    box-shadow: none;
+    border: 0;
+    height: 1rem;
+    width: 1rem;
+    border-radius: 100%;
+    background: currentColor;
+    cursor: pointer;
+}
+
+.container .inputRange[type="range"]::-ms-track {
+    width: 100%;
+    height: 0.25rem;
+    cursor: pointer;
+    background: transparent;
+    border-color: transparent;
+    border-width: 1rem 0;
+    color: transparent;
+}
+
+.container .inputRange[type="range"]::-ms-fill-lower {
+    background: currentColor;
+    border: none;
+    border-radius: 0;
+    border-top-left-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+    box-shadow: none;
+}
+
+.container .inputRange[type="range"]::-ms-fill-upper {
+    background: currentColor;
+    border: none;
+    border-radius: 0;
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    box-shadow: none;
+}
+
+.container .inputRange[type="range"]::-ms-thumb {
+    box-shadow: none;
+    border: none;
+    height: 1rem;
+    width: 1rem;
+    border-radius: 100%;
+    margin-top: 0.1rem;
+    background: currentColor;
+    cursor: pointer;
+}
+
+.container .inputRange[type="range"]:focus::-ms-fill-lower {
+    background: currentColor;
+}
+
+.container .inputRange[type="range"]:focus::-ms-fill-upper {
+    background: currentColor;
+}
+
+.container .value {
+    position: relative;
+    font-size: 0.85rem;
+    line-height: 1rem;
+    margin: 0.375rem 0 0 0.5rem;
+    text-align: right;
+    color: #0bbaef;
+}
+
+.container .value:after {
+    display: block;
+    visibility: hidden;
+    height: 0;
+    content: "1000%";
+    left: 0;
+}

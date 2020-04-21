@@ -1,0 +1,12 @@
+$breakpoints: (
+    // 320px
+        "xsmall": 20rem,
+    // 480px
+        "small": 30rem,
+    // 600px
+        "medium": 37.5rem,
+    // 992px
+        "large": 62rem,
+    // 1200px,
+        "xlarge": 75rem
+) !default;

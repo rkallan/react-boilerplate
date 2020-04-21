@@ -1,0 +1,127 @@
+.container {
+    position: relative;
+    color: #2d3d43;
+    display: flex;
+    align-items: flex-end;
+    height: 4rem;
+    max-height: 4rem;
+    padding-bottom: 0.1625rem;
+    margin-bottom: 0.4rem;
+    padding-top: 1.1rem;
+    overflow: hidden;
+}
+
+.container:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0.0625rem;
+    background: currentColor;
+}
+
+.container[variant*="color-white"] {
+    color: white;
+}
+
+.container[variant*="sky-blue"] {
+    color: #0bbaef;
+}
+
+.container[variant*="big-stone"] {
+    color: #2d3d43;
+}
+
+.container[variant*="la-rioja"] {
+    color: #c7d100;
+}
+
+.container[variant*="lipstick"] {
+    color: #952360;
+}
+
+.container .unit {
+    display: flex;
+    width: 100%;
+}
+
+.container .unit label {
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+.container .unit .label {
+    display: block;
+    font-size: 0.8rem;
+    line-height: 1.5rem;
+    padding: 0 0.75rem;
+    position: absolute;
+    top: 0.5rem;
+    font-weight: 300;
+}
+
+.container .unit .select-container {
+    position: relative;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    margin-top: 0.675rem;
+}
+
+.container .select {
+    position: relative;
+    display: block;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    padding: 0 1.75rem 0.1625rem 0.75rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin: 0;
+    border: 0;
+    border-bottom: 0.125rem solid transparent;
+    color: inherit;
+    box-shadow: 0;
+    border-radius: 0;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: transparent;
+    z-index: 10;
+    cursor: pointer;
+}
+
+.container .select::-ms-expand {
+    display: none;
+}
+
+.container .select:focus {
+    outline: none;
+    color: #952360;
+}
+
+.container .select optgroup {
+    color: #2d3d43;
+}
+
+.container .select option {
+    font-weight: normal;
+    color: #2d3d43;
+    cursor: pointer;
+}
+
+.container .select option:disabled {
+    color: rgba(45, 61, 67, 0.5);
+}
+
+.container .carrot {
+    position: absolute;
+    right: 0;
+    top: -0.1875rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    z-index: 5;
+}

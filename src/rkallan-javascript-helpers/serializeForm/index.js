@@ -9,37 +9,38 @@ const serializeForm = (form) => {
     };
     formData.postData = Array.prototype.slice.call(form.elements).reduce((data, item) => {
         const { type, name, dataset } = item;
+        const tempData = data;
         if (item && name) {
             const nodeName = item.nodeName.toLowerCase();
-            if (!data[name]) {
-                data[name] = {
-                    type: type,
-                    name: name,
+            if (!tempData[name]) {
+                tempData[name] = {
+                    type,
+                    name,
                     elementType: nodeName,
                     required: dataset.required === "true",
                     validationTypes: dataset.validationTypes || { [type]: null },
                     valueKey: dataset.valueKey || 0,
                     values: [],
                 };
-            } else if (getType(data[name].valueKey) === "number" && Math.floor(data[name].valueKey) === data[name].valueKey) {
-                data[name].valueKey = +1;
+            } else if (getType(tempData[name].valueKey) === "number" && Math.floor(tempData[name].valueKey) === tempData[name].valueKey) {
+                tempData[name].valueKey = +1;
             }
 
             if (getType(getValueOfElement[nodeName]) === "function") {
                 const value = getValueOfElement[nodeName](item);
 
                 if (value && nodeName === "select" && type === "select-multiple") {
-                    data[name].values = value;
+                    tempData[name].values = value;
                 } else if (value) {
                     if (dataset.valueKey) {
-                        data[name].values[dataset.valueKey] = getValueOfElement[nodeName](item);
+                        tempData[name].values[dataset.valueKey] = getValueOfElement[nodeName](item);
                     } else {
-                        data[name].values.push(value);
+                        tempData[name].values.push(value);
                     }
                 }
             }
         }
-        return data;
+        return tempData;
     }, {});
 
     return formData;

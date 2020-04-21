@@ -22,13 +22,10 @@ const useMeasure = () => {
     );
 
     useLayoutEffect(() => {
-        if (ref.current === null) {
-            return;
-        }
+        if (ref.current === null) return undefined;
 
-        if (ref && ref.current) {
-            ro.observe(ref.current);
-        }
+        if (ref && ref.current) ro.observe(ref.current);
+
         return () => ro.disconnect();
     }, [ref, ro]);
 

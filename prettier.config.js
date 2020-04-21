@@ -5,7 +5,7 @@ module.exports = {
     endOfLine: "lf",
     htmlWhitespaceSensitivity: "css",
     insertPragma: false,
-    jsxBracketSameLine: true,
+    jsxBracketSameLine: false,
     jsxSingleQuote: false,
     printWidth: 160,
     semi: true,

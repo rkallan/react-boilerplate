@@ -1,0 +1,33 @@
+@mixin addFontFace($fontFamily: $fontFamily) {
+    @each $font, $props in $fontFamily {
+        $fontFamilyName: map-get($props, fontFamily);
+        $fontFileName: $font;
+        $fontStyle: map-get($props, fontStyle);
+        $fontWeight: map-get($props, fontWeight);
+        $fontUrlPath: "../../fonts/";
+
+        @if not $fontStyle {
+            $fontStyle: ("normal");
+        }
+
+        @if not $fontWeight {
+            $fontWeight: "normal";
+        }
+
+        @each $style in $fontStyle {
+            @if $style != "normal" {
+                $fontFileName: "#{$font}#{capitalize($style)}";
+                $fontFamilyName: "#{$fontFamilyName}#{capitalize($style)}";
+            }
+
+            @font-face {
+                font-family: $fontFamilyName;
+                src: local("#{$fontFileName}"), local("#{str-replace($fontFileName, "-", "")}"), url("#{$fontUrlPath}#{$fontFileName}.woff2") format("woff2"),
+                    url("#{$fontUrlPath}#{$fontFileName}.woff") format("woff");
+                font-weight: $fontWeight;
+                font-style: $style;
+                font-display: block;
+            }
+        }
+    }
+}

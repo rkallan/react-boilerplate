@@ -1,0 +1,93 @@
+@import "../../../../../resources/styles/variables/variables";
+@import "../../../../../resources/styles/mixins/mixins";
+
+.container {
+    display: flex;
+
+    &[variant~="column"] {
+        flex-direction: column;
+    }
+
+    &[variant~="row"] {
+        flex-direction: row;
+    }
+
+    .unit {
+        .input {
+            position: absolute;
+            width: 0;
+            height: 0;
+            opacity: 0;
+            transition: map-get($transition, default);
+
+            &:focus ~ label {
+                .customRadio {
+                    color: safe-hsla(map-get($colorSkyBlue, default));
+                }
+            }
+
+            &:disabled {
+                pointer-events: none;
+            }
+
+            &:disabled ~ label {
+                pointer-events: none;
+                cursor: default;
+                opacity: map-get($opacity, disabled);
+            }
+        }
+
+        label {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            padding: 0.125rem 0;
+            transition: map-get($transition, default);
+            font-size: 0.75rem;
+
+            .customRadio {
+                position: relative;
+                height: 0.75rem;
+                width: 0.75rem;
+                border: 0.095rem solid currentColor;
+                border-radius: 100%;
+                margin-right: 0.25rem;
+                transition: map-get($transition, default);
+
+                &:after {
+                    position: absolute;
+                    content: "";
+                    width: 0.25rem;
+                    height: 0.25rem;
+                    background: transparent;
+                    border-radius: 100%;
+                    margin: auto;
+                    display: block;
+                    right: 0;
+                    left: 0;
+                    top: 0;
+                    bottom: 0;
+                }
+            }
+
+            .text {
+                color: currentColor;
+                text-transform: uppercase;
+                transition: map-get($transition, default);
+            }
+
+            &:hover,
+            &:focus {
+                color: safe-hsla(map-get($colorSkyBlue, default));
+            }
+        }
+
+        .input:checked ~ label {
+            .customRadio {
+                &:after {
+                    background: currentColor;
+                }
+            }
+        }
+    }
+}

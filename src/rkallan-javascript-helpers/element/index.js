@@ -99,11 +99,12 @@ const setElementState = (elements, state) => {
 };
 
 const setStylesOnElement = (element, stylesAsObject) => {
+    const nodeElement = element;
     Object.keys(stylesAsObject).forEach((property) => {
         if (getType(stylesAsObject[property]) === "number") {
-            element.style[property] = `${stylesAsObject[property] / 16}rem`;
+            nodeElement.style[property] = `${stylesAsObject[property] / 16}rem`;
         } else {
-            element.style[property] = stylesAsObject[property];
+            nodeElement.style[property] = stylesAsObject[property];
         }
     });
 };
@@ -125,16 +126,17 @@ const setAttributesOnElement = (elements, attributesAsObject) => {
 };
 
 const enableDisableElements = (elements, disabled = true) => {
+    const nodeElement = elements;
     Object.keys(elements).forEach((elementKey) => {
-        elements[elementKey].disabled = disabled;
+        nodeElement[elementKey].disabled = disabled;
     });
 };
 
 const getPaddingStylesFromElementAsObject = (element) => {
-    const paddingTop = parseInt(getComputedStyle(element).getPropertyValue("padding-top"));
+    const paddingTop = parseInt(getComputedStyle(element).getPropertyValue("padding-top"), 10);
 
     const padding = {
-        y: parseInt(getComputedStyle(element).getPropertyValue("line-height")) / 2 + paddingTop,
+        y: parseInt(getComputedStyle(element).getPropertyValue("line-height"), 10) / 2 + paddingTop,
         x: paddingTop,
         top: paddingTop,
     };

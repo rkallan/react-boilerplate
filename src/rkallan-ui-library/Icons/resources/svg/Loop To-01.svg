@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -1 32 34">
+	<style type="text/css">
+		.st0{fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+	</style>
+	<path class="st0" d="M31,16c0,8.28-6.72,15-15,15S1,24.28,1,16S7.72,1,16,1c5.01,0,9.45,2.46,12.17,6.24" />
+	<line class="st0" x1="28.17" y1="7.24" x2="28.17" y2="1" />
+	<line class="st0" x1="21.94" y1="7.24" x2="28.17" y2="7.24" />
+</svg>

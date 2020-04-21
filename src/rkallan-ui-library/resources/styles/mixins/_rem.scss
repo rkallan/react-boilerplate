@@ -1,0 +1,47 @@
+@mixin setPropWithRemAndPx($size, $properties) {
+    @if unitless($size) {
+        $size: setUnitToPx($size);
+    }
+
+    @if type-of($properties) != map and $properties != "" {
+        $properties: ($properties);
+    }
+
+    $rmSize: calculateRem($size);
+    $rmSizeDefault: $rmSize;
+    $sizeDefault: $size;
+
+    @each $property, $val in $properties {
+        @if $val != null and $val != "" {
+            @if unitless($val) {
+                $val: setUnitToPx($val);
+            }
+            @if unit($val) == "px" and $val != $size {
+                $size: $val;
+                $rmSize: calculateRem($val);
+            }
+        } @else if $rmSize != $rmSizeDefault {
+            $size: $sizeDefault;
+            $rmSize: $rmSizeDefault;
+        }
+
+        #{$property}: $size;
+        #{$property}: $rmSize;
+    }
+}
+
+@function calculateRem($size, $docFontSize: 16px) {
+    @if unitless($size) {
+        $size: setUnitToPx($size);
+    }
+
+    @if unitless($docFontSize) {
+        $docFontSize: setUnitToPx($docFontSize);
+    }
+
+    @if unit($size) == "px" and unit($docFontSize) == "px" {
+        @return ($size / $docFontSize) * 1rem;
+    } @else {
+        @warn 'Check if the propities are pixels or unitless';
+    }
+}

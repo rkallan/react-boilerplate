@@ -1,0 +1,102 @@
+@import "colors";
+
+$fontFamilyBase: "Helvetica Nueue", sans-serif;
+$fontSizeDefault: (
+    px: 16,
+    "%": 100,
+);
+
+$font: (
+    default: (
+        font-family: $fontFamilyBase,
+        font-size: 1rem,
+        line-height: 1.5rem,
+        font-weight: 400,
+    ),
+    link: (
+        font-size: inherit,
+        line-height: inherit,
+        font-weight: bolder,
+        color: inherit,
+        text-decoration: underline,
+        background-color: transparent,
+        "-webkit-text-decoration-skip": objects,
+        _hover: (
+            outline: 0,
+            text-decoration: none,
+        ),
+    ),
+    heading: (
+        _h1: (
+            font-family: $fontFamilyBase,
+            font-size: 2rem,
+            line-height: 3rem,
+            font-weight: 800,
+            margin: 0,
+            padding: 0,
+            color: inherit,
+        ),
+        _h2: (
+            font-family: $fontFamilyBase,
+            font-size: 1.75rem,
+            line-height: 2.5rem,
+            font-weight: 600,
+            margin: 0,
+            padding: 0,
+            color: inherit,
+        ),
+        _h3: (
+            font-family: $fontFamilyBase,
+            font-size: 1.5rem,
+            line-height: 2.5rem,
+            font-weight: 400,
+            margin: 0,
+            padding: 0,
+            color: inherit,
+        ),
+        _h4: (
+            font-family: $fontFamilyBase,
+            font-size: 1.25rem,
+            line-height: 2.25rem,
+            font-weight: 400,
+            margin: 0,
+            padding: 0,
+            color: inherit,
+        ),
+        _h5: (
+            font-family: $fontFamilyBase,
+            font-size: 1rem,
+            line-height: 2rem,
+            font-weight: 400,
+            margin: 0,
+            padding: 0,
+            color: inherit,
+        ),
+        _h6: (
+            font-family: $fontFamilyBase,
+            font-size: 1rem,
+            line-height: 2rem,
+            font-weight: 400,
+            margin: 0,
+            padding: 0,
+            color: inherit,
+        ),
+    ),
+);
+
+$fontFamily: (
+    "HelveticaNeueLTStd-Roman": (
+        fontFamily: "Helvetica Nueue",
+        fontWeight: 400,
+        fontStyle: (
+            "normal",
+        ),
+    ),
+    "HelveticaNeueLTStd-Lt": (
+        fontFamily: "Helvetica Nueue Light",
+        fontWeight: 300,
+        fontStyle: (
+            "normal",
+        ),
+    ),
+);
