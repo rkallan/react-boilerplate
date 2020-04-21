@@ -1,6 +1,6 @@
 @import "colors";
 
-$fontFamilyBase: "Helvetica Nueue", sans-serif;
+$fontFamilyBase: Roboto, sans-serif;
 $fontSizeDefault: (
     px: 16,
     "%": 100,
@@ -85,18 +85,52 @@ $font: (
 );
 
 $fontFamily: (
-    "HelveticaNeueLTStd-Roman": (
-        fontFamily: "Helvetica Nueue",
-        fontWeight: 400,
+    "Roboto-Thin": (
+        fontFamily: "Roboto",
+        fontWeight: 100,
         fontStyle: (
             "normal",
+            "italic",
         ),
     ),
-    "HelveticaNeueLTStd-Lt": (
-        fontFamily: "Helvetica Nueue Light",
+    "Roboto-Light": (
+        fontFamily: "Roboto",
         fontWeight: 300,
         fontStyle: (
             "normal",
+            "italic",
+        ),
+    ),
+    "Roboto-Regular": (
+        fontFamily: "Roboto",
+        fontWeight: 400,
+        fontStyle: (
+            "normal",
+            "italic",
+        ),
+    ),
+    "Roboto-Medium": (
+        fontFamily: "Roboto",
+        fontWeight: 500,
+        fontStyle: (
+            "normal",
+            "italic",
+        ),
+    ),
+    "Roboto-Bold": (
+        fontFamily: "Roboto",
+        fontWeight: 700,
+        fontStyle: (
+            "normal",
+            "italic",
+        ),
+    ),
+    "Roboto-Black": (
+        fontFamily: "Roboto",
+        fontWeight: 900,
+        fontStyle: (
+            "normal",
+            "italic",
         ),
     ),
 );

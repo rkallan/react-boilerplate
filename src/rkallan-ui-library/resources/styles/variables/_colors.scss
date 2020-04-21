@@ -33,28 +33,3 @@ $colorRed: (
 );
 
 $colorGrey: hsla(210, 9, 43, -1);
-
-$colorActionCells: (
-    1: map-get($colorRed, default),
-    2: map-get($colorSkyBlue, default),
-    3: hsla(253, 30%, 58%, 14),
-    4: hsla(28, 98%, 63%, 46),
-    5: hsla(46, 100%, 82%, 12),
-);
-$colorActionCellsSecundaire: (
-    1: map-get($colorRed, default),
-    2: hsla(189, 47%, 37%, 1),
-    3: hsla(242, 23%, 44%, 1),
-    4: hsla(29, 75%, 45%, 21),
-    5: hsla(48, 77%, 56%, 2),
-);
-
-:export {
-    primary: map_get($colorLaRioja, default);
-    primaryDark: map_get($colorLaRioja, darken);
-    primaryLight: map_get($colorLaRioja, lighter);
-    secondary: map_get($colorLipstick, default);
-    secondaryDark: map_get($colorLipstick, darken);
-    secondaryLight: map_get($colorLipstick, lighter);
-    background: map_get($colorBigStone, darken);
-}
