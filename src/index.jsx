@@ -3,10 +3,11 @@ import "react-app-polyfill/stable";
 
 import React, { Suspense } from "react";
 import { render, hydrate } from "react-dom";
+import { Router } from "react-router-dom";
 import loadable from "@loadable/component";
+import { createBrowserHistory } from "history";
 import "i18n";
 
-import "@csstools/normalize.css";
 import "./resources/styles/default.scss";
 import * as serviceWorker from "./serviceWorker";
 
@@ -14,10 +15,14 @@ const Template = loadable(() => import("./Template"), {
     fallback: <div>Loading...</div>,
 });
 
+const history = createBrowserHistory();
+
 const TemplateApplication = (
     <React.StrictMode>
         <Suspense fallback="">
-            <Template />
+            <Router history={history}>
+                <Template />
+            </Router>
         </Suspense>
     </React.StrictMode>
 );
