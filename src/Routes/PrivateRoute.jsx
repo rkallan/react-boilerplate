@@ -3,7 +3,7 @@ import { Route, Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-    const authTokens = false;
+    const authTokens = true;
 
     return (
         <Route

@@ -64,7 +64,7 @@
         flex: auto;
         height: 2rem;
         background: safe-hsla($colorWhite);
-        border: 0.125rem solid safe-hsla($colorWhite);
+        border: 0.125rem solid safe-hsla(map-get($colorBigStone, darken));
 
         .input {
             font-size: 1rem;

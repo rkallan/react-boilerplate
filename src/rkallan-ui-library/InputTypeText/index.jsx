@@ -12,7 +12,7 @@ const Icons = loadable(() => import(/* webpackChunkName: "Icons" */ `../Icons`))
 
 const InputTypeText = (props) => {
     const { state, label, variant, clearValue, attributes } = props;
-    const elementAttributes = { ...InputTypeText.defaultProps.attributes, attributes };
+    const elementAttributes = { ...InputTypeText.defaultProps.attributes, ...attributes };
     const inputFieldRef = useRef(null);
     const [randomAlphanumericInsensitive] = useState(getRandomAlphanumericInsensitive());
 
@@ -29,24 +29,41 @@ const InputTypeText = (props) => {
     const [defaultValue, setDefaultValue] = useState(elementAttributes.defaultValue);
 
     const debouncedCurrentValue = useDebounce(currentValue, 100);
-
-    const { animationPlaceholderLabel } = useSpring({
-        from: { animationPlaceholderLabel: 0 },
-        animationPlaceholderLabel: showPlaceholderLabel ? 1 : 0,
-    });
-
-    const { animationErrorState } = useSpring({
-        from: { animationErrorState: 0 },
-        animationErrorState: containerState === "inValid" ? 1 : 0,
-    });
-
     const opacityValues = {
         from: elementAttributes.disabled ? 0.5 : 0.75,
         show: 1,
         hidden: 0,
     };
 
-    const opacityAnimation = containerState === "inValid" ? animationErrorState : animationPlaceholderLabel;
+    const [animationPlaceholderLabel, setAnimationPlaceholderLabel] = useSpring(() => ({
+        from: { opacity: opacityValues.hidden, top: "-3.125rem", color: exportedStyles.colorBigStone },
+        to: { opacity: opacityValues.show, top: "-1.5rem", color: exportedStyles.colorError },
+    }));
+
+    setAnimationPlaceholderLabel({
+        top: showPlaceholderLabel ? "-1.5rem" : "-3.125rem",
+        opacity: showPlaceholderLabel ? opacityValues.show : opacityValues.hidden,
+        color: containerState === "inValid" ? exportedStyles.colorError : exportedStyles.colorBigStone,
+    });
+
+    const [animationInput, setAnimationInput] = useSpring(() => ({
+        from: { color: exportedStyles.colorBigStone },
+        to: { color: exportedStyles.colorError },
+    }));
+
+    setAnimationInput({
+        color: containerState === "inValid" ? exportedStyles.colorError : exportedStyles.colorBigStone,
+    });
+
+    const [animationLabel, setAnimationLabel] = useSpring(() => ({
+        from: { opacity: opacityValues.from, color: exportedStyles.colorBigStone },
+        to: { opacity: opacityValues.show, color: exportedStyles.colorError },
+    }));
+
+    setAnimationLabel({
+        opacity: containerState === "inValid" || showPlaceholderLabel ? opacityValues.show : opacityValues.from,
+        color: containerState === "inValid" ? exportedStyles.colorError : exportedStyles.colorBigStone,
+    });
 
     const inputEventHandler = (event) => {
         const inputElement = event.target;
@@ -131,24 +148,12 @@ const InputTypeText = (props) => {
             state={containerState}
             variant={elementAttributes.disabled ? `${variant} disabled` : variant}
         >
-            {getType(label.text) === "string" ||
-                (label.icon && (
-                    <animated.label
-                        className={styles.label}
-                        htmlFor={`${label.for}-${randomAlphanumericInsensitive}`}
-                        style={{
-                            opacity: opacityAnimation.interpolate({
-                                output: [opacityValues.from, opacityValues.show],
-                            }),
-                            color: animationErrorState.interpolate({
-                                output: [exportedStyles.colorWhite, exportedStyles.colorError],
-                            }),
-                        }}
-                    >
-                        {label.icon && <Icons icon={label.icon} />}
-                        {getType(label.text) === "string" && <div className={styles.text}>{label.text}</div>}
-                    </animated.label>
-                ))}
+            {(getType(label.text) === "string" || label.icon) && (
+                <animated.label className={styles.label} htmlFor={`${label.for}-${randomAlphanumericInsensitive}`} style={animationLabel}>
+                    {label.icon && <Icons icon={label.icon} />}
+                    {getType(label.text) === "string" && <div className={styles.text}>{label.text}</div>}
+                </animated.label>
+            )}
 
             <div className={styles.inputContainer}>
                 <animated.input
@@ -161,30 +166,11 @@ const InputTypeText = (props) => {
                     className={styles.input}
                     id={`${label.for}-${randomAlphanumericInsensitive}`}
                     state={inputState}
-                    style={{
-                        color: animationErrorState.interpolate({
-                            output: [exportedStyles.colorBigStone, exportedStyles.colorError],
-                        }),
-                    }}
+                    style={animationInput}
                 />
 
-                <animated.label
-                    className={styles.placeholder}
-                    htmlFor={`${label.for}-${randomAlphanumericInsensitive}`}
-                    style={{
-                        opacity: animationPlaceholderLabel.interpolate({
-                            output: [opacityValues.hidden, opacityValues.show],
-                        }),
-                        top: animationPlaceholderLabel.interpolate({
-                            range: [0, 0.15, 1],
-                            output: ["-3.125rem", "-2rem", "-1.5rem"],
-                        }),
-                        color: animationErrorState.interpolate({
-                            output: [exportedStyles.colorWhite, exportedStyles.colorError],
-                        }),
-                    }}
-                >
-                    {elementAttributes.placeholder}
+                <animated.label className={styles.placeholder} htmlFor={`${label.for}-${randomAlphanumericInsensitive}`} style={animationPlaceholderLabel}>
+                    {elementAttributes.placeholder} {label.text}
                 </animated.label>
             </div>
         </div>
@@ -198,8 +184,9 @@ InputTypeText.defaultProps = {
         type: "text",
         state: "isValid",
         disabled: false,
+        defaultValue: null,
     },
-    variant: "color-white",
+    variant: "color-big-stone",
     clearValue: false,
 };
 

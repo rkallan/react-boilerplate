@@ -5,7 +5,7 @@ const configureMockApi = () => {
     window.fetch = (url, opts) => {
         const authHeader = opts.headers.Authorization;
         const token = (authHeader && authHeader.split(" ")[1]) || undefined;
-        const jwtDataObject = decodeToken(token);
+        const jwtDataObject = token && decodeToken(token);
         const userData = jwtDataObject && "payload" in jwtDataObject && users.find((user) => user.id === jwtDataObject.payload.id);
         const isLoggedIn = !!(userData && Object.keys(userData).length);
         const userRole = userData && userData.userRole;
@@ -81,11 +81,11 @@ const configureMockApi = () => {
                     }${date.getMinutes()}:${date.getSeconds() < 10 ? 0 : ""}${date.getSeconds()}`;
 
                     const payloadData = {
-                        id: userData.id,
-                        username: userData.username,
-                        organisationId: userData.organisationId,
-                        firstName: userData.firstName,
-                        lastName: userData.lastName,
+                        id: user.id,
+                        username: user.username,
+                        organisationId: user.organisationId,
+                        firstName: user.firstName,
+                        lastName: user.lastName,
                         loginStatus: 1,
                         sessionCreationDate,
                     };
@@ -93,14 +93,10 @@ const configureMockApi = () => {
                     const jwtToken = createToken(payloadData, process.env.REACT_APP_SECRET_KEY);
 
                     return ok({
-                        body: {
-                            ...user,
-                            token: jwtToken,
-                            loginStatus: 1,
-                            sessionCreationDate,
-                        },
-                        error: null,
-                        status: 200,
+                        ...user,
+                        token: jwtToken,
+                        loginStatus: 1,
+                        sessionCreationDate,
                     });
                 }
 

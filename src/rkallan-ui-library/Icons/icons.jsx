@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 import React from "react";
 import styles from "./resources/styles/icons.module.scss";
 import { ReactComponent as AdminFlow } from "./resources/svg/admin-flow.svg";

@@ -160,7 +160,6 @@ const Form = (props) => {
 
         const data = convertDataForAPI(postData);
         if (postFormWithApiCall) {
-            // @TODO test and check formApiCall to handle response
             const formPostUrl = formObject.action;
             response = formApiCall(formPostUrl, data, formDataAttributes);
         } else {
@@ -255,15 +254,7 @@ Form.propTypes = {
     attributes: PropTypes.shape({}).isRequired,
     customEventHandler: PropTypes.func,
     customSubmitHandler: PropTypes.func,
-    fieldsets: PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        caption: PropTypes.string.isRequired,
-        disabled: PropTypes.bool,
-        form: PropTypes.string,
-        name: PropTypes.string,
-        elements: PropTypes.shape({}),
-        map: PropTypes.func,
-    }).isRequired,
+    fieldsets: PropTypes.arrayOf(PropTypes.object).isRequired,
     disableForm: PropTypes.bool,
     postFormWithApiCall: PropTypes.bool,
     resetForm: PropTypes.bool,
