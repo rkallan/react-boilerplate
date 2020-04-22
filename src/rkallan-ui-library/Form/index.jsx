@@ -106,8 +106,9 @@ const Form = (props) => {
     const handleFormInValid = (errorMessages) => {
         const response = {
             ok: true,
-            error: true,
-            message: errorMessages,
+            error: {
+                message: errorMessages,
+            },
         };
 
         setDisabledAttributeOnFieldsets(false);

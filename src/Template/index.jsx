@@ -8,13 +8,13 @@ import useColorScheme from "rkallan-react-hooks/useColorScheme";
 import { setThemeColorScheme } from "features/theme/themeSlice";
 import { getThemeColorScheme } from "features/theme/themeSelector";
 import { Loading } from "rkallan-ui-library";
-import Routes from "Routes";
+
 import styles from "./resources/styles/template.module.scss";
 import defaultPageData from "./constants/defaultPageData";
 
-// const Routes = loadable(() => import(/* webpackChunkName: "Routes" */ "Routes"), {
-//     fallback: <Loading />,
-// });
+const Routes = loadable(() => import(/* webpackChunkName: "Routes" */ "Routes"), {
+    fallback: <Loading />,
+});
 
 const Header = loadable(() => import(/* webpackChunkName: "Header" */ "features/Header"), {
     fallback: <Loading />,

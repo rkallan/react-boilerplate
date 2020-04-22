@@ -8,11 +8,13 @@ import { Provider } from "react-redux";
 import loadable from "@loadable/component";
 import { HelmetProvider } from "react-helmet-async";
 import { createBrowserHistory } from "history";
-import store from "Store";
-import "i18n";
 import { Loading } from "rkallan-ui-library";
 import configureMockApi from "mockApi";
+import AuthProvider from "features/authentication/AuthProvider";
+import store from "Store";
 import * as serviceWorker from "./serviceWorker";
+import "i18n";
+import "db";
 
 configureMockApi();
 
@@ -30,13 +32,15 @@ const TemplateApplication = (
     <React.StrictMode>
         <HelmetProvider context={helmetContext}>
             <Provider store={store}>
-                <TemplateProvider>
-                    <Suspense fallback={<Loading />}>
-                        <Router history={history}>
-                            <Template />
-                        </Router>
-                    </Suspense>
-                </TemplateProvider>
+                <AuthProvider>
+                    <TemplateProvider>
+                        <Suspense fallback={<Loading />}>
+                            <Router history={history}>
+                                <Template />
+                            </Router>
+                        </Suspense>
+                    </TemplateProvider>
+                </AuthProvider>
             </Provider>
         </HelmetProvider>
     </React.StrictMode>
