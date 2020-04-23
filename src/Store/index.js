@@ -2,10 +2,10 @@ import { configureStore } from "@reduxjs/toolkit";
 import { combineReducers } from "redux";
 
 import { themeReducer } from "features/theme/themeSlice";
-import { authenticationReducer } from "features/authentication/authenticationSlice";
+import { userReducer } from "features/user/userSlice";
 
 const reducer = combineReducers({
-    authentication: authenticationReducer,
+    user: userReducer,
     theme: themeReducer,
 });
 

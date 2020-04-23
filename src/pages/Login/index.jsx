@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 import loadable from "@loadable/component";
 import { Loading } from "rkallan-ui-library";
-
-import * as firebase from "firebase/app";
+import { login } from "features/authentication";
+import { setUser } from "features/user/userSlice";
 import styles from "./resources/styles/login.module.scss";
 import loginFormObject from "./constants/loginForm";
 
@@ -17,21 +18,28 @@ const Notification = loadable(() => import(/* webpackChunkName: "LoginForm" */ "
 });
 
 const Login = () => {
+    const dispatch = useDispatch();
     const { t } = useTranslation("loginForm");
     const formData = loginFormObject();
     const [errorMessage, setErrorMessage] = useState(undefined);
 
     const customSubmitHandler = async (response) => {
         if (!response.ok || "error" in response) return setErrorMessage(response.error.message);
-
         const { email, password } = response.data;
-        const x = await firebase
-            .auth()
-            .signInWithEmailAndPassword(email, password)
-            .catch((error) => {
-                return error;
-            });
-        return x;
+        const responseData = await login({ email, password });
+
+        if (("code", "message" in responseData)) return setErrorMessage(responseData.message);
+
+        const { user } = responseData;
+        const userObject = {
+            displayName: user.displayName,
+            email: user.email,
+            phoneNumber: user.phoneNumber,
+            photoURL: user.photoURL,
+        };
+        dispatch(setUser(userObject));
+
+        return true;
     };
 
     return (
