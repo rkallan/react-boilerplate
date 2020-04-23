@@ -5,13 +5,15 @@ const user = createSlice({
     initialState: {},
     reducers: {
         setUser(state, action) {
-            const newState = state;
-            newState.user = action.payload;
+            return action.payload;
+        },
+        resetUser(state, action) {
+            return action.payload;
         },
     },
 });
 
-const { setUser } = user.actions;
+const { setUser, resetUser } = user.actions;
 const userReducer = user.reducer;
 
-export { userReducer, setUser };
+export { userReducer, setUser, resetUser };

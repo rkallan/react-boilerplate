@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { Link, useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import loadable from "@loadable/component";
 import { Loading } from "rkallan-ui-library";
 import { login } from "features/authentication";
-import { setUser } from "features/user/userSlice";
 import styles from "./resources/styles/login.module.scss";
 import loginFormObject from "./constants/loginForm";
 
@@ -18,10 +16,10 @@ const Notification = loadable(() => import(/* webpackChunkName: "LoginForm" */ "
 });
 
 const Login = () => {
-    const dispatch = useDispatch();
     const { t } = useTranslation("loginForm");
     const formData = loginFormObject();
     const [errorMessage, setErrorMessage] = useState(undefined);
+    const history = useHistory();
 
     const customSubmitHandler = async (response) => {
         if (!response.ok || "error" in response) return setErrorMessage(response.error.message);
@@ -30,15 +28,7 @@ const Login = () => {
 
         if (("code", "message" in responseData)) return setErrorMessage(responseData.message);
 
-        const { user } = responseData;
-        const userObject = {
-            displayName: user.displayName,
-            email: user.email,
-            phoneNumber: user.phoneNumber,
-            photoURL: user.photoURL,
-        };
-        dispatch(setUser(userObject));
-
+        history.push("/");
         return true;
     };
 

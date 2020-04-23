@@ -9,7 +9,7 @@ import { setThemeColorScheme } from "features/theme/themeSlice";
 import { getThemeColorScheme } from "features/theme/themeSelector";
 import useAuth from "features/authentication/hooks/useAuth";
 import { getUserState } from "features/user/userSelector";
-import { setUser } from "features/user/userSlice";
+import { setUser, resetUser } from "features/user/userSlice";
 import { Loading } from "rkallan-ui-library";
 
 import styles from "./resources/styles/template.module.scss";
@@ -45,6 +45,10 @@ function Template() {
             const { displayName, email, phoneNumber, photoURL } = auth;
 
             dispatch(setUser({ displayName, email, phoneNumber, photoURL }));
+        }
+
+        if (!auth && Object.keys(user).length) {
+            dispatch(resetUser({}));
         }
     }, [auth, dispatch, user]);
 
