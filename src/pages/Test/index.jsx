@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import loadable from "@loadable/component";
 import { Loading } from "rkallan-ui-library";
 
-const InputTypeRange = loadable(() => import(/* webpackChunkName: "LoginForm" */ "features/InputTypeRange"), {
+const InputTypeRange = loadable(() => import(/* webpackChunkName: "InputTypeRange" */ "rkallan-ui-library/InputTypeRange"), {
     fallback: <Loading />,
 });
 
