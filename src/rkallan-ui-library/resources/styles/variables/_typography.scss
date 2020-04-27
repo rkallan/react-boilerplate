@@ -10,7 +10,7 @@ $font: (
     default: (
         font-family: $fontFamilyBase,
         font-size: 1rem,
-        line-height: 1.5rem,
+        line-height: 1.5,
         font-weight: 400,
     ),
     link: (
@@ -84,10 +84,11 @@ $font: (
     ),
     paragraph: (
         font-size: 1rem,
-        line-height: 1.25rem,
-        font-weight: 500,
+        line-height: 1.5,
+        font-weight: 400,
         color: inherit,
         padding: 0.75rem,
+        margin: 0,
     ),
 );
 
