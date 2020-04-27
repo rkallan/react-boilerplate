@@ -22,6 +22,7 @@ const Test = () => {
                 <br />
                 <Link to={`${process.env.PUBLIC_URL}/`}>Homepage</Link>
             </p>
+
             <ul>
                 <li>test 1</li>
                 <li>test 1</li>
@@ -31,7 +32,7 @@ const Test = () => {
 
             <InputTypeRange
                 label={{ for: "valuta", text: "Amount", icon: undefined }}
-                attributes={{ min: 0, max: 25, step: 0.01, defaultValue: 0, name: "valuta", orient: "vertical", variant: "vertical", disabled: false }}
+                attributes={{ min: 0, max: 25, step: 0.01, defaultValue: 0, name: "valuta", orient: "vertical", variant: "vertical", readOnly: true }}
                 output={{ show: true, unit: "€", prefix: true }}
             />
             <InputTypeRange

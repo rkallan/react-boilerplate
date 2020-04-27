@@ -4,8 +4,8 @@ import { useMeasure } from "rkallan-react-hooks";
 import { getRandomAlphanumericInsensitive } from "rkallan-javascript-helpers";
 import styles from "./resources/styles/inputTypeRange.module.scss";
 
-const InputTypeRange = ({ attributes, label, output }) => {
-    const { min, max, step, variant, disabled } = attributes;
+const InputTypeRange = ({ attributes, label, output, customEventHandler }) => {
+    const { min, max, step, variant, disabled, readOnly } = attributes;
     const [unitRef, unitBounds] = useMeasure();
     const [thumbRef, thumbBounds] = useMeasure();
     const [randomValue] = useState(getRandomAlphanumericInsensitive);
@@ -20,13 +20,17 @@ const InputTypeRange = ({ attributes, label, output }) => {
     const cssProperty = variant === "vertical" ? "height" : "width";
     const cssPropertyThumb = variant === "vertical" ? "bottom" : "left";
     const containerVariant = [variant];
+
     if (disabled) containerVariant.push("disabled");
+    if (readOnly) containerVariant.push("read-only");
 
     const inputEventHandler = (event) => {
         const { value } = event.currentTarget;
 
         setCurrentValue(Number(value));
         setEventType(event.type);
+
+        if (customEventHandler) customEventHandler(event);
 
         if (event.type === "mouseup") event.currentTarget.blur();
     };
@@ -70,7 +74,7 @@ const InputTypeRange = ({ attributes, label, output }) => {
                     setContainerState("isValid");
             }
         }
-    }, [eventType, previousEventType, currentValue]);
+    }, [eventType, previousEventType]);
 
     return (
         <div className={styles.container} variant={containerVariant.join(" ")} state={containerState}>
@@ -113,7 +117,7 @@ const InputTypeRange = ({ attributes, label, output }) => {
 
 InputTypeRange.defaultProps = {
     label: {
-        for: "inputrange",
+        for: "input-range",
         icon: undefined,
         text: undefined,
     },
@@ -122,6 +126,7 @@ InputTypeRange.defaultProps = {
         orient: "horizontal",
         variant: "horizontal",
         disabled: false,
+        readOnly: false,
     },
     output: {
         show: true,
@@ -129,6 +134,7 @@ InputTypeRange.defaultProps = {
         prefix: false,
         fixedDecimals: undefined,
     },
+    customEventHandler: undefined,
     clearValue: false,
 };
 
@@ -148,6 +154,7 @@ InputTypeRange.propTypes = {
         orient: PropTypes.oneOf(["vertical", "horizontal"]),
         variant: PropTypes.oneOf(["vertical", "horizontal"]),
         disabled: PropTypes.bool,
+        readOnly: PropTypes.bool,
     }),
 
     output: PropTypes.shape({
@@ -156,7 +163,7 @@ InputTypeRange.propTypes = {
         prefix: PropTypes.bool,
         fixedDecimals: PropTypes.number,
     }),
-
+    customEventHandler: PropTypes.func,
     clearValue: PropTypes.bool,
 };
 

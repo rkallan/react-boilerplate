@@ -27,7 +27,8 @@ $thumbSize: 1.5rem;
     padding: 0.5rem;
     transition: map-get($transition, default);
 
-    &[variant~="disabled"] {
+    &[variant~="disabled"],
+    &[variant~="read-only"] {
         opacity: map-get($opacity, disabled);
         cursor: default;
         pointer-events: none;
