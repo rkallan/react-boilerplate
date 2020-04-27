@@ -114,6 +114,11 @@
             height: 0.125rem;
             z-index: 5;
         }
+
+        label {
+            pointer-events: none;
+            cursor: default;
+        }
     }
 
     .border {

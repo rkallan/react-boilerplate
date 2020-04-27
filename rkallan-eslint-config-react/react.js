@@ -394,8 +394,7 @@ module.exports = {
 
         // Prevent invalid characters from appearing in markup
         // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-unescaped-entities.md
-        "react/no-unescaped-entities": "error",
-
+        "react/no-unescaped-entities": ["error", { forbid: [] }],
         // Prevent passing of children as props
         // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-children-prop.md
         "react/no-children-prop": "error",

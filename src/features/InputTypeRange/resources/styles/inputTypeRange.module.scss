@@ -1,0 +1,253 @@
+@import "./src/resources/styles/variables/variables";
+@import "./src/resources/styles/mixins/mixins";
+
+$trackThickness: 0.5rem;
+$thumbSize: 1.5rem;
+
+@mixin track {
+    border: 0;
+    background: transparent;
+    width: $trackThickness;
+    border-color: transparent;
+    border-radius: 1rem;
+    box-shadow: 0;
+}
+
+@mixin thumb {
+    width: $thumbSize;
+    height: $thumbSize;
+    opacity: 0;
+}
+
+.container {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    padding: 0.5rem;
+    transition: map-get($transition, default);
+
+    &[variant~="disabled"] {
+        opacity: map-get($opacity, disabled);
+        cursor: default;
+        pointer-events: none;
+    }
+
+    .label {
+        display: flex;
+    }
+
+    .unit {
+        position: relative;
+        max-height: 100%;
+        max-width: 100%;
+        flex-grow: 2;
+
+        .thumb {
+            position: absolute;
+            width: $thumbSize;
+            height: $thumbSize;
+            border-radius: 100%;
+            background: safe-hsla($colorWhite);
+            box-shadow: none;
+            pointer-events: none;
+            bottom: 0;
+            border: 0.125rem solid safe-hsla(map-get($colorBigStone, default));
+            transition: border-color 0.5s ease-in-out, background 0.5s ease-in-out;
+        }
+
+        .rangeTrack {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            margin: 0 auto;
+            background: transparent;
+            pointer-events: none;
+
+            .track {
+                position: absolute;
+                left: 0;
+                right: 0;
+                margin: 0 auto;
+                bottom: 0;
+                pointer-events: none;
+                border-radius: 1rem;
+
+                &[variant~="background"] {
+                    background: safe-hsla(map-get($colorBigStone, lighter));
+                }
+
+                &[variant~="progress"] {
+                    background: safe-hsla(map-get($colorBigStone, default));
+                }
+            }
+        }
+
+        .input {
+            position: relative;
+            display: block;
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            cursor: pointer;
+
+            &[variant~="vertical"],
+            &[orient~="vertical"] {
+                writing-mode: bt-lr;
+                -webkit-appearance: slider-vertical;
+            }
+
+            &::-webkit-slider-runnable-track,
+            &::-webkit-slider-thumb {
+                -webkit-appearance: none;
+            }
+
+            &::-webkit-slider-runnable-track {
+                @include track;
+            }
+            &::-moz-range-track {
+                @include track;
+            }
+            &::-ms-track {
+                @include track;
+                color: transparent;
+                height: 100%;
+            }
+            &::-ms-fill-lower,
+            &::-ms-fill-upper,
+            &::-ms-tooltip {
+                display: none;
+            }
+
+            &::-webkit-slider-thumb {
+                @include thumb;
+            }
+            &::-moz-range-thumb {
+                @include thumb;
+            }
+            &::-ms-thumb {
+                @include thumb;
+            }
+        }
+    }
+
+    .output {
+        position: relative;
+        display: flex;
+        justify-content: center;
+
+        .text {
+            display: flex;
+            flex-direction: row;
+
+            &[variant~="prefix"] {
+                flex-direction: row-reverse;
+            }
+
+            .value {
+                position: relative;
+                display: inline-block;
+            }
+        }
+    }
+
+    &[state~="isFocused"] {
+        .unit {
+            .thumb {
+                border-color: safe-hsla(map-get($colorRed, darken));
+                background: safe-hsla(map-get($colorRed, darken));
+            }
+        }
+    }
+
+    &[variant~="vertical"] {
+        flex-direction: column;
+
+        .label {
+            justify-content: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .unit {
+            .thumb {
+                left: 0;
+                right: 0;
+                margin: 0 auto;
+            }
+
+            .rangeTrack {
+                .track {
+                    width: $trackThickness;
+                    &[variant~="background"] {
+                        height: 100%;
+                    }
+                }
+            }
+        }
+
+        .output {
+            padding: 0.5rem 0;
+
+            .text {
+                padding: 0.5rem 0;
+                text-align: center;
+            }
+        }
+    }
+
+    &[variant~="horizontal"] {
+        flex-direction: row;
+
+        .label {
+            margin-right: 1rem;
+        }
+
+        .unit {
+            .thumb {
+                top: 0;
+                bottom: 0;
+                margin: auto;
+            }
+
+            .rangeTrack {
+                .track {
+                    height: $trackThickness;
+                    top: 0;
+                    margin: auto 0;
+                    &[variant~="background"] {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+
+        .output {
+            padding: 0 0 0 1rem;
+
+            .text {
+                text-align: right;
+
+                .value {
+                    span {
+                        display: inline-block;
+                        position: absolute;
+                        top: 0;
+                        width: 100%;
+                        height: 100%;
+                    }
+                    &:after {
+                        display: inline-block;
+                        visibility: hidden;
+                        opacity: 0;
+                        content: attr(data-max-value);
+                    }
+                }
+            }
+        }
+    }
+}
