@@ -65,6 +65,31 @@ const Test = () => {
                 <li>test 1</li>
             </ul>
 
+            <ol type="I">
+                <li>Coffee</li>
+                <li>
+                    Tea
+                    <ol type="I">
+                        <li>Coffee</li>
+                        <li>Tea</li>
+                        <li>Milk</li>
+                        <li>Coffee</li>
+                        <li>Tea</li>
+                        <li>Milk</li>
+                        <li>Coffee</li>
+                        <li>Tea</li>
+                        <li>Milk</li>
+                    </ol>
+                </li>
+                <li>Milk</li>
+                <li>Coffee</li>
+                <li>Tea</li>
+                <li>Milk</li>
+                <li>Coffee</li>
+                <li>Tea</li>
+                <li>Milk</li>
+            </ol>
+
             <InputTypeRange
                 label={{ for: "valuta", text: "Amount", icon: undefined }}
                 attributes={{ min: 0, max: 25, step: 0.01, defaultValue: 0, name: "valuta", orient: "vertical", variant: "vertical", readOnly: true }}

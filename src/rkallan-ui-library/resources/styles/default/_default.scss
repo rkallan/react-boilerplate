@@ -73,18 +73,6 @@ p {
     }
 }
 
-dl dl,
-dl ol,
-dl ul,
-ol dl,
-ul dl,
-ol ol,
-ol ul,
-ul ol,
-ul ul {
-    margin: 0;
-}
-
 hr {
     box-sizing: content-box;
     height: 0;
@@ -112,10 +100,15 @@ dl {
     padding: 0 0 0 2rem;
 }
 
+dl dl,
+dl ol,
+dl ul,
+ol dl,
+ul dl,
 ol ol,
-ul ul,
 ol ul,
-ul ol {
+ul ol,
+ul ul {
     margin-bottom: 0;
     padding-left: 1rem;
 }
