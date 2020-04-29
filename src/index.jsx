@@ -9,14 +9,14 @@ import loadable from "@loadable/component";
 import { HelmetProvider } from "react-helmet-async";
 import { createBrowserHistory } from "history";
 import { Loading } from "rkallan-ui-library";
-import configureMockApi from "mockApi";
+// import configureMockApi from "mockApi";
 import AuthProvider from "features/authentication/AuthProvider";
 import store from "Store";
 import * as serviceWorker from "./serviceWorker";
 import "i18n";
 import "db";
 
-configureMockApi();
+// configureMockApi();
 
 const Template = loadable(() => import(/* webpackChunkName: "Template" */ "./Template"), {
     fallback: <Loading />,
