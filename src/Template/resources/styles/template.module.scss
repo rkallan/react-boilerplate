@@ -3,6 +3,7 @@
 
 .main {
     &[variant~="container"] {
+        position: relative;
         flex-grow: 2;
     }
 }

@@ -1,15 +1,17 @@
 @import "colors";
+@import "gap";
 
 $fontFamilyBase: Roboto, sans-serif;
 $fontSizeDefault: (
     px: 16,
     "%": 100,
+    rem: 1,
 );
 
 $font: (
     default: (
         font-family: $fontFamilyBase,
-        font-size: 1rem,
+        font-size: map-get($fontSizeDefault, "%"),
         line-height: 1.5,
         font-weight: 400,
     ),
@@ -30,55 +32,55 @@ $font: (
         _h1: (
             font-family: $fontFamilyBase,
             font-size: 2rem,
-            line-height: 3rem,
+            line-height: 1.5,
             font-weight: 800,
             margin: 0,
-            padding: 0.75rem,
+            padding: $gap,
             color: inherit,
         ),
         _h2: (
             font-family: $fontFamilyBase,
             font-size: 1.75rem,
-            line-height: 2.5rem,
+            line-height: 1.5,
             font-weight: 600,
             margin: 0,
-            padding: 0.75rem,
+            padding: $gap,
             color: inherit,
         ),
         _h3: (
             font-family: $fontFamilyBase,
             font-size: 1.5rem,
-            line-height: 2.5rem,
+            line-height: 1.5,
             font-weight: 400,
             margin: 0,
-            padding: 0.75rem,
+            padding: $gap,
             color: inherit,
         ),
         _h4: (
             font-family: $fontFamilyBase,
             font-size: 1.25rem,
-            line-height: 2.25rem,
+            line-height: 1.5,
             font-weight: 400,
             margin: 0,
-            padding: 0.75rem,
+            padding: $gap,
             color: inherit,
         ),
         _h5: (
             font-family: $fontFamilyBase,
             font-size: 1rem,
-            line-height: 2rem,
+            line-height: 1.5,
             font-weight: 400,
             margin: 0,
-            padding: 0.75rem,
+            padding: $gap,
             color: inherit,
         ),
         _h6: (
             font-family: $fontFamilyBase,
             font-size: 1rem,
-            line-height: 2rem,
+            line-height: 1.5,
             font-weight: 400,
             margin: 0,
-            padding: 0.75rem,
+            padding: $gap,
             color: inherit,
         ),
     ),
@@ -87,7 +89,7 @@ $font: (
         line-height: 1.5,
         font-weight: 400,
         color: inherit,
-        padding: 0.75rem,
+        padding: $gap,
         margin: 0,
     ),
 );
@@ -103,7 +105,7 @@ $fontFamily: (
     ),
     "Roboto-Light": (
         fontFamily: "Roboto",
-        fontWeight: 300,
+        fontWeight: 200,
         fontStyle: (
             "normal",
             "italic",
@@ -111,7 +113,7 @@ $fontFamily: (
     ),
     "Roboto-Regular": (
         fontFamily: "Roboto",
-        fontWeight: 400,
+        fontWeight: 300,
         fontStyle: (
             "normal",
             "italic",
@@ -119,7 +121,7 @@ $fontFamily: (
     ),
     "Roboto-Medium": (
         fontFamily: "Roboto",
-        fontWeight: 500,
+        fontWeight: 400,
         fontStyle: (
             "normal",
             "italic",

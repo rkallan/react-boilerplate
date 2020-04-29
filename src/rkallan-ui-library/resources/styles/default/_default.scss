@@ -14,6 +14,8 @@
 }
 
 html {
+    position: relative;
+    display: flex;
     @include propValueFromMaps(map-get($font, default));
     background: safe-hsla($colorWhite);
     color: safe-hsla(map-get($colorBigStone, default));
@@ -21,8 +23,8 @@ html {
     overflow-x: hidden;
     min-width: 20rem;
     max-width: 100%;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    min-height: 100%;
     text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
@@ -30,13 +32,14 @@ html {
 }
 
 body {
+    position: relative;
+    display: flex;
+    flex-direction: column;
     margin: 0;
     padding: 0;
-    width: 100%;
+    width: 100vw;
     max-width: 100%;
-    height: 100%;
     min-height: 100%;
-    max-height: 100%;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -61,7 +64,7 @@ p {
     @include propValueFromMaps(map-get($font, paragraph));
 
     &[variant~="bold"] {
-        font-weight: bolder;
+        font-weight: 900;
     }
 
     &[variant~="smaller"] {
@@ -74,8 +77,11 @@ p {
 }
 
 hr {
+    height: 0.125rem;
+    margin: $gap 0;
+    background: safe-hsla(map-get($colorBigStone, default));
+    border: none;
     box-sizing: content-box;
-    height: 0;
     overflow: visible;
 }
 
@@ -87,17 +93,16 @@ abbr[data-original-title] {
 }
 
 address {
-    margin-bottom: 1rem;
-    font-style: normal;
+    margin: $gap 0;
+    font-style: inherit;
     line-height: inherit;
 }
 
 ol,
 ul,
 dl {
-    margin-top: 0;
-    margin-bottom: 1rem;
-    padding: 0 0 0 2rem;
+    margin: $gap 0;
+    padding: 0 $gap * 4;
 }
 
 dl dl,
@@ -109,8 +114,12 @@ ol ol,
 ol ul,
 ul ol,
 ul ul {
-    margin-bottom: 0;
-    padding-left: 1rem;
+    margin: $gap 0;
+    padding: 0 $gap * 1.5;
+}
+
+dl {
+    padding: 0 $gap;
 }
 
 dt {
@@ -118,12 +127,18 @@ dt {
 }
 
 dd {
-    margin-bottom: 0.5rem;
-    margin-left: 0;
+    margin: 0;
+    padding: 0 $gap;
+}
+
+nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
 }
 
 blockquote {
-    margin: 0 0 1rem;
+    margin: $gap 0;
 }
 
 dfn {
@@ -143,7 +158,7 @@ sub,
 sup {
     position: relative;
     font-size: small;
-    line-height: 1;
+    line-height: 0;
     vertical-align: baseline;
 }
 
@@ -175,17 +190,19 @@ code,
 kbd,
 samp {
     font-family: "Consolas", monospace;
-    font-size: 1rem;
+    font-size: smaller;
+    border: 0.0625rem solid safe-hsla(map-get($colorBigStone, default));
+    padding: 0.125rem;
+    vertical-align: text-top;
 }
 
 pre {
-    margin-top: 0;
-    margin-bottom: 1rem;
+    margin: $gap 0;
     overflow: auto;
 }
 
 figure {
-    margin: 0 0 1rem;
+    margin: $gap 0;
 }
 
 svg,
@@ -211,7 +228,7 @@ table {
 }
 
 caption {
-    padding: 0.5rem 0;
+    padding: $gap 0;
     color: inherit;
     text-align: left;
     caption-side: bottom;
@@ -299,7 +316,7 @@ legend {
     width: 100%;
     max-width: 100%;
     padding: 0;
-    margin-bottom: 0.5rem;
+    margin: $gap 0;
     font-size: 1.5rem;
     line-height: inherit;
     color: inherit;
@@ -316,7 +333,7 @@ progress {
 }
 
 [type="search"] {
-    outline-offset: -2px;
+    outline-offset: -0.125rem;
     -webkit-appearance: none;
 }
 
@@ -344,7 +361,7 @@ input:-webkit-autofill:active {
 
 ::-webkit-input-placeholder {
     color: inherit;
-    opacity: 0.54;
+    opacity: map-get($opacity, disabled);
 }
 
 ::-webkit-search-decoration {
@@ -362,7 +379,7 @@ input:-webkit-autofill:active {
 }
 
 :-moz-focusring {
-    outline: 1px dotted ButtonText;
+    outline: 0.0625rem dotted ButtonText;
 }
 
 :-moz-ui-invalid {
@@ -431,4 +448,5 @@ dialog:not([open]) {
     display: flex;
     flex-direction: column;
     min-height: 100%;
+    min-width: 100%;
 }
