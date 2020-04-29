@@ -11,10 +11,12 @@ const Routes = () => {
 
     const transitions = useTransition(location, (currentLocation) => currentLocation.pathname, {
         from: {
+            position: "absolute",
             left: "-150%",
             opacity: 1,
         },
         enter: {
+            position: "relative",
             left: "0%",
             opacity: 1,
         },
@@ -22,6 +24,9 @@ const Routes = () => {
             position: "absolute",
             left: "150%",
             opacity: 0,
+        },
+        onFrame: () => {
+            window.scrollTo(0, 0);
         },
         config: config.default,
     });
