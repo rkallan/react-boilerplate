@@ -29,11 +29,11 @@ const serializeForm = (form) => {
             if (getType(getValueOfElement[nodeName]) === "function") {
                 const value = getValueOfElement[nodeName](item);
 
-                if (value && nodeName === "select" && type === "select-multiple") {
-                    tempData[name].values = value;
-                } else if (value) {
-                    if (dataset.valueKey) {
-                        tempData[name].values[dataset.valueKey] = getValueOfElement[nodeName](item);
+                if (value) {
+                    if (nodeName === "select" && type === "select-multiple") {
+                        tempData[name].values = value;
+                    } else if (dataset.valueKey) {
+                        tempData[name].values[dataset.valueKey] = value;
                     } else {
                         tempData[name].values.push(value);
                     }

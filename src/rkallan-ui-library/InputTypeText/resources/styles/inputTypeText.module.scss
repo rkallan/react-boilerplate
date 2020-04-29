@@ -4,34 +4,14 @@
 .container {
     position: relative;
     display: flex;
-    align-items: center;
-    align-self: normal;
-    height: 4rem;
-    max-height: 4rem;
-    padding-bottom: 0.1625rem;
-    margin-bottom: 0rem;
-    padding-top: 1.1rem;
+    align-items: flex-end;
+    margin: $gap 0;
+    padding: $gap * 2 0 0 0;
     overflow: hidden;
     color: safe-hsla(map-get($colorBigStone, default), 1);
 
-    &[variant~="color-white"] {
-        color: safe-hsla($colorWhite);
-    }
-
-    &[variant*="sky-blue"] {
-        color: safe-hsla(map-get($colorSkyBlue, default));
-    }
-
     &[variant*="big-stone"] {
         color: safe-hsla(map-get($colorBigStone, default));
-    }
-
-    &[variant*="la-rioja"] {
-        color: safe-hsla(map-get($colorLaRioja, default));
-    }
-
-    &[variant*="lipstick"] {
-        color: safe-hsla(map-get($colorLipstick, default));
     }
 
     &[variant~="disabled"] {
@@ -40,8 +20,8 @@
 
     .label {
         display: flex;
-        margin: 0 0 0.25rem 0;
-        padding: 0 0.25rem;
+        margin: 0;
+        padding: 0 $gap 0 0;
         align-self: center;
         user-select: none;
 
@@ -50,11 +30,6 @@
             line {
                 stroke: currentColor;
             }
-        }
-
-        .text {
-            align-self: flex-end;
-            margin-bottom: 1px;
         }
     }
 
@@ -73,14 +48,13 @@
             border: 0;
             background: transparent;
             opacity: map-get($opacity, show);
-            padding: 0 0.5rem;
+            padding: 0 $gap/2;
 
             @include respond-to("medium") {
                 font-size: 1rem;
             }
 
             &::placeholder {
-                /* Microsoft Edge */
                 color: inherit;
                 opacity: map-get($opacity, small);
             }
@@ -100,11 +74,13 @@
                 cursor: default;
             }
         }
+
         .placeholder {
             position: absolute;
-            font-size: 0.8rem;
+            font-size: 1rem;
+            font-weight: 300;
             width: 100%;
-            padding: 0 0.25rem;
+            padding: 0 $gap/2;
             user-select: none;
         }
     }

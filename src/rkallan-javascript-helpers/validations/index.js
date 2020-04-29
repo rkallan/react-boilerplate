@@ -535,7 +535,7 @@ const formPostValidation = (postData) => {
 const getValidationTypes = (dataRequired = false, dataValidationTypes) => {
     const required = validations.isBoolean(dataRequired) ? dataRequired : false;
     const validationTypes = validations.isJSONString(dataValidationTypes) ? JSON.parse(dataValidationTypes) : {};
-    const totalValidationTypes = Object.keys(validationTypes).length || 0;
+    const totalValidationTypes = Object.keys(validationTypes).length;
 
     if (!totalValidationTypes && required) return { isNotEmpty: null };
 
@@ -543,7 +543,7 @@ const getValidationTypes = (dataRequired = false, dataValidationTypes) => {
 };
 
 const isElementValid = (validationTypes = {}, value) => {
-    const totalValidationTypes = Object.keys(validationTypes).length || 0;
+    const totalValidationTypes = Object.keys(validationTypes).length;
 
     if (!totalValidationTypes) return "isValid";
 

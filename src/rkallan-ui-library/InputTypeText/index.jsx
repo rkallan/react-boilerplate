@@ -36,12 +36,12 @@ const InputTypeText = (props) => {
     };
 
     const [animationPlaceholderLabel, setAnimationPlaceholderLabel] = useSpring(() => ({
-        from: { opacity: opacityValues.hidden, top: "-3.125rem", color: exportedStyles.colorBigStone },
-        to: { opacity: opacityValues.show, top: "-1.5rem", color: exportedStyles.colorError },
+        from: { opacity: opacityValues.hidden, top: "-3.375rem", color: exportedStyles.colorBigStone },
+        to: { opacity: opacityValues.show, top: "-1.5rem", color: exportedStyles.colorBigStone },
     }));
 
     setAnimationPlaceholderLabel({
-        top: showPlaceholderLabel ? "-1.5rem" : "-3.125rem",
+        top: showPlaceholderLabel ? "-1.5rem" : "-3.375rem",
         opacity: showPlaceholderLabel ? opacityValues.show : opacityValues.hidden,
         color: containerState === "inValid" ? exportedStyles.colorError : exportedStyles.colorBigStone,
     });
@@ -100,28 +100,29 @@ const InputTypeText = (props) => {
             const inputfieldValidity = inputfield.checkValidity();
             const validationState = inputfieldValidity ? isElementValid(validationTypes, currentValue) : "inValid";
             const isPlaceholderLabelVisible = inputfieldValidity ? currentValue && currentValue.length : true;
+
             setPreviousEventType(eventType);
             setInputfieldValid(validationState);
 
             switch (eventType) {
                 case "focus":
-                case "key":
-                case "keyup":
                 case "change":
                     setContainerState("isFocused");
                     setShowPlaceholderLabel(true);
                     break;
                 case "blur":
+                default:
+                    if (validationState === "isEmpty") {
+                        inputfield.value = "empty";
+                        setInputValue(currentValue);
+                    }
+
                     setContainerState(validationState);
                     setInputState(validationState);
                     setShowPlaceholderLabel(isPlaceholderLabelVisible);
-                    break;
-                default:
-                    setContainerState(validationState);
-                    setShowPlaceholderLabel(isPlaceholderLabelVisible);
             }
         }
-    }, [eventType, previousEventType, validationTypes, currentValue]);
+    }, [eventType, previousEventType, validationTypes, currentValue, defaultValue]);
 
     useEffect(() => {
         setInputState(inputfieldValid);
@@ -170,7 +171,7 @@ const InputTypeText = (props) => {
                 />
 
                 <animated.label className={styles.placeholder} htmlFor={`${label.for}-${randomAlphanumericInsensitive}`} style={animationPlaceholderLabel}>
-                    {elementAttributes.placeholder} {label.text}
+                    {elementAttributes.placeholder}
                 </animated.label>
             </div>
         </div>
@@ -200,17 +201,15 @@ InputTypeText.propTypes = {
     attributes: PropTypes.shape({
         name: PropTypes.string.isRequired,
         placeholder: PropTypes.string.isRequired,
-        type: PropTypes.oneOf(["text", "password", "email", "number", "tel", "url", "date", "color"]).isRequired,
-        className: PropTypes.string,
+        type: PropTypes.oneOf(["text", "password", "email", "number", "tel", "url", "date"]).isRequired,
         autoComplete: PropTypes.string,
-        // Needed for custom validation
         "data-required": PropTypes.bool,
         "data-validation-types": PropTypes.string,
         state: PropTypes.oneOf(["isEmpty", "isValid", "isFocused"]),
         readonly: PropTypes.bool,
         disabled: PropTypes.bool,
     }),
-    variant: PropTypes.oneOf(["color-white", "color-sky-blue", "color-big-stone", "color-la-rioja", "color-lipstick"]),
+    variant: PropTypes.oneOf(["color-big-stone"]),
     clearValue: PropTypes.bool,
 };
 
