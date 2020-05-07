@@ -9,39 +9,55 @@ import OptionGroup from "./OptionGroup";
 const Icons = loadable(() => import(/* webpackChunkName: "Icons" */ `../Icons`));
 
 const Select = (props) => {
-    const { state, label, name, attributes, optionGroup, variant, clearValue, defaultValue } = props;
+    const { label, attributes, optionGroup, variant, clearValue } = props;
+    const { defaultValue } = attributes;
     const [randomAlphanumericInsensitive] = useState(getRandomAlphanumericInsensitive());
-    const [validationTypes, setValidationTypes] = useState();
-    const [containerState, setContainerState] = useState(attributes.disabled || defaultValue || !attributes["data-required"] ? "isValid" : state);
-    const [selectState, setSelectState] = useState(attributes.state);
+    const [validationTypes] = useState(getValidationTypes(attributes["data-required"], attributes["data-validation-types"]));
+    const [initState] = useState(attributes.disabled || attributes.readOnly || defaultValue || !attributes["data-required"] ? "isValid" : "isEmpty");
+    const [containerState, setContainerState] = useState(initState);
+    const [selectState, setSelectState] = useState(initState);
     const [currentValue, setCurrentValue] = useState(defaultValue);
+    const [eventType, setEventType] = useState();
+    const [previousEventType, setPreviousEventType] = useState();
 
     const onChangeHandler = (event) => {
         const { value } = event.target;
-        const elementState = isElementValid(validationTypes, value);
-        setContainerState(elementState);
-        setSelectState(elementState);
+        setEventType(event.type);
+
         setCurrentValue(value);
     };
 
     useEffect(() => {
-        if (attributes["data-required"] && !validationTypes) {
-            setValidationTypes(getValidationTypes(attributes["data-required"], attributes["data-validation-types"]));
-        }
-    }, [attributes, validationTypes]);
+        setCurrentValue(defaultValue);
+    }, [defaultValue]);
 
     useEffect(() => {
-        if (clearValue) {
-            const elementState = isElementValid(validationTypes, defaultValue);
+        if (eventType !== previousEventType) {
+            const validationState = isElementValid(validationTypes, currentValue);
+            setPreviousEventType(eventType);
+            setSelectState(validationState);
+
+            switch (eventType) {
+                case "focus":
+                case "change":
+                case "click":
+                    setContainerState("isFocussed");
+                    break;
+                case "blur":
+                default:
+                    setContainerState(validationState);
+            }
+        }
+    }, [currentValue, eventType, previousEventType, validationTypes]);
+
+    useEffect(() => {
+        if (clearValue || defaultValue) {
+            const elementState = initState;
             setContainerState(elementState);
             setSelectState(elementState);
             setCurrentValue(defaultValue);
         }
-    }, [clearValue, defaultValue, validationTypes]);
-
-    useEffect(() => {
-        setCurrentValue(defaultValue);
-    }, [defaultValue]);
+    }, [clearValue, defaultValue, initState]);
 
     return (
         <div
@@ -53,26 +69,29 @@ const Select = (props) => {
             <div className={styles.unit}>
                 <label className={styles.label} htmlFor={`${label.for}-${randomAlphanumericInsensitive}`}>
                     <span className={styles.placeholder}>{label.text}</span>
-                    <div className={styles["select-container"]}>
-                        <select
-                            className={styles.select}
-                            id={`${label.for}-${randomAlphanumericInsensitive}`}
-                            name={name}
-                            {...attributes}
-                            value={currentValue}
-                            onBlur={onChangeHandler}
-                            state={selectState}
-                        >
-                            {optionGroup.map((group) => {
-                                const { id } = group;
-                                return <OptionGroup key={id} {...group} />;
-                            })}
-                        </select>
+                </label>
+                <div className={styles["select-container"]}>
+                    <select
+                        className={styles.select}
+                        id={`${label.for}-${randomAlphanumericInsensitive}`}
+                        {...attributes}
+                        onChange={onChangeHandler}
+                        onBlur={onChangeHandler}
+                        onFocus={onChangeHandler}
+                        onClick={onChangeHandler}
+                        state={selectState}
+                    >
+                        {optionGroup.map((group) => {
+                            const { id } = group;
+                            return <OptionGroup key={id} {...group} />;
+                        })}
+                    </select>
+                    {!attributes.multiple && (
                         <div className={styles.carrot}>
                             <Icons icon="arrowDown" variant="small" />
                         </div>
-                    </div>
-                </label>
+                    )}
+                </div>
             </div>
         </div>
     );
@@ -81,13 +100,14 @@ const Select = (props) => {
 Select.defaultProps = {
     state: "isValid",
     attributes: {
+        multiple: false,
         "data-required": false,
         state: "isValid",
         disabled: false,
+        defaultValue: undefined,
     },
-    variant: "color-bigStone",
+    variant: "color-big-stone",
     clearValue: false,
-    defaultValue: undefined,
 };
 
 Select.propTypes = {
@@ -95,29 +115,36 @@ Select.propTypes = {
         for: PropTypes.string,
         text: PropTypes.string,
     }).isRequired,
-    name: PropTypes.string.isRequired,
-    optionGroup: PropTypes.shape({
-        id: PropTypes.number,
-        title: PropTypes.string,
-        options: PropTypes.shape({
+    optionGroup: PropTypes.arrayOf(
+        PropTypes.shape({
             id: PropTypes.number,
-            text: PropTypes.string,
-            attributes: PropTypes.shape({
-                value: PropTypes.any,
-            }),
-        }),
-        map: PropTypes.func,
-    }).isRequired,
+            title: PropTypes.string,
+            options: PropTypes.arrayOf(
+                PropTypes.shape({
+                    id: PropTypes.number,
+                    text: PropTypes.string,
+                    attributes: PropTypes.shape({
+                        value: PropTypes.any,
+                    }),
+                })
+            ).isRequired,
+            map: PropTypes.func,
+        })
+    ).isRequired,
     attributes: PropTypes.shape({
+        name: PropTypes.string,
+        placeholder: PropTypes.string,
+        defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool, PropTypes.array]),
+        multiple: PropTypes.bool,
         disabled: PropTypes.bool,
-        "data-required": PropTypes.string,
-        state: PropTypes.oneOf(["isEmpty", "isValid", "isFocused"]),
+        readOnly: PropTypes.bool,
+        "data-required": PropTypes.bool,
         "data-validation-types": PropTypes.string,
+        state: PropTypes.oneOf(["isEmpty", "isValid", "inValid"]),
     }),
-    state: PropTypes.oneOf(["isEmpty", "isValid", "isFocused"]),
+    state: PropTypes.oneOf(["isEmpty", "isValid", "isFocussed"]),
     variant: PropTypes.oneOf(["color-white", "color-sky-blue", "color-big-stone", "color-la-rioja", "color-lipstick"]),
     clearValue: PropTypes.bool,
-    defaultValue: PropTypes.string,
 };
 
 export default Select;

@@ -64,7 +64,7 @@ const InputTypeRange = ({ attributes, label, output, customEventHandler }) => {
             switch (eventType) {
                 case "focus":
                 case "change":
-                    setContainerState("isFocused");
+                    setContainerState("isFocussed");
                     break;
                 case "blur":
                 case "mouseup":

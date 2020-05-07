@@ -2,7 +2,6 @@ import i18next from "i18n";
 
 let dataObject = {
     attributes: {
-        id: "login-form",
         method: "post",
         name: "login-form",
         className: "unit",

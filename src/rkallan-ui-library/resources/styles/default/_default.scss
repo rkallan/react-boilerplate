@@ -18,10 +18,9 @@ html {
     display: flex;
     @include propValueFromMaps(map-get($font, default));
     background: safe-hsla($colorWhite);
-    color: safe-hsla(map-get($colorBigStone, default));
     overflow-y: scroll;
     overflow-x: hidden;
-    min-width: 20rem;
+    min-width: map-get($breakpoints, xsmall);
     max-width: 100%;
     width: 100vw;
     min-height: 100%;
@@ -37,7 +36,7 @@ body {
     flex-direction: column;
     margin: 0;
     padding: 0;
-    width: 100vw;
+    width: 100%;
     max-width: 100%;
     min-height: 100%;
     -webkit-font-smoothing: antialiased;
@@ -64,7 +63,7 @@ p {
     @include propValueFromMaps(map-get($font, paragraph));
 
     &[variant~="bold"] {
-        font-weight: 900;
+        font-weight: 700;
     }
 
     &[variant~="smaller"] {
@@ -77,12 +76,13 @@ p {
 }
 
 hr {
-    height: 0.125rem;
+    height: 0.25rem;
     margin: $gap 0;
-    background: safe-hsla(map-get($colorBigStone, default));
+    background: safe-hsla(map-get($colorBlack, default));
     border: none;
     box-sizing: content-box;
     overflow: visible;
+    border-radius: map-get($borderRadius, default);
 }
 
 abbr[title],
@@ -191,7 +191,7 @@ kbd,
 samp {
     font-family: "Consolas", monospace;
     font-size: smaller;
-    border: 0.0625rem solid safe-hsla(map-get($colorBigStone, default));
+    border: 0.0625rem solid safe-hsla(map-get($colorBlack, default));
     padding: 0.125rem;
     vertical-align: text-top;
 }

@@ -4,6 +4,7 @@ const Login = loadable(() => import(/* webpackChunkName: "Test" */ "pages/Login"
 const Test = loadable(() => import(/* webpackChunkName: "Test" */ "pages/Test"));
 const Homepage = loadable(() => import(/* webpackChunkName: "Test" */ "pages/Homepage"));
 const Error404 = loadable(() => import(/* webpackChunkName: "Test" */ "pages/Error/404"));
+const FormPage = loadable(() => import(/* webpackChunkName: "Test" */ "pages/Form"));
 
 const appRoutes = [
     {
@@ -12,13 +13,6 @@ const appRoutes = [
         component: Login,
         exact: true,
         title: "Login",
-    },
-    {
-        id: 2,
-        path: "/logout",
-        component: Login,
-        exact: true,
-        title: "Logout",
     },
     {
         id: 3,
@@ -34,6 +28,13 @@ const appRoutes = [
         component: Test,
         exact: true,
         title: "Test",
+    },
+    {
+        id: 6,
+        path: "/form",
+        component: FormPage,
+        title: "FormPage",
+        authenticated: true,
     },
     {
         id: 5,

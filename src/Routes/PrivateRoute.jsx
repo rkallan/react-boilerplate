@@ -5,14 +5,15 @@ import useAuth from "features/authentication/hooks/useAuth";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
     const auth = useAuth();
-
     return (
         <Route
             {...rest}
             render={(routeProps) => {
                 if (auth) return <Component {...routeProps} />;
 
-                return <Redirect to={{ pathname: "/login", state: { referer: routeProps.location } }} />;
+                const state = window.customAppVariable.usedLogoutButton ? undefined : { referer: routeProps.location };
+
+                return <Redirect to={{ pathname: "/login", state }} />;
             }}
         />
     );

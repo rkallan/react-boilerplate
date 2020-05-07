@@ -8,7 +8,7 @@ import { Provider } from "react-redux";
 import loadable from "@loadable/component";
 import { HelmetProvider } from "react-helmet-async";
 import { createBrowserHistory } from "history";
-import { Loading } from "rkallan-ui-library";
+import { Loading, TemplateProvider } from "rkallan-ui-library";
 // import configureMockApi from "mockApi";
 import AuthProvider from "features/authentication/AuthProvider";
 import store from "Store";
@@ -22,27 +22,27 @@ const Template = loadable(() => import(/* webpackChunkName: "Template" */ "./Tem
     fallback: <Loading />,
 });
 
-const TemplateProvider = loadable(() => import(/* webpackChunkName: "TemplateProvider" */ "rkallan-ui-library/TemplateProvider"), {
-    fallback: <Loading />,
-});
+window.customAppVariable = {
+    usedLogoutButton: false,
+};
 
 const history = createBrowserHistory();
 const helmetContext = {};
 const TemplateApplication = (
     <React.StrictMode>
-        <HelmetProvider context={helmetContext}>
-            <Provider store={store}>
+        <Provider store={store}>
+            <TemplateProvider>
                 <AuthProvider>
-                    <TemplateProvider>
+                    <HelmetProvider context={helmetContext}>
                         <Suspense fallback={<Loading />}>
                             <Router history={history}>
                                 <Template />
                             </Router>
                         </Suspense>
-                    </TemplateProvider>
+                    </HelmetProvider>
                 </AuthProvider>
-            </Provider>
-        </HelmetProvider>
+            </TemplateProvider>
+        </Provider>
     </React.StrictMode>
 );
 

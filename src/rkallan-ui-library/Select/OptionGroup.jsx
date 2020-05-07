@@ -17,13 +17,15 @@ const OptionGroup = (props) => {
 
 OptionGroup.propTypes = {
     title: PropTypes.string.isRequired,
-    options: PropTypes.shape({
-        id: PropTypes.number,
-        text: PropTypes.string,
-        attributes: PropTypes.shape({
-            value: PropTypes.any,
-        }),
-    }).isRequired,
+    options: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.number,
+            text: PropTypes.string,
+            attributes: PropTypes.shape({
+                value: PropTypes.any,
+            }),
+        })
+    ).isRequired,
 };
 
 export default OptionGroup;

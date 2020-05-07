@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { Suspense, useEffect } from "react";
 import loadable from "@loadable/component";
 import { useDispatch, useSelector } from "react-redux";
 import { Helmet } from "react-helmet-async";
@@ -62,7 +62,9 @@ function Template() {
             </Helmet>
             <Header />
             <main className={styles.main} variant="container">
-                <Routes />
+                <Suspense fallback={<Loading />}>
+                    <Routes />
+                </Suspense>
             </main>
             <Footer />
         </>

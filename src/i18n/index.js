@@ -3,7 +3,7 @@ import Backend from "i18next-xhr-backend";
 import LanguageDetector from "i18next-browser-languagedetector";
 import { initReactI18next } from "react-i18next";
 
-const lang = localStorage.getItem(process.env.REACT_APP_LOCAL_STORAGE_LANGUAGE) || navigator.language.toLowerCase().split("_")[0];
+const lang = localStorage.getItem(process.env.REACT_APP_LOCAL_STORAGE_LANGUAGE) || navigator.language.toLowerCase().substring(0, 2);
 
 i18next
     // load translation using xhr -> see /public/locales

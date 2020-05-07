@@ -109,7 +109,7 @@ $panelWidth: (
             border: 0;
             margin: 0;
             padding: 0.75rem;
-            background: safe-hsla($colorBlack);
+            background: safe-hsla(map-get($colorBlack, default));
             color: safe-hsla($colorWhite);
 
             &:disabled,

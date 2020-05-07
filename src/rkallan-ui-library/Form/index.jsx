@@ -12,6 +12,10 @@ const InputTypeText = loadable(() => import(/* webpackChunkName: "InputTypeText"
     fallback: <Loading />,
 });
 
+const InputTypeRadio = loadable(() => import(/* webpackChunkName: "InputTypeText" */ "../InputTypeRadio"), {
+    fallback: <Loading />,
+});
+
 const Select = loadable(() => import(/* webpackChunkName: "Select" */ "../Select"), {
     fallback: <Loading />,
 });
@@ -33,10 +37,12 @@ const Form = (props) => {
         buttonsAttributes,
     } = props;
     const [formElements, setFormElements] = useState([]);
-    const [submitElements, setSubmitElements] = useState([]);
+    const [buttonElements, setButtonElements] = useState([]);
+    const [formData, setFormData] = useState([]);
     const [currentValue, setCurrentValue] = useState();
     const [clearValue, setClearValue] = useState(false);
     const [submitDisabled, setSubmitDisabled] = useState(submitButtonDisabled);
+    const [resetDisabled, setResetDisabled] = useState(true);
 
     const debouncedCurrentValue = useDebounce(currentValue, 150);
 
@@ -46,35 +52,43 @@ const Form = (props) => {
         if (!formElements.length) hasError += 1;
 
         formElements.forEach((element) => {
-            if ((element && element.getAttribute("state") !== "isValid") || !element.hasAttribute("state")) {
+            if (element && element.hasAttribute("state") && element.getAttribute("state") !== "isValid") {
                 hasError += 1;
             }
         });
 
         if (clearValue) setSubmitDisabled(true);
 
-        if (!clearValue && submitElements.length) setSubmitDisabled(!!hasError);
-    }, [formElements, submitElements, clearValue]);
+        if (!clearValue) setSubmitDisabled(!!hasError);
+    }, [formElements, clearValue]);
 
     const setElementsToState = (formObject, updateElements = false) => {
-        if (formObject && (formElements.length + submitElements.length !== formObject.elements.length || updateElements)) {
+        if (formObject && (formElements.length + buttonElements.length !== formObject.elements.length || updateElements)) {
             const tempFormElements = [];
-            const tempSubmitElements = [];
+            const tempButtons = [];
 
             [...formObject.elements].forEach((element) => {
                 const { type } = element;
                 const tagName = element.tagName.toLowerCase();
 
-                if (element && type === "submit") {
-                    tempSubmitElements.push(element);
-                }
+                if (element && (tagName === "button" || ["submit", "reset", "button"].includes(type))) tempButtons.push(element);
 
-                if (element && !["fieldset", "button"].includes(tagName) && !["submit", "reset", "button"].includes(type)) {
-                    tempFormElements.push(element);
-                }
+                if (element && !["fieldset", "button"].includes(tagName) && !["submit", "reset", "button"].includes(type)) tempFormElements.push(element);
             });
 
-            setSubmitElements(tempSubmitElements);
+            const data = {
+                attributes,
+                elements: [],
+            };
+            fieldsets.forEach((fieldset) => {
+                const { elements } = fieldset;
+                Object.keys(elements).forEach((key) => {
+                    data.elements.push(elements[key]);
+                });
+            });
+            setFormData(data);
+
+            setButtonElements(tempButtons);
             setFormElements(tempFormElements);
 
             formValidation();
@@ -82,7 +96,7 @@ const Form = (props) => {
     };
 
     const onEventHandler = (event) => {
-        event.preventDefault();
+        // event.preventDefault();
         const formElement = event.target;
         const formObject = formElement.form;
         const formElementValue = formElement.value || "";
@@ -90,6 +104,8 @@ const Form = (props) => {
 
         if (clearValue) setClearValue(false);
         if (currentValue !== formElementValue) setCurrentValue(formElementValue);
+
+        if (event.type === "change") setResetDisabled(false);
 
         setElementsToState(formObject, updateElementsInState);
     };
@@ -118,7 +134,7 @@ const Form = (props) => {
 
     const convertDataForAPI = (postData) => {
         const data = Object.keys(postData).reduce((accumulator, key) => {
-            const value = postData[key].values[0];
+            const value = postData[key].values.length > 1 ? postData[key].values : postData[key].values[0];
 
             accumulator[key] = validations.isJSONString(value) ? JSON.parse(value) : value;
             return accumulator;
@@ -145,14 +161,15 @@ const Form = (props) => {
 
         const formObject = event.currentTarget || event.target;
         const formDataAttributes = formObject.dataset;
-        const formData = serializeForm(formObject);
-        const postData = { ...props.postData, ...formData.postData };
+        const formObjectData = serializeForm(formObject, formData);
+        const postData = { ...props.postData, ...formObjectData.postData };
+
         let response;
-        formData.postData = postData;
+        formObjectData.postData = postData;
 
         const errorMessages = formPostValidation(postData);
 
-        if (Object.keys(errorMessages).length) {
+        if (errorMessages) {
             response = handleFormInValid(errorMessages);
 
             if (customSubmitHandler) customSubmitHandler(response);
@@ -181,6 +198,11 @@ const Form = (props) => {
         return true;
     };
 
+    const onResetHandler = () => {
+        setResetDisabled(true);
+        setClearValue(true);
+    };
+
     useEffect(() => {
         if ((debouncedCurrentValue || debouncedCurrentValue === "") && formElements) formValidation();
     }, [debouncedCurrentValue, formElements, formValidation]);
@@ -200,7 +222,7 @@ const Form = (props) => {
     }, [resetForm]);
 
     return (
-        <form {...attributes} onSubmit={onSubmitHandler} onChange={onEventHandler} onFocus={onEventHandler} onBlur={onEventHandler}>
+        <form {...attributes} onSubmit={onSubmitHandler} onReset={onResetHandler} onChange={onEventHandler} onFocus={onEventHandler} onBlur={onEventHandler}>
             {fieldsets &&
                 fieldsets.map((fieldset) => {
                     const { elements, disabled } = fieldset;
@@ -214,12 +236,18 @@ const Form = (props) => {
 
                                     switch (node) {
                                         case "input":
+                                            if (clearValue) element.attributes.disabled = false;
                                             return <InputTypeText key={id} {...element} clearValue={clearValue} />;
+                                        case "radio":
+                                            return <InputTypeRadio key={id} {...element} clearValue={clearValue} />;
                                         case "select":
                                             return <Select key={id} {...element} clearValue={clearValue} />;
                                         case "button":
                                             if (element.attributes.type === "submit") {
                                                 element.attributes.disabled = submitDisabled;
+                                            }
+                                            if (element.attributes.type === "reset") {
+                                                element.attributes.disabled = resetDisabled;
                                             }
 
                                             if (buttonsAttributes[key]) {

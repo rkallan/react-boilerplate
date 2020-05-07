@@ -5,7 +5,7 @@ import { getRandomAlphanumericInsensitive, keyEvent } from "rkallan-javascript-h
 import styles from "./resources/styles/inputTypeRadio.module.scss";
 
 const InputTypeRadio = (props) => {
-    const { name, items, variant, customOnChangeHandler } = props;
+    const { items, variant, customOnChangeHandler, attributes } = props;
     const [randomValue] = useState(getRandomAlphanumericInsensitive);
     const [usedKeyboard, setUsedKeyboard] = useState(false);
 
@@ -25,7 +25,7 @@ const InputTypeRadio = (props) => {
 
     const radioItems = items.map((item) => {
         const { id, value, label } = item;
-        const defaultChecked = props.defaultValue === value ? true : item.checked || false;
+        const defaultChecked = props.attributes.defaultChecked === value ? true : item.checked || false;
         const disabled = props.disabled ? true : item.disabled || false;
 
         return (
@@ -33,9 +33,8 @@ const InputTypeRadio = (props) => {
                 <input
                     id={`${label.for}-${randomValue}`}
                     className={styles.input}
-                    name={name}
-                    type="radio"
                     value={value}
+                    {...attributes}
                     onChange={onChangeHandler}
                     onClick={onKeyDownHandler}
                     onKeyDown={onKeyDownHandler}
@@ -51,33 +50,42 @@ const InputTypeRadio = (props) => {
     });
 
     return (
-        <section className={styles.container} variant={variant}>
+        <section className={styles.container} variant={variant} state="isValid">
             {radioItems}
         </section>
     );
 };
 
 InputTypeRadio.defaultProps = {
+    attributes: {
+        defaultChecked: undefined,
+    },
     variant: "row",
     customOnChangeHandler: undefined,
-    defaultValue: undefined,
     disabled: false,
 };
 
 InputTypeRadio.propTypes = {
-    name: PropTypes.string.isRequired,
-    items: PropTypes.shape({
-        id: PropTypes.number,
-        value: PropTypes.string,
-        label: PropTypes.shape({
-            for: PropTypes.string,
-            text: PropTypes.string,
-        }),
-        map: PropTypes.func,
-    }).isRequired,
+    attributes: PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        type: PropTypes.oneOf(["radio"]),
+        "data-required": PropTypes.bool,
+        "data-validation-types": PropTypes.string,
+        defaultChecked: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
+    }),
+    items: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.number,
+            value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
+            label: PropTypes.shape({
+                for: PropTypes.string,
+                text: PropTypes.string,
+            }),
+            map: PropTypes.func,
+        })
+    ).isRequired,
     variant: PropTypes.oneOf(["column", "row"]),
     customOnChangeHandler: PropTypes.func,
-    defaultValue: PropTypes.string,
     disabled: PropTypes.bool,
 };
 

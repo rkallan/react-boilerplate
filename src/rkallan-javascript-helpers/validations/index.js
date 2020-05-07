@@ -511,38 +511,53 @@ const validations = {
 };
 
 const formPostValidation = (postData) => {
+    if (!postData || getType(postData) !== "object") return undefined;
+
+    const postDataKeys = Object.keys(postData);
     const errorMessages = {};
 
-    Object.keys(postData).forEach((formElementKey) => {
+    if (!postDataKeys.length) return undefined;
+
+    postDataKeys.forEach((formElementKey) => {
         const formElement = postData[formElementKey];
-        const elementRequired =
-            validations.isJSONString(formElement.required) && validations.isBoolean(formElement.required) ? JSON.parse(formElement.required) : false;
-        const elementValidationTypes = validations.isJSONString(formElement.validationTypes) ? JSON.parse(formElement.validationTypes) : {};
+        const elementRequired = formElement.required || false;
+
+        if (!elementRequired) return;
+
+        const elementValidationTypes = formElement.validationTypes || {};
         const totalValidationTypes = Object.keys(elementValidationTypes).length || 0;
+        const value = formElement.values.length ? formElement.values[0] : undefined;
 
         let errorMessage = [];
 
-        if (!totalValidationTypes && elementRequired) if (!validations.isNotEmpty(formElement.values[0])) errorMessages.push("Cann't be empty");
+        if (!totalValidationTypes && elementRequired && validations.isNotEmpty(value).error) errorMessage.push("Cann't be empty");
 
-        if (totalValidationTypes) errorMessage = validations.multipleValidation(formElement.values[0], elementValidationTypes);
+        if (totalValidationTypes) errorMessage = validations.multipleValidation(value, elementValidationTypes);
 
         if (errorMessage.length) errorMessages[formElementKey] = errorMessage;
     });
 
-    return errorMessages;
+    if (Object.keys(errorMessages).length) return errorMessages;
+
+    return undefined;
 };
 
 const getValidationTypes = (dataRequired = false, dataValidationTypes) => {
     const required = validations.isBoolean(dataRequired) ? dataRequired : false;
-    const validationTypes = validations.isJSONString(dataValidationTypes) ? JSON.parse(dataValidationTypes) : {};
-    const totalValidationTypes = Object.keys(validationTypes).length;
+
+    if (!required) return undefined;
+
+    const validationTypes = validations.isJSONString(dataValidationTypes) ? JSON.parse(dataValidationTypes) : undefined;
+    const totalValidationTypes = validationTypes ? Object.keys(validationTypes).length : undefined;
 
     if (!totalValidationTypes && required) return { isNotEmpty: null };
 
     return validationTypes;
 };
 
-const isElementValid = (validationTypes = {}, value) => {
+const isElementValid = (validationTypes, value) => {
+    if (!validationTypes || getType(validationTypes) !== "object") return "isValid";
+
     const totalValidationTypes = Object.keys(validationTypes).length;
 
     if (!totalValidationTypes) return "isValid";

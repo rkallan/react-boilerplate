@@ -8,13 +8,18 @@
     margin: $gap 0;
     padding: $gap * 2 0 0 0;
     overflow: hidden;
-    color: safe-hsla(map-get($colorBigStone, default), 1);
+    color: safe-hsla(map-get($colorBigStone, default));
 
-    &[variant*="big-stone"] {
+    &[variant~="color-big-stone"] {
         color: safe-hsla(map-get($colorBigStone, default));
     }
 
-    &[variant~="disabled"] {
+    &[variant~="no-placeholder"] {
+        padding-top: 0;
+    }
+
+    &[variant~="disabled"],
+    &[variant~="read-only"] {
         opacity: map-get($opacity, disabled);
     }
 
@@ -40,6 +45,7 @@
         height: 2rem;
         background: safe-hsla($colorWhite);
         border: 0.125rem solid safe-hsla(map-get($colorBigStone, darken));
+        border-radius: map-get($borderRadius, small);
 
         .input {
             font-size: 1rem;
@@ -70,8 +76,10 @@
                 box-shadow: transparent 0 0 0 0;
             }
 
-            &:disabled {
+            &:disabled,
+            &:read-only {
                 cursor: default;
+                pointer-events: none;
             }
         }
 
@@ -85,7 +93,7 @@
         }
     }
 
-    &[state="isFocused"] {
+    &[state="isFocussed"] {
         &::after {
             height: 0.125rem;
             z-index: 5;

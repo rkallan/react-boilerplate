@@ -1,15 +1,13 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
 import useAuth from "./hooks/useAuth";
 import { logout } from ".";
 
 const Logout = () => {
     const auth = useAuth();
-    const history = useHistory();
 
     const onClickHandler = () => {
         logout();
-        history.push("/login");
+        window.customAppVariable.usedLogoutButton = true;
     };
 
     if (!auth) return null;

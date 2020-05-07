@@ -157,7 +157,7 @@ $thumbSize: 1.5rem;
         }
     }
 
-    &[state~="isFocused"] {
+    &[state~="isFocussed"] {
         .unit {
             .thumb {
                 border-color: safe-hsla(map-get($colorRed, darken));

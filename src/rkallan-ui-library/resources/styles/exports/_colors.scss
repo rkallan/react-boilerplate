@@ -3,7 +3,7 @@
 
 :export {
     colorWhite: safe-hsla($colorWhite);
-    colorBlack: safe-hsla($colorBlack);
+    colorBlack: safe-hsla(map-get($colorBlack, default));
     colorSkyBlue: safe-hsla(map-get($colorSkyBlue, default));
     colorSkyBlueDarker: safe-hsla(map-get($colorSkyBlue, darken));
     colorSkyBlueLighter: safe-hsla(map-get($colorSkyBlue, lighter));
