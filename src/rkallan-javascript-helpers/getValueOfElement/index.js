@@ -20,11 +20,12 @@ const getValueOfElement = {
 
         if (element && element.type && element.type === "select-multiple") {
             const value = [];
-            if (element.value && element.options) {
-                Object.keys(element.options).forEach((optionKey) => {
-                    if (element.options[optionKey].selected) value.push(element.options[optionKey].value);
-                });
-            }
+            const selected = element.selectedOptions;
+
+            selected.forEach((option) => {
+                value.push(option.value);
+            });
+
             return value;
         }
 

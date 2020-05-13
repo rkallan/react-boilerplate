@@ -95,21 +95,6 @@ const Form = (props) => {
         }
     };
 
-    const onEventHandler = (event) => {
-        // event.preventDefault();
-        const formElement = event.target;
-        const formObject = formElement.form;
-        const formElementValue = formElement.value || "";
-        const updateElementsInState = getType(customEventHandler) === "function" ? customEventHandler(event) : false;
-
-        if (clearValue) setClearValue(false);
-        if (currentValue !== formElementValue) setCurrentValue(formElementValue);
-
-        if (event.type === "change") setResetDisabled(false);
-
-        setElementsToState(formObject, updateElementsInState);
-    };
-
     const setDisabledAttributeOnFieldsets = (disabled = true) => {
         fieldsets.map((fieldset) => {
             const currentFieldset = fieldset;
@@ -151,56 +136,82 @@ const Form = (props) => {
         return response;
     };
 
+    const getResponse = (formObject, data) => {
+        if (postFormWithApiCall) {
+            const formPostUrl = formObject.action;
+            const formDataAttributes = formObject.dataset;
+            const response = formApiCall(formPostUrl, data, formDataAttributes);
+
+            return response;
+        }
+
+        return {
+            ok: true,
+            status: 200,
+            data,
+        };
+    };
+
+    const disableButtons = () => {
+        setSubmitDisabled(true);
+        setResetDisabled(true);
+    };
+
+    const resetFormElements = () => {
+        setClearValue(true);
+    };
+
+    const onResetHandler = () => {
+        disableButtons();
+        resetFormElements();
+    };
+
+    const onEventHandler = (event) => {
+        const formElement = event.target;
+        const formObject = formElement.form;
+        const formElementValue = formElement.value || "";
+        const updateElementsInState = getType(customEventHandler) === "function" ? customEventHandler(event) : false;
+
+        if (clearValue) setClearValue(false);
+        if (currentValue !== formElementValue) setCurrentValue(formElementValue);
+
+        if (resetDisabled && event.type === "change") setResetDisabled(false);
+
+        setElementsToState(formObject, updateElementsInState);
+    };
+
     const onSubmitHandler = (event) => {
         event.preventDefault();
-
-        setSubmitDisabled(true);
-        setDisabledAttributeOnFieldsets(true);
-
         document.activeElement.blur();
 
+        disableButtons();
+        setDisabledAttributeOnFieldsets(true);
+
         const formObject = event.currentTarget || event.target;
-        const formDataAttributes = formObject.dataset;
         const formObjectData = serializeForm(formObject, formData);
         const postData = { ...props.postData, ...formObjectData.postData };
 
-        let response;
         formObjectData.postData = postData;
 
         const errorMessages = formPostValidation(postData);
 
         if (errorMessages) {
-            response = handleFormInValid(errorMessages);
+            const errorResponse = handleFormInValid(errorMessages);
 
-            if (customSubmitHandler) customSubmitHandler(response);
-            return response;
+            if (customSubmitHandler) customSubmitHandler(errorResponse);
+            return errorResponse;
         }
 
         const data = convertDataForAPI(postData);
-        if (postFormWithApiCall) {
-            const formPostUrl = formObject.action;
-            response = formApiCall(formPostUrl, data, formDataAttributes);
-        } else {
-            response = {
-                ok: true,
-                status: 200,
-                data,
-            };
-        }
+        const response = getResponse(formObject, data);
 
-        if (customSubmitHandler) {
-            customSubmitHandler(response);
-        }
+        if (customSubmitHandler) customSubmitHandler(response);
+
         formObject.reset();
-        setClearValue(true);
         setDisabledAttributeOnFieldsets(false);
-
-        return true;
-    };
-
-    const onResetHandler = () => {
-        setResetDisabled(true);
         setClearValue(true);
+
+        return response;
     };
 
     useEffect(() => {
@@ -217,7 +228,8 @@ const Form = (props) => {
 
     useEffect(() => {
         if (resetForm) {
-            setClearValue(true);
+            disableButtons();
+            resetFormElements();
         }
     }, [resetForm]);
 
@@ -233,6 +245,7 @@ const Form = (props) => {
                             <div className={styles.container} variant={fieldset.variant || null}>
                                 {Object.keys(elements).map((key) => {
                                     const { id, node, ...element } = elements[key];
+                                    if (disabledFieldset) element.attributes.disabled = disabledFieldset;
 
                                     switch (node) {
                                         case "input":
@@ -243,12 +256,9 @@ const Form = (props) => {
                                         case "select":
                                             return <Select key={id} {...element} clearValue={clearValue} />;
                                         case "button":
-                                            if (element.attributes.type === "submit") {
-                                                element.attributes.disabled = submitDisabled;
-                                            }
-                                            if (element.attributes.type === "reset") {
-                                                element.attributes.disabled = resetDisabled;
-                                            }
+                                            if (element.attributes.type === "submit") element.attributes.disabled = submitDisabled;
+
+                                            if (element.attributes.type === "reset") element.attributes.disabled = resetDisabled;
 
                                             if (buttonsAttributes[key]) {
                                                 const buttonAttributes = element.attributes;

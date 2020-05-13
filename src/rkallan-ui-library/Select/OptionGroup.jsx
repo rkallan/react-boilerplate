@@ -1,28 +1,40 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Options from "./Options";
+import Option from "./Option";
 
-const OptionGroup = (props) => {
-    const { title, options } = props;
+const Options = ({ options }) => {
+    return Object.keys(options).map((key) => {
+        const { id, ...attributes } = options[key];
+        return <Option key={id} {...attributes} />;
+    });
+};
+
+const OptionGroup = ({ title, options }) => {
     if (title) {
         return (
             <optgroup label={title}>
-                <Options {...options} />
+                <Options options={options} />
             </optgroup>
         );
     }
 
-    return <Options {...options} />;
+    return <Options options={options} />;
+};
+
+OptionGroup.defaultProps = {
+    title: undefined,
 };
 
 OptionGroup.propTypes = {
-    title: PropTypes.string.isRequired,
+    title: PropTypes.string,
     options: PropTypes.arrayOf(
         PropTypes.shape({
             id: PropTypes.number,
             text: PropTypes.string,
             attributes: PropTypes.shape({
-                value: PropTypes.any,
+                value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
+                disabled: PropTypes.bool,
+                hidden: PropTypes.bool,
             }),
         })
     ).isRequired,

@@ -33,6 +33,7 @@
             top: 0.18725rem;
             left: 0;
             padding-left: $gap / 2;
+            user-select: none;
         }
 
         .select-container {
@@ -72,10 +73,6 @@
         appearance: none;
         cursor: pointer;
         transition: map-get($transition, default);
-
-        &[state~="isEmpty"] {
-            opacity: map-get($opacity, disabled);
-        }
 
         &::-ms-expand {
             display: none;

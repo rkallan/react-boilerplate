@@ -89,6 +89,7 @@ const InputTypeText = (props) => {
 
         if (inputElement && !buttonTypes.includes(inputElement.type)) inputElement.value = defaultValue;
 
+        setCurrentValue(defaultValue);
         setInputfieldValid(elementState);
         setContainerState(elementState);
         setInputState(elementState);

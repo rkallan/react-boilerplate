@@ -91,10 +91,12 @@ i18next.on("loaded", () => {
             attributes: {
                 placeholder: i18next.t("formPage:Type"),
                 name: "type",
-                defaultValue: "",
-                multiple: false,
+                // defaultValue: [1, 2],
+                multiple: true,
                 "data-required": true,
+                // readOnly: true,
             },
+            // defaultValue: [1, 2],
             optionGroup: [
                 {
                     id: 1,
