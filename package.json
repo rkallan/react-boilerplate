@@ -39,6 +39,7 @@
         "react-scripts": "3.4.1",
         "react-spring": "9.0.0-rc.3",
         "resize-observer-polyfill": "^1.5.1",
+        "rkallan-eslint-config": "^1.0.1",
         "rkallan-prettier-config": "^1.0.4"
     },
     "devDependencies": {

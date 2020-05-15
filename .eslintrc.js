@@ -6,7 +6,7 @@ module.exports = {
         jest: true,
     },
     extends: [
-        "./rkallan-eslint-config",
+        "rkallan-eslint-config",
         "./rkallan-eslint-config-react",
         "eslint:recommended",
         "plugin:jsx-a11y/recommended",
