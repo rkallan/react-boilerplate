@@ -1,9 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -1 32 34">
-	<style type="text/css">
-		.st0{fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
-	</style>
-	<path class="st0" d="M9.24,16.76C6.95,16.01,5.41,14.61,5.41,13c0-2.39,3.4-4.32,7.59-4.32c1.37,0,2.65,0.21,3.76,0.57" />
-	<path class="st0" d="M22.76,15.24c2.29,0.74,3.83,2.15,3.83,3.76c0,2.39-3.4,4.32-7.59,4.32c-1.37,0-2.65-0.21-3.76-0.57" />
-	<path class="st0" d="M31,7.82V29c0,1.1-0.9,2-2,2H3c-1.1,0-2-0.9-2-2V3c0-1.1,0.9-2,2-2h23.17c1.78,0,2.67,2.15,1.41,3.41
-		L5.79,26.21" />
+    <style type="text/css">
+        .st0 {
+            fill: none;
+            stroke: #000000;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-miterlimit: 10;
+        }
+    </style>
+    <path class="st0" d="M9.24,16.76C6.95,16.01,5.41,14.61,5.41,13c0-2.39,3.4-4.32,7.59-4.32c1.37,0,2.65,0.21,3.76,0.57" />
+    <path class="st0" d="M22.76,15.24c2.29,0.74,3.83,2.15,3.83,3.76c0,2.39-3.4,4.32-7.59,4.32c-1.37,0-2.65-0.21-3.76-0.57" />
+    <path
+        class="st0"
+        d="M31,7.82V29c0,1.1-0.9,2-2,2H3c-1.1,0-2-0.9-2-2V3c0-1.1,0.9-2,2-2h23.17c1.78,0,2.67,2.15,1.41,3.41
+		L5.79,26.21"
+    />
 </svg>

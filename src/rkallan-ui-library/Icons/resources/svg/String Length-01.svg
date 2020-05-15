@@ -1,16 +1,26 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -1 32 34">
-	<style type="text/css">
-		.st0{fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
-		.st1{stroke:#000000;stroke-miterlimit:10;}
-	</style>
-	<g>
-		<path class="st0" d="M31,23.3V29c0,1.1-0.9,2-2,2H3c-1.1,0-2-0.9-2-2v-5.7" />
-		<circle class="st1" cx="8.2" cy="23.2" r="1" />
-		<circle class="st1" cx="16" cy="23.2" r="1" />
-		<circle class="st1" cx="23.8" cy="23.2" r="1" />
-		<path class="st0" d="M1,8.7V3c0-1.1,0.9-2,2-2h26c1.1,0,2,0.9,2,2v5.7" />
-		<line class="st0" x1="8.2" y1="1" x2="8.2" y2="16" />
-		<line class="st0" x1="16" y1="1" x2="16" y2="16" />
-		<line class="st0" x1="23.8" y1="1" x2="23.8" y2="16" />
-	</g>
+    <style type="text/css">
+        .st0 {
+            fill: none;
+            stroke: #000000;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-miterlimit: 10;
+        }
+        .st1 {
+            stroke: #000000;
+            stroke-miterlimit: 10;
+        }
+    </style>
+    <g>
+        <path class="st0" d="M31,23.3V29c0,1.1-0.9,2-2,2H3c-1.1,0-2-0.9-2-2v-5.7" />
+        <circle class="st1" cx="8.2" cy="23.2" r="1" />
+        <circle class="st1" cx="16" cy="23.2" r="1" />
+        <circle class="st1" cx="23.8" cy="23.2" r="1" />
+        <path class="st0" d="M1,8.7V3c0-1.1,0.9-2,2-2h26c1.1,0,2,0.9,2,2v5.7" />
+        <line class="st0" x1="8.2" y1="1" x2="8.2" y2="16" />
+        <line class="st0" x1="16" y1="1" x2="16" y2="16" />
+        <line class="st0" x1="23.8" y1="1" x2="23.8" y2="16" />
+    </g>
 </svg>
