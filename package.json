@@ -37,8 +37,9 @@
         "react-redux": "^7.2.0",
         "react-router-dom": "^5.1.2",
         "react-scripts": "3.4.1",
-        "react-spring": "^9.0.0-beta.34",
-        "resize-observer-polyfill": "^1.5.1"
+        "react-spring": "9.0.0-rc.3",
+        "resize-observer-polyfill": "^1.5.1",
+        "rkallan-prettier-config": "^1.0.4"
     },
     "devDependencies": {
         "@prettier/plugin-xml": "^0.7.2",

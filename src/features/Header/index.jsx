@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import loadable from "@loadable/component";
 import { Loading } from "rkallan-ui-library";
 import styles from "./resources/styles/header.module.scss";
@@ -16,16 +16,24 @@ const Header = () => {
             <nav>
                 <ul style={{ display: "flex", flexDirection: "row", justifyContent: "space-around" }}>
                     <li>
-                        <Link to={{ pathname: `${process.env.PUBLIC_URL}/login`, state: { referer } }}>Login Page</Link>
+                        <NavLink activeClassName="is-active" to={{ pathname: `${process.env.PUBLIC_URL}/login`, state: { referer } }}>
+                            Login Page
+                        </NavLink>
                     </li>
                     <li>
-                        <Link to={`${process.env.PUBLIC_URL}/`}>Homepage</Link>
+                        <NavLink activeClassName="is-active" to={`${process.env.PUBLIC_URL}/`}>
+                            Homepage
+                        </NavLink>
                     </li>
                     <li>
-                        <Link to={`${process.env.PUBLIC_URL}/form`}>Form</Link>
+                        <NavLink activeClassName="is-active" to={`${process.env.PUBLIC_URL}/form`}>
+                            Form
+                        </NavLink>
                     </li>
                     <li>
-                        <Link to={`${process.env.PUBLIC_URL}/test`}>Test</Link>
+                        <NavLink activeClassName="is-active" to={`${process.env.PUBLIC_URL}/test`}>
+                            Test
+                        </NavLink>
                     </li>
                     <li>
                         <Logout />

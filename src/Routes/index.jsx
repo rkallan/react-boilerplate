@@ -9,7 +9,7 @@ import styles from "./resources/styles/routes.module.scss";
 const Routes = () => {
     const location = useLocation();
 
-    const transitions = useTransition(location, (currentLocation) => currentLocation.pathname, {
+    const transition = useTransition(location, {
         from: {
             position: "absolute",
             left: "-150%",
@@ -22,37 +22,30 @@ const Routes = () => {
         },
         leave: {
             position: "absolute",
-            left: "150%",
+            left: "200%",
             opacity: 0,
         },
-        onFrame: () => {
+        onChange: () => {
             window.scrollTo(0, 0);
         },
         config: config.default,
     });
 
-    return (
-        <>
-            {transitions.map((transition) => {
-                const { item, props, key } = transition;
-                return (
-                    <animated.section key={key} style={props} className={styles.main} variant="unit">
-                        <Switch location={item}>
-                            {appRoutes.map((route) => {
-                                const { id, path, exact, routes, authenticated } = route;
+    return transition((style, item) => {
+        return (
+            <animated.section style={style} className={styles.main} variant="unit">
+                <Switch location={item}>
+                    {appRoutes.map((route) => {
+                        const { id, path, exact, routes, authenticated } = route;
 
-                                if (authenticated) return <PrivateRoute key={id} {...route} />;
+                        if (authenticated) return <PrivateRoute key={id} {...route} />;
 
-                                return (
-                                    <Route key={id} path={path} exact={exact} render={(routeProps) => <route.component {...routeProps} routes={routes} />} />
-                                );
-                            })}
-                        </Switch>
-                    </animated.section>
-                );
-            })}
-        </>
-    );
+                        return <Route key={id} path={path} exact={exact} render={(routeProps) => <route.component {...routeProps} routes={routes} />} />;
+                    })}
+                </Switch>
+            </animated.section>
+        );
+    });
 };
 
 export default Routes;
