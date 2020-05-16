@@ -37,7 +37,7 @@ function Template() {
     const user = useSelector(getUserState);
 
     useEffect(() => {
-        if (!themeColorScheme || getColorScheme !== themeColorScheme) dispatch(setThemeColorScheme(getColorScheme));
+        if (!themeColorScheme) dispatch(setThemeColorScheme(getColorScheme));
     }, [dispatch, getColorScheme, themeColorScheme]);
 
     useEffect(() => {

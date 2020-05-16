@@ -10,28 +10,37 @@ const Logout = loadable(() => import(/* webpackChunkName: "Logout" */ "features/
 
 const Header = () => {
     const referer = useLocation();
+    const onClickEventHandler = (event) => {
+        if (event.currentTarget.className.split(" ").includes("is-active")) {
+            event.preventDefault();
+        }
+    };
     return (
         <header className={styles.container}>
             Header component
             <nav>
                 <ul style={{ display: "flex", flexDirection: "row", justifyContent: "space-around" }}>
                     <li>
-                        <NavLink activeClassName="is-active" to={{ pathname: `${process.env.PUBLIC_URL}/login`, state: { referer } }}>
+                        <NavLink
+                            activeClassName="is-active"
+                            onClick={onClickEventHandler}
+                            to={{ pathname: `${process.env.PUBLIC_URL}/login`, state: { referer } }}
+                        >
                             Login Page
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink activeClassName="is-active" to={`${process.env.PUBLIC_URL}/`}>
+                        <NavLink activeClassName="is-active" onClick={onClickEventHandler} exact to={`${process.env.PUBLIC_URL}/`}>
                             Homepage
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink activeClassName="is-active" to={`${process.env.PUBLIC_URL}/form`}>
+                        <NavLink activeClassName="is-active" onClick={onClickEventHandler} to={`${process.env.PUBLIC_URL}/form`}>
                             Form
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink activeClassName="is-active" to={`${process.env.PUBLIC_URL}/test`}>
+                        <NavLink activeClassName="is-active" onClick={onClickEventHandler} to={`${process.env.PUBLIC_URL}/test`}>
                             Test
                         </NavLink>
                     </li>
