@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useState } from "react";
 import useLocalStorage from "../useLocalStorage";
 import useMedia from "../useMedia";
 
@@ -8,15 +8,13 @@ const usePrefersColorScheme = () => {
 
 const useColorScheme = () => {
     const [getColorScheme, setColorScheme] = useLocalStorage("colorScheme");
-    const prefersColorScheme = usePrefersColorScheme();
-
-    const colorScheme = useMemo(() => (getColorScheme === undefined ? prefersColorScheme : getColorScheme), [getColorScheme, prefersColorScheme]);
+    const [prefersColorScheme] = useState(usePrefersColorScheme());
 
     useEffect(() => {
-        if (getColorScheme === undefined) setColorScheme(colorScheme);
-    }, [getColorScheme, colorScheme, setColorScheme]);
+        if (getColorScheme === undefined) setColorScheme(prefersColorScheme);
+    }, [getColorScheme, prefersColorScheme, setColorScheme]);
 
-    return useMemo(() => [colorScheme, setColorScheme], [colorScheme, setColorScheme]);
+    return [getColorScheme, setColorScheme];
 };
 
 export default useColorScheme;
