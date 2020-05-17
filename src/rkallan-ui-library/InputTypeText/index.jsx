@@ -99,9 +99,10 @@ const InputTypeText = ({ label, attributes, variant, clearValue, defaultValue })
 
     useEffect(() => {
         if (debouncedCurrentValue || debouncedCurrentValue === "") {
-            setInputfieldValid(isElementValid(validationTypes, currentValue));
+            const elementState = disabled || readOnly ? "isValid" : isElementValid(validationTypes, currentValue);
+            setInputfieldValid(elementState);
         }
-    }, [debouncedCurrentValue, validationTypes, currentValue]);
+    }, [debouncedCurrentValue, validationTypes, currentValue, disabled, readOnly]);
 
     useEffect(() => {
         if (eventType !== previousEventType) {
@@ -152,6 +153,7 @@ const InputTypeText = ({ label, attributes, variant, clearValue, defaultValue })
             )}
 
             <div className={styles.inputContainer}>
+                {inputState}
                 <animated.input
                     ref={inputElementRef}
                     id={`${label.for}-${randomAlphanumericInsensitive}`}
@@ -182,12 +184,13 @@ const InputTypeText = ({ label, attributes, variant, clearValue, defaultValue })
 
 InputTypeText.defaultProps = {
     attributes: {
-        "data-required": false,
         type: "text",
-        disabled: false,
-        readOnly: false,
         autoComplete: "off",
         autoFocus: false,
+        "data-required": false,
+        "data-validation-types": undefined,
+        disabled: false,
+        readOnly: false,
     },
     defaultValue: "",
     variant: "color-big-stone",
@@ -203,7 +206,7 @@ InputTypeText.propTypes = {
     attributes: PropTypes.shape({
         name: PropTypes.string.isRequired,
         placeholder: PropTypes.string.isRequired,
-        type: PropTypes.oneOf(["text", "password", "email", "number", "tel", "url", "date", "button", "submit", "reset"]).isRequired,
+        type: PropTypes.oneOf(["text", "password", "email", "number", "tel", "url", "date", "button", "submit", "reset"]),
         autoComplete: PropTypes.string,
         autoFocus: PropTypes.bool,
         "data-required": PropTypes.bool,

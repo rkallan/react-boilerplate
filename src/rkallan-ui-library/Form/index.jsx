@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import PropTypes from "prop-types";
 import loadable from "@loadable/component";
 
-import { serializeForm, formPostValidation, apiCall, validations, getType } from "rkallan-javascript-helpers";
+import { serializeForm, formPostValidation, apiCall, getType } from "rkallan-javascript-helpers";
 import { useDebounce } from "rkallan-react-hooks";
 import Loading from "../Loading";
 
@@ -117,17 +117,6 @@ const Form = (props) => {
         return response;
     };
 
-    const convertDataForAPI = (postData) => {
-        const data = Object.keys(postData).reduce((accumulator, key) => {
-            const value = postData[key].values.length > 1 ? postData[key].values : postData[key].values[0];
-
-            accumulator[key] = validations.isJSONString(value) ? JSON.parse(value) : value;
-            return accumulator;
-        }, {});
-
-        return data;
-    };
-
     const formApiCall = async (formPostUrl, data, formDataAttributes) => {
         const response = await apiCall(formPostUrl, data);
 
@@ -202,8 +191,8 @@ const Form = (props) => {
             return errorResponse;
         }
 
-        const data = convertDataForAPI(postData);
-        const response = getResponse(formObject, data);
+        // const data = convertDataForAPI(postData);
+        const response = getResponse(formObject, postData);
 
         if (customSubmitHandler) customSubmitHandler(response);
 

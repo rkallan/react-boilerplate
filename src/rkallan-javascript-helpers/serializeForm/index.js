@@ -13,19 +13,19 @@ const serializeForm = (form, formObjectData) => {
         const { type, name, dataset } = item;
         const tempData = data;
         if (item && name && !["submit", "reset", "button"].includes(type)) {
-            const elementObject = formObjectData.elements.find((element) => element.attributes.name === name);
+            const elementObject = formObjectData.elements.find(
+                (element) => element.attributes.name === name && element.label.for === item.id.split("-").slice(0, -1).join("-")
+            );
+
+            const hasSameNameItems = formObjectData.elements.filter((element) => element.attributes.name === name).length > 1;
+
             const nodeName = item.nodeName.toLowerCase();
             const attributes = elementObject && elementObject.attributes ? elementObject.attributes : {};
             const required =
                 attributes.readOnly || item.disabled || item.readOnly ? false : attributes["data-required"] === true || dataset.required === "true";
             const validationTypes = required ? attributes["data-validation-types"] || dataset.validationTypes : undefined;
 
-            if (tempData[name]) {
-                if (getType(tempData[name].valueKey) === "number" && Math.floor(tempData[name].valueKey) === tempData[name].valueKey)
-                    tempData[name].valueKey = +1;
-
-                if (getType(tempData[name].valueKey) === "string") tempData[name].valueKey = attributes["data-valueKey"] || dataset.valueKey;
-            }
+            if (tempData[name]) tempData[name].valueKey += 1;
 
             if (!tempData[name]) {
                 tempData[name] = {
@@ -34,9 +34,11 @@ const serializeForm = (form, formObjectData) => {
                     elementType: nodeName,
                     required,
                     validationTypes: validationTypes ? JSON.parse(validationTypes) : undefined,
-                    valueKey: attributes["data-valueKey"] || dataset.valueKey || 0,
-                    values: [],
+                    valueKey: 0,
+                    values: undefined,
                 };
+
+                if (hasSameNameItems) tempData[name].values = attributes["data-value-key"] || dataset.valueKey ? {} : [];
             }
 
             if (getType(getValueOfElement[nodeName]) === "function") {
@@ -49,13 +51,18 @@ const serializeForm = (form, formObjectData) => {
                     return tempData;
                 }
 
-                if (attributes["data-valueKey"] || dataset.valueKey) {
-                    const { valueKey } = tempData[name];
-                    tempData[name].values[valueKey] = value;
+                if (hasSameNameItems) {
+                    if (getType(tempData[name].values) === "object") {
+                        const valueKey = attributes["data-value-key"] || dataset.valueKey || tempData[name].valueKey;
+                        tempData[name].values[valueKey] = value;
+                    }
+
+                    if (getType(tempData[name].values) === "array") tempData[name].values.push(value);
+
                     return tempData;
                 }
 
-                tempData[name].values.push(value);
+                tempData[name].values = value;
                 return tempData;
             }
         }

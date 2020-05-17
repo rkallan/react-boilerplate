@@ -42,7 +42,7 @@ i18next.on("loaded", () => {
                 }),
                 autoFocus: false,
             },
-            defaultValue: "aap",
+            defaultValue: "r@vi.",
         },
         password: {
             id: 2,
@@ -85,19 +85,17 @@ i18next.on("loaded", () => {
         select: {
             id: 3,
             label: {
-                for: "variable-type",
-                text: i18next.t("formPage:Type"),
+                for: "select-single",
+                text: i18next.t("formPage:Select single"),
             },
             node: "select",
             attributes: {
-                placeholder: i18next.t("formPage:Type"),
-                name: "type",
-                multiple: true,
+                placeholder: i18next.t("formPage:Select single"),
+                name: "select-single",
                 "data-required": true,
-                autoFocus: true,
                 // readOnly: true,
             },
-            defaultValue: [1, 2],
+            defaultValue: "",
             optionGroup: [
                 {
                     id: 1,
@@ -112,6 +110,65 @@ i18next.on("loaded", () => {
                                 hidden: true,
                             },
                         },
+                        {
+                            id: 1,
+                            text: i18next.t("formPage:Integer"),
+                            attributes: {
+                                value: 1,
+                            },
+                        },
+                        {
+                            id: 2,
+                            text: i18next.t("formPage:String"),
+                            attributes: {
+                                value: 2,
+                            },
+                        },
+                        {
+                            id: 3,
+                            text: i18next.t("formPage:Boolean"),
+                            attributes: {
+                                value: 3,
+                            },
+                        },
+                        {
+                            id: 4,
+                            text: i18next.t("formPage:Float"),
+                            attributes: {
+                                value: 4,
+                            },
+                        },
+                        {
+                            id: 5,
+                            text: i18next.t("formPage:Date"),
+                            attributes: {
+                                value: 5,
+                            },
+                        },
+                    ],
+                },
+            ],
+        },
+        selectMulti: {
+            id: 12,
+            label: {
+                for: "select-multiple",
+                text: i18next.t("formPage:Select multiple"),
+            },
+            node: "select",
+            attributes: {
+                placeholder: i18next.t("formPage:Select multiple"),
+                name: "select-multiple",
+                multiple: true,
+                "data-required": true,
+                // readOnly: true,
+            },
+            defaultValue: [1, 2],
+            optionGroup: [
+                {
+                    id: 1,
+                    title: i18next.t("formPage:Select multiple"),
+                    options: [
                         {
                             id: 1,
                             text: i18next.t("formPage:Integer"),
@@ -188,6 +245,51 @@ i18next.on("loaded", () => {
         },
     };
 
+    const valueKey = {
+        day: {
+            id: 9,
+            label: {
+                for: "date-day",
+            },
+            node: "input",
+            attributes: {
+                name: "date",
+                type: "text",
+                placeholder: i18next.t("formPage:day"),
+                "data-required": true,
+                "data-value-key": "day",
+            },
+        },
+        month: {
+            id: 10,
+            label: {
+                for: "date-month",
+            },
+            node: "input",
+            attributes: {
+                name: "date",
+                type: "text",
+                placeholder: i18next.t("formPage:month"),
+                "data-required": true,
+                "data-value-key": "month",
+            },
+        },
+        year: {
+            id: 11,
+            label: {
+                for: "date-year",
+            },
+            node: "input",
+            attributes: {
+                name: "date",
+                type: "text",
+                placeholder: i18next.t("formPage:year"),
+                "data-required": true,
+                "data-value-key": "year",
+            },
+        },
+    };
+
     const buttons = {
         submit: {
             id: 5,
@@ -243,6 +345,15 @@ i18next.on("loaded", () => {
             form: null,
             name: null,
             elements,
+        },
+        {
+            id: 3,
+            caption: "Variable Form",
+            disabled: false,
+            form: null,
+            name: null,
+            variant: "row",
+            elements: valueKey,
         },
         {
             id: 2,

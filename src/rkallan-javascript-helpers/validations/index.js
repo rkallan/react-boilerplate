@@ -527,11 +527,13 @@ const formPostValidation = (postData) => {
 
         const elementValidationTypes = formElement.validationTypes || {};
         const totalValidationTypes = Object.keys(elementValidationTypes).length || 0;
-        const value = formElement.values.length ? formElement.values[0] : undefined;
+        const value = formElement.values.length === 1 ? formElement.values[0] : formElement.values;
 
         let errorMessage = [];
 
-        if (!totalValidationTypes && elementRequired && validations.isNotEmpty(value).error) errorMessage.push("Cann't be empty");
+        if (!totalValidationTypes && elementRequired && validations.isNotEmpty(value).error) {
+            errorMessage.push("Cann't be empty");
+        }
 
         if (totalValidationTypes) errorMessage = validations.multipleValidation(value, elementValidationTypes);
 
