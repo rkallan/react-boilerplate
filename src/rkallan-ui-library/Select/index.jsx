@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import PropTypes from "prop-types";
 import loadable from "@loadable/component";
 import { getRandomAlphanumericInsensitive, getValidationTypes, isElementValid, getValueOfElement } from "rkallan-javascript-helpers";
@@ -10,8 +10,10 @@ const Icons = loadable(() => import(/* webpackChunkName: "Icons" */ `../Icons`))
 
 const Select = ({ label, attributes, optionGroup, variant, clearValue, defaultValue }) => {
     const [randomAlphanumericInsensitive] = useState(getRandomAlphanumericInsensitive());
-    const [validationTypes] = useState(getValidationTypes(attributes["data-required"], attributes["data-validation-types"]));
-    const initState = attributes.disabled || attributes.readOnly || defaultValue || !attributes["data-required"] ? "isValid" : "isEmpty";
+    const elementAttributes = { ...Select.defaultProps.attributes, ...attributes };
+    const { disabled, readOnly } = elementAttributes;
+    const initState = disabled || readOnly || !elementAttributes["data-required"] ? "isValid" : "isEmpty";
+    const [validationTypes] = useState(getValidationTypes(elementAttributes["data-required"], elementAttributes["data-validation-types"]));
     const [containerState, setContainerState] = useState(initState);
     const [selectState, setSelectState] = useState(initState);
     const [currentValue, setCurrentValue] = useState(defaultValue);
@@ -19,8 +21,8 @@ const Select = ({ label, attributes, optionGroup, variant, clearValue, defaultVa
     const [previousEventType, setPreviousEventType] = useState();
     const containerVariant = [variant];
 
-    if (attributes.disabled) containerVariant.push("disabled");
-    if (attributes.readOnly) containerVariant.push("read-only");
+    if (elementAttributes.disabled) containerVariant.push("disabled");
+    if (elementAttributes.readOnly) containerVariant.push("read-only");
 
     const selectEventHandler = (event) => {
         const currentEventType = event.type;
@@ -34,6 +36,14 @@ const Select = ({ label, attributes, optionGroup, variant, clearValue, defaultVa
         const value = getValueOfElement.select(element);
         setCurrentValue(value);
     };
+
+    const setToDefaultValue = useCallback(() => {
+        const elementState = disabled || readOnly ? "isValid" : isElementValid(validationTypes, defaultValue);
+
+        setContainerState(elementState);
+        setSelectState(elementState);
+        setCurrentValue(defaultValue);
+    }, [disabled, readOnly, validationTypes, defaultValue]);
 
     useEffect(() => {
         if (eventType !== previousEventType) {
@@ -56,31 +66,25 @@ const Select = ({ label, attributes, optionGroup, variant, clearValue, defaultVa
     }, [currentValue, eventType, previousEventType, validationTypes]);
 
     useEffect(() => {
-        if (clearValue || defaultValue) {
-            const elementState = defaultValue ? isElementValid(validationTypes, defaultValue) : "isEmpty";
-            setContainerState(elementState);
-            setSelectState(elementState);
-
-            if (clearValue) setCurrentValue(defaultValue);
-        }
-    }, [clearValue, defaultValue, validationTypes]);
+        if (clearValue || defaultValue) setToDefaultValue();
+    }, [clearValue, defaultValue, setToDefaultValue]);
 
     return (
-        <div className={styles.container} data-is-form-element-container="true" state={containerState} variant={containerVariant.join(" ")}>
+        <div className={styles.container} state={containerState} variant={containerVariant.join(" ")}>
             <div className={styles.unit}>
                 <label className={styles.label} htmlFor={`${label.for}-${randomAlphanumericInsensitive}`}>
                     <span className={styles.placeholder}>{label.text}</span>
                 </label>
                 <div className={styles["select-container"]}>
                     <select
-                        className={styles.select}
                         id={`${label.for}-${randomAlphanumericInsensitive}`}
-                        {...attributes}
+                        className={styles.select}
                         onBlur={selectEventHandler}
                         onFocus={selectEventHandler}
                         onChange={selectEventHandler}
                         onClick={selectEventHandler}
                         onKeyUp={selectEventHandler}
+                        {...elementAttributes}
                         state={selectState}
                         value={currentValue}
                     >
@@ -89,7 +93,7 @@ const Select = ({ label, attributes, optionGroup, variant, clearValue, defaultVa
                             return <OptionGroup key={id} {...group} />;
                         })}
                     </select>
-                    {!attributes.multiple && (
+                    {!elementAttributes.multiple && (
                         <div className={styles.carrot}>
                             <Icons icon="arrowDown" variant="small" />
                         </div>
@@ -107,6 +111,7 @@ Select.defaultProps = {
         "data-validation-types": undefined,
         disabled: false,
         readOnly: false,
+        autoFocus: false,
     },
     variant: "color-big-stone",
     clearValue: false,
@@ -141,6 +146,7 @@ Select.propTypes = {
         multiple: PropTypes.bool,
         disabled: PropTypes.bool,
         readOnly: PropTypes.bool,
+        autoFocus: PropTypes.bool,
         "data-required": PropTypes.bool,
         "data-validation-types": PropTypes.string,
     }),

@@ -1,5 +1,6 @@
 import getValueOfElement from "../getValueOfElement";
 import getType from "../getType";
+import { validations } from "../validations";
 
 const serializeForm = (form, formObjectData) => {
     const formData = {
@@ -16,10 +17,15 @@ const serializeForm = (form, formObjectData) => {
             const nodeName = item.nodeName.toLowerCase();
             const attributes = elementObject && elementObject.attributes ? elementObject.attributes : {};
             const required =
-                attributes.disabled || attributes.readOnly || item.disabled || item.readOnly
-                    ? false
-                    : attributes["data-required"] === true || dataset.required === "true";
+                attributes.readOnly || item.disabled || item.readOnly ? false : attributes["data-required"] === true || dataset.required === "true";
             const validationTypes = required ? attributes["data-validation-types"] || dataset.validationTypes : undefined;
+
+            if (tempData[name]) {
+                if (getType(tempData[name].valueKey) === "number" && Math.floor(tempData[name].valueKey) === tempData[name].valueKey)
+                    tempData[name].valueKey = +1;
+
+                if (getType(tempData[name].valueKey) === "string") tempData[name].valueKey = attributes["data-valueKey"] || dataset.valueKey;
+            }
 
             if (!tempData[name]) {
                 tempData[name] = {
@@ -31,22 +37,26 @@ const serializeForm = (form, formObjectData) => {
                     valueKey: attributes["data-valueKey"] || dataset.valueKey || 0,
                     values: [],
                 };
-            } else if (getType(tempData[name].valueKey) === "number" && Math.floor(tempData[name].valueKey) === tempData[name].valueKey) {
-                tempData[name].valueKey = +1;
             }
 
             if (getType(getValueOfElement[nodeName]) === "function") {
                 const value = getValueOfElement[nodeName](item);
 
-                if (value) {
-                    if (nodeName === "select" && type === "select-multiple") {
-                        tempData[name].values = value;
-                    } else if (attributes["data-valueKey"]) {
-                        tempData[name].values[attributes["data-valueKey"]] = value;
-                    } else {
-                        tempData[name].values.push(value);
-                    }
+                if (validations.isEmpty(value)) return tempData;
+
+                if (nodeName === "select" && type === "select-multiple") {
+                    tempData[name].values = value;
+                    return tempData;
                 }
+
+                if (attributes["data-valueKey"] || dataset.valueKey) {
+                    const { valueKey } = tempData[name];
+                    tempData[name].values[valueKey] = value;
+                    return tempData;
+                }
+
+                tempData[name].values.push(value);
+                return tempData;
             }
         }
         return tempData;

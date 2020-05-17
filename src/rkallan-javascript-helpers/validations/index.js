@@ -15,7 +15,6 @@ const validations = {
         return message;
     },
     isEmpty: (value) => {
-        if (!value) return true;
         const valueIsType = getType(value);
 
         switch (valueIsType) {
@@ -27,6 +26,8 @@ const validations = {
                 return Object.keys(value).length === 0;
             case "number":
                 return Number.isNaN(value);
+            case "boolean":
+                return false;
             default:
                 return true;
         }

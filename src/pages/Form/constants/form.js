@@ -34,14 +34,15 @@ i18next.on("loaded", () => {
             attributes: {
                 name: "email",
                 type: "email",
-                // defaultValue: "aap",
                 placeholder: i18next.t("formPage:Emailaddress"),
                 "data-required": true,
                 "data-validation-types": JSON.stringify({
                     hasMinimalAndMaximalCharacters: { minCharacters: 5, maxCharacters: 256 },
                     email: null,
                 }),
+                autoFocus: false,
             },
+            defaultValue: "aap",
         },
         password: {
             id: 2,
@@ -91,12 +92,12 @@ i18next.on("loaded", () => {
             attributes: {
                 placeholder: i18next.t("formPage:Type"),
                 name: "type",
-                // defaultValue: [1, 2],
                 multiple: true,
                 "data-required": true,
+                autoFocus: true,
                 // readOnly: true,
             },
-            // defaultValue: [1, 2],
+            defaultValue: [1, 2],
             optionGroup: [
                 {
                     id: 1,
@@ -162,7 +163,7 @@ i18next.on("loaded", () => {
                 name: "grid",
                 type: "radio",
                 "data-required": true,
-                defaultChecked: false,
+                defaultChecked: true,
             },
             items: [
                 {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import PropTypes from "prop-types";
 import { useSpring, animated } from "react-spring";
 import loadable from "@loadable/component";
@@ -12,11 +12,12 @@ const Icons = loadable(() => import(/* webpackChunkName: "Icons" */ `../Icons`))
 
 const buttonTypes = ["button", "reset", "submit"];
 
-const InputTypeText = (props) => {
-    const { label, attributes, variant, clearValue } = props;
-    const elementAttributes = { ...InputTypeText.defaultProps.elementAttributes, ...attributes };
+const InputTypeText = ({ label, attributes, variant, clearValue, defaultValue }) => {
+    const inputElementRef = useRef();
+    const elementAttributes = { ...InputTypeText.defaultProps.attributes, ...attributes };
+    const { disabled, readOnly } = elementAttributes;
     const [randomAlphanumericInsensitive] = useState(getRandomAlphanumericInsensitive());
-    const initState = elementAttributes.disabled || elementAttributes.defaultValue || !elementAttributes["data-required"] ? "isValid" : "isEmpty";
+    const initState = disabled || readOnly || !elementAttributes["data-required"] ? "isValid" : "isEmpty";
 
     const [validationTypes] = useState(getValidationTypes(elementAttributes["data-required"], elementAttributes["data-validation-types"]));
     const [inputfieldValid, setInputfieldValid] = useState();
@@ -25,8 +26,7 @@ const InputTypeText = (props) => {
     const [showPlaceholderLabel, setShowPlaceholderLabel] = useState(!!elementAttributes.defaultValue);
     const [eventType, setEventType] = useState();
     const [previousEventType, setPreviousEventType] = useState();
-    const [defaultValue, setDefaultValue] = useState(elementAttributes.defaultValue || "");
-    const [currentValue, setCurrentValue] = useState();
+    const [currentValue, setCurrentValue] = useState(defaultValue);
     const [inputElement, setInputElement] = useState();
     const containerVariant = [variant];
 
@@ -77,24 +77,25 @@ const InputTypeText = (props) => {
         const elementType = element.type;
         const elementValue = elementType === "password" ? element.value : element.value.trim();
 
-        if (!inputElement) setInputElement(element);
-
         setEventType(event.type);
         setCurrentValue(elementValue);
     };
 
-    const setToDefaultValue = useCallback(() => {
-        const { disabled, readOnly } = elementAttributes;
-        const elementState = disabled || readOnly ? "isValid" : isElementValid(validationTypes, defaultValue);
+    const labelOnMouseDownHandler = (event) => event.preventDefault();
 
-        if (inputElement && !buttonTypes.includes(inputElement.type)) inputElement.value = defaultValue;
+    const setToDefaultValue = useCallback(() => {
+        const elementState = disabled || readOnly ? "isValid" : isElementValid(validationTypes, defaultValue);
 
         setCurrentValue(defaultValue);
         setInputfieldValid(elementState);
         setContainerState(elementState);
         setInputState(elementState);
-        setShowPlaceholderLabel(defaultValue.length);
-    }, [defaultValue, validationTypes, inputElement, elementAttributes]);
+        setShowPlaceholderLabel(!!defaultValue);
+    }, [disabled, readOnly, validationTypes, defaultValue]);
+
+    useEffect(() => {
+        if (inputElementRef.current) setInputElement(inputElementRef.current);
+    }, [inputElementRef]);
 
     useEffect(() => {
         if (debouncedCurrentValue || debouncedCurrentValue === "") {
@@ -105,10 +106,9 @@ const InputTypeText = (props) => {
     useEffect(() => {
         if (eventType !== previousEventType) {
             const validationState = isElementValid(validationTypes, currentValue);
-            const isPlaceholderLabelVisible = !!(currentValue && currentValue.length);
             const elementState = validationState === "isEmpty" && currentValue && currentValue.length ? "inValid" : validationState;
             setPreviousEventType(eventType);
-            setInputfieldValid(validationState);
+            setInputState(validationState);
 
             switch (eventType) {
                 case "focus":
@@ -124,8 +124,7 @@ const InputTypeText = (props) => {
                     }
 
                     setContainerState(elementState);
-                    setInputState(elementState);
-                    setShowPlaceholderLabel(isPlaceholderLabelVisible);
+                    setShowPlaceholderLabel(!!(currentValue && currentValue.length));
             }
         }
     }, [eventType, previousEventType, validationTypes, currentValue, inputElement]);
@@ -135,18 +134,18 @@ const InputTypeText = (props) => {
     }, [inputfieldValid]);
 
     useEffect(() => {
-        const value = elementAttributes.defaultValue || "";
-        setDefaultValue(value);
-    }, [elementAttributes.defaultValue]);
-
-    useEffect(() => {
-        if (defaultValue || clearValue) setToDefaultValue();
-    }, [defaultValue, clearValue, setToDefaultValue]);
+        if (clearValue || defaultValue) setToDefaultValue();
+    }, [clearValue, defaultValue, setToDefaultValue]);
 
     return (
-        <div className={styles.container} data-is-form-element-container="true" state={containerState} variant={containerVariant.join(" ")}>
+        <div className={styles.container} state={containerState} variant={containerVariant.join(" ")}>
             {(getType(label.text) === "string" || label.icon) && (
-                <animated.label className={styles.label} htmlFor={`${label.for}-${randomAlphanumericInsensitive}`} style={animationLabel}>
+                <animated.label
+                    className={styles.label}
+                    htmlFor={`${label.for}-${randomAlphanumericInsensitive}`}
+                    style={animationLabel}
+                    onMouseDown={labelOnMouseDownHandler}
+                >
                     {label.icon && <Icons icon={label.icon} />}
                     {getType(label.text) === "string" && <div className={styles.text}>{label.text}</div>}
                 </animated.label>
@@ -154,17 +153,25 @@ const InputTypeText = (props) => {
 
             <div className={styles.inputContainer}>
                 <animated.input
+                    ref={inputElementRef}
                     id={`${label.for}-${randomAlphanumericInsensitive}`}
                     className={styles.input}
+                    style={animationInput}
                     onChange={inputEventHandler}
                     onFocus={inputEventHandler}
                     onBlur={inputEventHandler}
                     {...elementAttributes}
                     state={inputState || containerState}
-                    style={animationInput}
+                    tabIndex={elementAttributes.disabled || elementAttributes.readOnly ? -1 : null}
+                    value={buttonTypes.includes(elementAttributes.type) && currentValue === "" ? undefined : currentValue}
                 />
                 {!buttonTypes.includes(elementAttributes.type) && (
-                    <animated.label className={styles.placeholder} htmlFor={`${label.for}-${randomAlphanumericInsensitive}`} style={animationPlaceholderLabel}>
+                    <animated.label
+                        className={styles.placeholder}
+                        htmlFor={`${label.for}-${randomAlphanumericInsensitive}`}
+                        style={animationPlaceholderLabel}
+                        onMouseDown={labelOnMouseDownHandler}
+                    >
                         {elementAttributes.placeholder}
                     </animated.label>
                 )}
@@ -174,15 +181,15 @@ const InputTypeText = (props) => {
 };
 
 InputTypeText.defaultProps = {
-    state: "isValid",
     attributes: {
         "data-required": false,
         type: "text",
-        state: "isValid",
         disabled: false,
         readOnly: false,
-        defaultValue: undefined,
+        autoComplete: "off",
+        autoFocus: false,
     },
+    defaultValue: "",
     variant: "color-big-stone",
     clearValue: false,
 };
@@ -193,18 +200,18 @@ InputTypeText.propTypes = {
         icon: PropTypes.string,
         text: PropTypes.string,
     }).isRequired,
-    state: PropTypes.oneOf(["isEmpty", "isValid", "isFocussed"]),
     attributes: PropTypes.shape({
         name: PropTypes.string.isRequired,
         placeholder: PropTypes.string.isRequired,
         type: PropTypes.oneOf(["text", "password", "email", "number", "tel", "url", "date", "button", "submit", "reset"]).isRequired,
         autoComplete: PropTypes.string,
+        autoFocus: PropTypes.bool,
         "data-required": PropTypes.bool,
         "data-validation-types": PropTypes.string,
-        state: PropTypes.oneOf(["isEmpty", "isValid", "isFocussed"]),
         readOnly: PropTypes.bool,
         disabled: PropTypes.bool,
     }),
+    defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     variant: PropTypes.oneOf(["color-big-stone"]),
     clearValue: PropTypes.bool,
 };

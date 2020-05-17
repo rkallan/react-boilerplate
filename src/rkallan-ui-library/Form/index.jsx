@@ -249,7 +249,6 @@ const Form = (props) => {
 
                                     switch (node) {
                                         case "input":
-                                            if (clearValue) element.attributes.disabled = false;
                                             return <InputTypeText key={id} {...element} clearValue={clearValue} />;
                                         case "radio":
                                             return <InputTypeRadio key={id} {...element} clearValue={clearValue} />;

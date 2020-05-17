@@ -11,10 +11,11 @@ const Logout = loadable(() => import(/* webpackChunkName: "Logout" */ "features/
 const Header = () => {
     const referer = useLocation();
     const onClickEventHandler = (event) => {
-        if (event.currentTarget.className.split(" ").includes("is-active")) {
-            event.preventDefault();
-        }
+        const { currentTarget } = event;
+        currentTarget.blur();
+        if (currentTarget.classList.contains("is-active")) event.preventDefault();
     };
+
     return (
         <header className={styles.container}>
             Header component
