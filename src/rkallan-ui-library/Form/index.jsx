@@ -12,6 +12,10 @@ const InputTypeText = loadable(() => import(/* webpackChunkName: "InputTypeText"
     fallback: <Loading />,
 });
 
+const InputTypeCheckbox = loadable(() => import(/* webpackChunkName: "InputTypeText" */ "../InputTypeCheckbox"), {
+    fallback: <Loading />,
+});
+
 const InputTypeRadio = loadable(() => import(/* webpackChunkName: "InputTypeText" */ "../InputTypeRadio"), {
     fallback: <Loading />,
 });
@@ -179,6 +183,7 @@ const Form = (props) => {
         const formObject = event.currentTarget || event.target;
         const formObjectData = serializeForm(formObject, formData);
         const postData = { ...props.postData, ...formObjectData.postData };
+        console.log(postData);
 
         formObjectData.postData = postData;
 
@@ -241,6 +246,8 @@ const Form = (props) => {
                                             return <InputTypeText key={id} {...element} clearValue={clearValue} />;
                                         case "radio":
                                             return <InputTypeRadio key={id} {...element} clearValue={clearValue} />;
+                                        case "checkbox":
+                                            return <InputTypeCheckbox key={id} {...element} clearValue={clearValue} />;
                                         case "select":
                                             return <Select key={id} {...element} clearValue={clearValue} />;
                                         case "button":

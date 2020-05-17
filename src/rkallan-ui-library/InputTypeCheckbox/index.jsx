@@ -4,8 +4,7 @@ import { getRandomAlphanumericInsensitive, keyEvent } from "rkallan-javascript-h
 
 import styles from "./resources/styles/inputTypeRadio.module.scss";
 
-const InputTypeRadio = (props) => {
-    const { items, variant, customOnChangeHandler, attributes } = props;
+const InputTypeCheckbox = ({ items, variant, customOnChangeHandler, attributes }) => {
     const [randomValue] = useState(getRandomAlphanumericInsensitive);
     const [usedKeyboard, setUsedKeyboard] = useState(false);
 
@@ -25,7 +24,7 @@ const InputTypeRadio = (props) => {
 
     const radioItems = items.map((item) => {
         const { id, value, label } = item;
-        const defaultChecked = attributes.defaultChecked === value;
+        const defaultChecked = attributes.defaultChecked.includes(value);
         const disabled = attributes.disabled ? true : item.disabled || false;
 
         return (
@@ -56,9 +55,9 @@ const InputTypeRadio = (props) => {
     );
 };
 
-InputTypeRadio.defaultProps = {
+InputTypeCheckbox.defaultProps = {
     attributes: {
-        type: "radio",
+        type: "checkbox",
         "data-required": false,
         "data-validation-types": undefined,
         disabled: false,
@@ -69,15 +68,15 @@ InputTypeRadio.defaultProps = {
     customOnChangeHandler: undefined,
 };
 
-InputTypeRadio.propTypes = {
+InputTypeCheckbox.propTypes = {
     attributes: PropTypes.shape({
         name: PropTypes.string.isRequired,
-        type: PropTypes.oneOf(["radio"]),
+        type: PropTypes.oneOf(["checkbox"]),
         "data-required": PropTypes.bool,
         "data-validation-types": PropTypes.string,
         disabled: PropTypes.bool,
         readOnly: PropTypes.bool,
-        defaultChecked: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
+        defaultChecked: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool, PropTypes.array]),
     }),
     items: PropTypes.arrayOf(
         PropTypes.shape({
@@ -95,4 +94,4 @@ InputTypeRadio.propTypes = {
     customOnChangeHandler: PropTypes.func,
 };
 
-export default InputTypeRadio;
+export default InputTypeCheckbox;

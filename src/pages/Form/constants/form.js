@@ -241,6 +241,47 @@ i18next.on("loaded", () => {
                 },
             ],
         },
+        checkbox: {
+            id: 13,
+            label: {
+                for: "checkbox",
+                text: "Checkbox",
+            },
+            node: "checkbox",
+            variant: "column",
+            attributes: {
+                name: "chechbox",
+                type: "checkbox",
+                "data-required": true,
+                defaultChecked: [2, 3],
+            },
+            items: [
+                {
+                    id: 1,
+                    value: 1,
+                    label: {
+                        for: "example-1",
+                        text: "Example 1",
+                    },
+                },
+                {
+                    id: 2,
+                    value: 2,
+                    label: {
+                        for: "example-2",
+                        text: "Example 2",
+                    },
+                },
+                {
+                    id: 3,
+                    value: 3,
+                    label: {
+                        for: "example-3",
+                        text: "Example 3",
+                    },
+                },
+            ],
+        },
     };
 
     const valueKey = {

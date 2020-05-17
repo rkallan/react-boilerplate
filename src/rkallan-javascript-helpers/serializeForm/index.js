@@ -38,7 +38,7 @@ const serializeForm = (form, formObjectData) => {
                     values: undefined,
                 };
 
-                if (hasSameNameItems) tempData[name].values = attributes["data-value-key"] || dataset.valueKey ? {} : [];
+                if (hasSameNameItems || type === "checkbox") tempData[name].values = attributes["data-value-key"] || dataset.valueKey ? {} : [];
             }
 
             if (getType(getValueOfElement[nodeName]) === "function") {
@@ -52,7 +52,7 @@ const serializeForm = (form, formObjectData) => {
                     return tempData;
                 }
 
-                if (hasSameNameItems) {
+                if (hasSameNameItems || (nodeName === "input" && type === "checkbox")) {
                     if (getType(tempData[name].values) === "object") {
                         const valueKey = attributes["data-value-key"] || dataset.valueKey || tempData[name].valueKey;
                         tempData[name].values[valueKey] = value;
