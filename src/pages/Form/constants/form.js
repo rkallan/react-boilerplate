@@ -226,7 +226,6 @@ i18next.on("loaded", () => {
                 {
                     id: 1,
                     value: true,
-                    checked: false,
                     label: {
                         for: "grid-on",
                         text: "Grid on",
@@ -235,7 +234,6 @@ i18next.on("loaded", () => {
                 {
                     id: 2,
                     value: false,
-                    checked: false,
                     label: {
                         for: "grid-off",
                         text: "Grid off",

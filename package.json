@@ -65,7 +65,7 @@
         "eject": "react-scripts eject",
         "lint": "eslint .",
         "lint:staged": "npm run format",
-        "format": "prettier --write \"src/**/*.{jsx,js,json,css,scss,md,svg}\""
+        "format": "prettier --write \"./**/*.{jsx,js,json,css,scss,md,svg}\" \"!node_modules/**\""
     },
     "eslintConfig": {
         "extends": "react-app"

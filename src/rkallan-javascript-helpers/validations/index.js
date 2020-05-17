@@ -527,7 +527,7 @@ const formPostValidation = (postData) => {
 
         const elementValidationTypes = formElement.validationTypes || {};
         const totalValidationTypes = Object.keys(elementValidationTypes).length || 0;
-        const value = formElement.values.length === 1 ? formElement.values[0] : formElement.values;
+        const value = formElement.values;
 
         let errorMessage = [];
 

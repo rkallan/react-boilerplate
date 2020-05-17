@@ -2,19 +2,18 @@ import { validations } from "../validations";
 
 const getValueOfElement = {
     input: (element) => {
-        let valueAsString;
-        if (element && element.type && ["radio", "checkbox"].includes(element.type)) {
-            if (element.checked) {
-                valueAsString = element.value.trim();
-                return validations.isJSONString(valueAsString) ? JSON.parse(valueAsString) : valueAsString;
-            }
+        if (!element) return undefined;
 
-            return undefined;
-        }
+        const elementType = element.type;
+        const value = element.value.trim();
 
-        if (element && element.type) {
-            valueAsString = element.value.trim();
-            return validations.isJSONString(valueAsString) ? JSON.parse(valueAsString) : valueAsString;
+        switch (elementType) {
+            case "radio":
+            case "checkbox":
+                if (element.checked) return validations.isJSONString(value) ? JSON.parse(value) : value;
+                break;
+            default:
+                return validations.isJSONString(value) ? JSON.parse(value) : value;
         }
 
         return undefined;

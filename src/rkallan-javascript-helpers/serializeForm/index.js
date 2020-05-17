@@ -34,7 +34,7 @@ const serializeForm = (form, formObjectData) => {
                     elementType: nodeName,
                     required,
                     validationTypes: validationTypes ? JSON.parse(validationTypes) : undefined,
-                    valueKey: 0,
+                    valueKey: 1,
                     values: undefined,
                 };
 
@@ -42,9 +42,10 @@ const serializeForm = (form, formObjectData) => {
             }
 
             if (getType(getValueOfElement[nodeName]) === "function") {
-                const value = getValueOfElement[nodeName](item);
+                const elementValue = getValueOfElement[nodeName](item);
+                const value = validations.isEmpty(elementValue) ? undefined : elementValue;
 
-                if (validations.isEmpty(value)) return tempData;
+                if (["checkbox", "radio"].includes(type) && value === undefined) return tempData;
 
                 if (nodeName === "select" && type === "select-multiple") {
                     tempData[name].values = value;
@@ -62,7 +63,7 @@ const serializeForm = (form, formObjectData) => {
                     return tempData;
                 }
 
-                tempData[name].values = value;
+                if (getType(tempData[name].values) === "undefined") tempData[name].values = value;
                 return tempData;
             }
         }

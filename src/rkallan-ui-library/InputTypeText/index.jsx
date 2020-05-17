@@ -20,9 +20,9 @@ const InputTypeText = ({ label, attributes, variant, clearValue, defaultValue })
     const initState = disabled || readOnly || !elementAttributes["data-required"] ? "isValid" : "isEmpty";
 
     const [validationTypes] = useState(getValidationTypes(elementAttributes["data-required"], elementAttributes["data-validation-types"]));
-    const [inputfieldValid, setInputfieldValid] = useState();
+    const [inputfieldValid, setInputfieldValid] = useState(initState);
     const [containerState, setContainerState] = useState(initState);
-    const [inputState, setInputState] = useState(initState);
+    const [inputState, setInputState] = useState();
     const [showPlaceholderLabel, setShowPlaceholderLabel] = useState(!!elementAttributes.defaultValue);
     const [eventType, setEventType] = useState();
     const [previousEventType, setPreviousEventType] = useState();
