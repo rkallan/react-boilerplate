@@ -153,7 +153,6 @@ const InputTypeText = ({ label, attributes, variant, clearValue, defaultValue })
             )}
 
             <div className={styles.inputContainer}>
-                {inputState}
                 <animated.input
                     ref={inputElementRef}
                     id={`${label.for}-${randomAlphanumericInsensitive}`}
