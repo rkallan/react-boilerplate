@@ -77,7 +77,7 @@
             }
 
             &:disabled,
-            &:read-only {
+            &[readonly] {
                 cursor: default;
                 pointer-events: none;
             }
@@ -97,11 +97,6 @@
         &::after {
             height: 0.125rem;
             z-index: 5;
-        }
-
-        label {
-            // pointer-events: none;
-            // cursor: default;
         }
     }
 

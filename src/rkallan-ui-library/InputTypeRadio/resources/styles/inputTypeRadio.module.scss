@@ -26,13 +26,18 @@
                 }
             }
 
-            &:disabled {
-                pointer-events: none;
-            }
-
-            &:disabled ~ label {
+            &:disabled,
+            &[readonly] {
                 pointer-events: none;
                 cursor: default;
+                user-select: none;
+            }
+
+            &:disabled ~ label,
+            &[readonly] ~ label {
+                pointer-events: none;
+                cursor: default;
+                user-select: none;
                 opacity: map-get($opacity, disabled);
             }
         }

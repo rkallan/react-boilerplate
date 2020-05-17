@@ -25,19 +25,19 @@ const InputTypeRadio = (props) => {
 
     const radioItems = items.map((item) => {
         const { id, value, label } = item;
-        const defaultChecked = props.attributes.defaultChecked === value ? true : item.checked || false;
-        const disabled = props.disabled ? true : item.disabled || false;
+        const defaultChecked = attributes.defaultChecked === value ? true : item.checked || false;
+        const disabled = attributes.disabled ? true : item.disabled || false;
 
         return (
             <div key={id} className={styles.unit}>
                 <input
                     id={`${label.for}-${randomValue}`}
                     className={styles.input}
-                    value={value}
-                    {...attributes}
                     onChange={onChangeHandler}
                     onClick={onKeyDownHandler}
                     onKeyDown={onKeyDownHandler}
+                    {...attributes}
+                    value={value}
                     defaultChecked={defaultChecked}
                     disabled={disabled}
                 />
@@ -58,11 +58,15 @@ const InputTypeRadio = (props) => {
 
 InputTypeRadio.defaultProps = {
     attributes: {
+        type: "radio",
+        "data-required": false,
+        "data-validation-types": undefined,
+        disabled: false,
+        readOnly: false,
         defaultChecked: undefined,
     },
     variant: "row",
     customOnChangeHandler: undefined,
-    disabled: false,
 };
 
 InputTypeRadio.propTypes = {
@@ -71,22 +75,24 @@ InputTypeRadio.propTypes = {
         type: PropTypes.oneOf(["radio"]),
         "data-required": PropTypes.bool,
         "data-validation-types": PropTypes.string,
+        disabled: PropTypes.bool,
+        readOnly: PropTypes.bool,
         defaultChecked: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
     }),
     items: PropTypes.arrayOf(
         PropTypes.shape({
-            id: PropTypes.number,
-            value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
+            id: PropTypes.number.isRequired,
+            value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]).isRequired,
             label: PropTypes.shape({
-                for: PropTypes.string,
-                text: PropTypes.string,
+                for: PropTypes.string.isRequired,
+                text: PropTypes.string.isRequired,
             }),
+            disabled: PropTypes.bool,
             map: PropTypes.func,
         })
     ).isRequired,
     variant: PropTypes.oneOf(["column", "row"]),
     customOnChangeHandler: PropTypes.func,
-    disabled: PropTypes.bool,
 };
 
 export default InputTypeRadio;
