@@ -44,8 +44,8 @@
         "react-spring": "9.0.0-rc.3",
         "redux": "^4.0.5",
         "resize-observer-polyfill": "^1.5.1",
-        "rkallan-eslint-config": "^2.0.3",
-        "rkallan-eslint-config-react": "^1.1.0",
+        "rkallan-eslint-config": "^4.0.0",
+        "rkallan-eslint-config-react": "^4.0.0",
         "rkallan-prettier-config": "^2.0.0"
     },
     "devDependencies": {
