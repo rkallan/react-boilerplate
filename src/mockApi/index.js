@@ -68,7 +68,9 @@ const configureMockApi = () => {
                     if (!params.email && !params.username) return error("Username, emailaddress or password is incorrect");
 
                     const user = users.find(
-                        (tempUser) => (tempUser.email === params.email || tempUser.username === params.username) && tempUser.password === params.password
+                        (tempUser) =>
+                            (tempUser.email === params.email || tempUser.username === params.username) &&
+                            tempUser.password === params.password
                     );
 
                     if (!user) return error("Username, emailaddress or password is incorrect");

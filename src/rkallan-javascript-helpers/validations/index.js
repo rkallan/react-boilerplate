@@ -117,7 +117,9 @@ const validations = {
         return message;
     },
     startAndEndsWith: (value, validateBy = { firstCharacter: [], lastCharacter: [] }) => {
-        const errorMessage = `must be started with ${validateBy.firstCharacter.join(",")} and ended with ${validateBy.lastCharacter.join(",")}`;
+        const errorMessage = `must be started with ${validateBy.firstCharacter.join(",")} and ended with ${validateBy.lastCharacter.join(
+            ","
+        )}`;
         const isNotEmpty = validations.isNotEmpty(value);
 
         if (isNotEmpty && isNotEmpty.error) return { ...isNotEmpty, message: errorMessage };
@@ -132,7 +134,8 @@ const validations = {
         return message;
     },
     notStartedWith: (value, validateBy = { notAllowed: [], caseSensitive: true }) => {
-        const caseSensitive = validateBy.caseSensitive && validations.isBoolean(validateBy.caseSensitive) ? !!JSON.parse(validateBy.caseSensitive) : true;
+        const caseSensitive =
+            validateBy.caseSensitive && validations.isBoolean(validateBy.caseSensitive) ? !!JSON.parse(validateBy.caseSensitive) : true;
 
         const errorMessage = `can not started with ${validateBy.notAllowed.join(", ")} (is ${!caseSensitive ? "not " : ""}case sensitive)`
             .replace(",  ", ", spaces")
@@ -157,7 +160,8 @@ const validations = {
     },
 
     containsNot: (value, validateBy = { notAllowed: [], caseSensitive: true }) => {
-        const caseSensitive = validateBy.caseSensitive && validations.isBoolean(validateBy.caseSensitive) ? !!JSON.parse(validateBy.caseSensitive) : true;
+        const caseSensitive =
+            validateBy.caseSensitive && validations.isBoolean(validateBy.caseSensitive) ? !!JSON.parse(validateBy.caseSensitive) : true;
         const errorMessage = `can not contain ${validateBy.notAllowed.join(",")} (is ${!caseSensitive ? "not " : ""}case sensitive)`
             .replace(",  ", ", spaces")
             .replace("  ,", " spaces,");
@@ -185,7 +189,8 @@ const validations = {
     },
 
     isNot: (value, validateBy = { notAllowed: [], caseSensitive: true }) => {
-        const caseSensitive = validateBy.caseSensitive && validations.isBoolean(validateBy.caseSensitive) ? !!JSON.parse(validateBy.caseSensitive) : true;
+        const caseSensitive =
+            validateBy.caseSensitive && validations.isBoolean(validateBy.caseSensitive) ? !!JSON.parse(validateBy.caseSensitive) : true;
         const errorMessage = `is not one off ${validateBy.notAllowed.join(", ")} (is ${!caseSensitive ? "not " : ""}case sensitive)`
             .replace(",  ", ", spaces")
             .replace("  ,", " spaces,");
@@ -217,7 +222,8 @@ const validations = {
     },
 
     isExact: (value, validateBy = { isExact: [], caseSensitive: true }) => {
-        const caseSensitive = validateBy.caseSensitive && validations.isBoolean(validateBy.caseSensitive) ? !!JSON.parse(validateBy.caseSensitive) : true;
+        const caseSensitive =
+            validateBy.caseSensitive && validations.isBoolean(validateBy.caseSensitive) ? !!JSON.parse(validateBy.caseSensitive) : true;
         const errorMessage = `is not one off ${validateBy.isExact.join(", ")} (is ${!caseSensitive ? "not " : ""}case sensitive)`
             .replace(",  ", ", spaces")
             .replace("  ,", " spaces,");
@@ -287,7 +293,8 @@ const validations = {
 
         const valueAsPointedNumber = parseFloat(validateValue);
 
-        if (valueAsPointedNumber > validateBy.minimal && valueAsPointedNumber < validateBy.maximum) return { error: false, message: undefined };
+        if (valueAsPointedNumber > validateBy.minimal && valueAsPointedNumber < validateBy.maximum)
+            return { error: false, message: undefined };
 
         return { error: true, message: errorMessage };
     },

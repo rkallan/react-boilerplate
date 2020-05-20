@@ -80,7 +80,8 @@ const Form = (props) => {
 
                 if (element && (tagName === "button" || ["submit", "reset", "button"].includes(type))) tempButtons.push(element);
 
-                if (element && !["fieldset", "button"].includes(tagName) && !["submit", "reset", "button"].includes(type)) tempFormElements.push(element);
+                if (element && !["fieldset", "button"].includes(tagName) && !["submit", "reset", "button"].includes(type))
+                    tempFormElements.push(element);
             });
 
             const data = {
@@ -230,7 +231,14 @@ const Form = (props) => {
     }, [resetForm]);
 
     return (
-        <form {...attributes} onSubmit={onSubmitHandler} onReset={onResetHandler} onChange={onEventHandler} onFocus={onEventHandler} onBlur={onEventHandler}>
+        <form
+            {...attributes}
+            onSubmit={onSubmitHandler}
+            onReset={onResetHandler}
+            onChange={onEventHandler}
+            onFocus={onEventHandler}
+            onBlur={onEventHandler}
+        >
             {fieldsets &&
                 fieldsets.map((fieldset) => {
                     const { elements, disabled } = fieldset;

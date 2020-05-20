@@ -9,7 +9,20 @@ import styles from "./resources/styles/button.module.scss";
 const Icons = loadable(() => import(/* webpackChunkName: "Icons" */ "rkallan-ui-library/Icons"));
 
 const Button = (props) => {
-    const { attributes, text, fullWidth, border, align, containerAttributes, className, borderColor, color, icon, iconSize, textAlign } = props;
+    const {
+        attributes,
+        text,
+        fullWidth,
+        border,
+        align,
+        containerAttributes,
+        className,
+        borderColor,
+        color,
+        icon,
+        iconSize,
+        textAlign,
+    } = props;
     const containerVariant = [];
     const containerClassName = [styles.container];
     const unitVariant = [attributes.variant];

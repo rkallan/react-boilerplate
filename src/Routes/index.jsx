@@ -40,7 +40,14 @@ const Routes = () => {
 
                         if (authenticated) return <PrivateRoute key={id} {...route} />;
 
-                        return <Route key={id} path={path} exact={exact} render={(routeProps) => <route.component {...routeProps} routes={routes} />} />;
+                        return (
+                            <Route
+                                key={id}
+                                path={path}
+                                exact={exact}
+                                render={(routeProps) => <route.component {...routeProps} routes={routes} />}
+                            />
+                        );
                     })}
                 </Switch>
             </animated.section>

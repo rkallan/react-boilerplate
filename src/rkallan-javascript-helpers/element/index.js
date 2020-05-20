@@ -149,7 +149,9 @@ const toggleStateOnConnectedElements = (element, state, sibling = "previousSibli
         const connectDirection = sibling === "previousSibling" ? "connectFromId" : "connectWithId";
         const elementDataId = element.dataset.id ? element.dataset.id : element.dataset.connectFromId;
         const connectIds =
-            element.dataset[connectDirection] && element.dataset[connectDirection].length > 0 ? element.dataset[connectDirection].split(",") : [];
+            element.dataset[connectDirection] && element.dataset[connectDirection].length > 0
+                ? element.dataset[connectDirection].split(",")
+                : [];
         const dataContainer = element.closest("[variant=data-container]");
         const connectContainer = dataContainer[sibling];
         if (state === "active") dataContainer.setAttribute("state", "active");
@@ -157,7 +159,8 @@ const toggleStateOnConnectedElements = (element, state, sibling = "previousSibli
         if (connectContainer && connectIds.length > 0 && connectWithId === null) {
             connectIds.map((id) => {
                 const connectedElement = connectContainer.querySelector(`[data-id="${id}"]`);
-                if (connectedElement && !["active", "disabled"].includes(connectedElement.getAttribute("state"))) connectedElement.setAttribute("state", state);
+                if (connectedElement && !["active", "disabled"].includes(connectedElement.getAttribute("state")))
+                    connectedElement.setAttribute("state", state);
 
                 const connectedElements =
                     sibling === "previousSibling"

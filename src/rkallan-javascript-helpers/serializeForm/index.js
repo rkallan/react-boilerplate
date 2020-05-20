@@ -22,7 +22,9 @@ const serializeForm = (form, formObjectData) => {
             const nodeName = item.nodeName.toLowerCase();
             const attributes = elementObject && elementObject.attributes ? elementObject.attributes : {};
             const required =
-                attributes.readOnly || item.disabled || item.readOnly ? false : attributes["data-required"] === true || dataset.required === "true";
+                attributes.readOnly || item.disabled || item.readOnly
+                    ? false
+                    : attributes["data-required"] === true || dataset.required === "true";
             const validationTypes = required ? attributes["data-validation-types"] || dataset.validationTypes : undefined;
 
             if (tempData[name]) tempData[name].valueKey += 1;
@@ -38,7 +40,8 @@ const serializeForm = (form, formObjectData) => {
                     values: undefined,
                 };
 
-                if (hasSameNameItems || type === "checkbox") tempData[name].values = attributes["data-value-key"] || dataset.valueKey ? {} : [];
+                if (hasSameNameItems || type === "checkbox")
+                    tempData[name].values = attributes["data-value-key"] || dataset.valueKey ? {} : [];
             }
 
             if (getType(getValueOfElement[nodeName]) === "function") {

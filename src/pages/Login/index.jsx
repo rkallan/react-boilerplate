@@ -23,7 +23,8 @@ const Login = () => {
     const history = useHistory();
     const auth = useAuth();
     const location = useLocation();
-    const redirectTo = location.state && "referer" in location.state && "pathname" in location.state.referer ? location.state.referer.pathname : "/";
+    const redirectTo =
+        location.state && "referer" in location.state && "pathname" in location.state.referer ? location.state.referer.pathname : "/";
     window.customAppVariable.usedLogoutButton = false;
 
     const customSubmitHandler = async (response) => {

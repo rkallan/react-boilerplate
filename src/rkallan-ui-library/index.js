@@ -12,4 +12,18 @@ import SidePanel from "./SidePanel";
 import SliderButton from "./SliderButton";
 import TemplateProvider from "./TemplateProvider";
 
-export { Accordion, Button, Form, Icons, InputTypeRadio, InputTypeRange, InputTypeText, Loading, Logo, Select, SidePanel, SliderButton, TemplateProvider };
+export {
+    Accordion,
+    Button,
+    Form,
+    Icons,
+    InputTypeRadio,
+    InputTypeRange,
+    InputTypeText,
+    Loading,
+    Logo,
+    Select,
+    SidePanel,
+    SliderButton,
+    TemplateProvider,
+};

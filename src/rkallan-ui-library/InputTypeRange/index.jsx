@@ -10,7 +10,8 @@ const InputTypeRange = ({ attributes, label, output, customEventHandler }) => {
     const [thumbRef, thumbBounds] = useMeasure();
     const [randomValue] = useState(getRandomAlphanumericInsensitive);
     const [rangeCorrection, setRangeCorrection] = useState(undefined);
-    const defaultValue = attributes.defaultValue && attributes.defaultValue <= max && attributes.defaultValue >= min ? attributes.defaultValue : min;
+    const defaultValue =
+        attributes.defaultValue && attributes.defaultValue <= max && attributes.defaultValue >= min ? attributes.defaultValue : min;
     const [currentValue, setCurrentValue] = useState(defaultValue && defaultValue <= max && defaultValue >= min ? defaultValue : min);
     const [range, setRange] = useState(undefined);
     const [thumbPosition, setThumbPosition] = useState(undefined);
@@ -97,7 +98,11 @@ const InputTypeRange = ({ attributes, label, output, customEventHandler }) => {
                 />
                 <div className={styles.rangeTrack}>
                     <div className={styles.track} variant="background" />
-                    <div className={styles.track} variant="progress" style={{ [cssProperty]: `calc(${thumbPosition}% + ${thumbBounds[cssProperty]}px)` }} />
+                    <div
+                        className={styles.track}
+                        variant="progress"
+                        style={{ [cssProperty]: `calc(${thumbPosition}% + ${thumbBounds[cssProperty]}px)` }}
+                    />
                 </div>
                 <div className={styles.thumb} {...thumbRef} style={{ [cssPropertyThumb]: `${thumbPosition}%` }} />
             </div>

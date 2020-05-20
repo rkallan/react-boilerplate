@@ -9,9 +9,12 @@ import colorSchemeRadioObject from "./constants/colorSchemeRadioObject";
 
 // import styles from "./resources/styles/colorScheme.module.scss";
 
-const InputTypeRadio = loadable(() => import(/* webpackChunkName: "InputTypeRadio-themeColorScheme" */ "rkallan-ui-library/InputTypeRadio"), {
-    fallback: <Loading />,
-});
+const InputTypeRadio = loadable(
+    () => import(/* webpackChunkName: "InputTypeRadio-themeColorScheme" */ "rkallan-ui-library/InputTypeRadio"),
+    {
+        fallback: <Loading />,
+    }
+);
 
 const ColorScheme = () => {
     const dispatch = useDispatch();
