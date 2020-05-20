@@ -316,15 +316,13 @@ i18next.on("loaded", () => {
         year: {
             id: 11,
             label: {
-                for: "date-year",
+                for: "textarea",
             },
-            node: "input",
+            node: "textarea",
             attributes: {
-                name: "date",
-                type: "text",
-                placeholder: i18next.t("formPage:year"),
+                name: "textarea",
+                placeholder: i18next.t("formPage:Textarea"),
                 "data-required": true,
-                "data-value-key": "year",
             },
         },
     };
