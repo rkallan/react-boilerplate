@@ -1,6 +1,6 @@
 import React from "react";
 import loadable from "@loadable/component";
-import { Loading } from "rkallan-ui-library";
+import { Loading } from "rkallan-ui-library-loc";
 import styles from "./resources/styles/footer.module.scss";
 
 const ColorScheme = loadable(() => import(/* webpackChunkName: "ColorScheme" */ "features/theme/ColorScheme"), {

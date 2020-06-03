@@ -10,7 +10,7 @@ import { getThemeColorScheme } from "features/theme/themeSelector";
 import useAuth from "features/authentication/hooks/useAuth";
 import { getUserState } from "features/user/userSelector";
 import { setUser, resetUser } from "features/user/userSlice";
-import { Loading } from "rkallan-ui-library";
+import { Loading } from "rkallan-ui-library-loc";
 
 import styles from "./resources/styles/template.module.scss";
 import defaultPageData from "./constants/defaultPageData";

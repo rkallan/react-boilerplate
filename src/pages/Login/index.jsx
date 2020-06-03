@@ -2,17 +2,17 @@ import React, { useState } from "react";
 import { Link, useHistory, Redirect, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import loadable from "@loadable/component";
-import { Loading } from "rkallan-ui-library";
+import { Loading } from "rkallan-ui-library-loc";
 import { login } from "features/authentication";
 import useAuth from "features/authentication/hooks/useAuth";
 import styles from "./resources/styles/login.module.scss";
 import loginFormObject from "./constants/loginForm";
 
-const Form = loadable(() => import(/* webpackChunkName: "LoginForm" */ "rkallan-ui-library/Form"), {
+const Form = loadable(() => import(/* webpackChunkName: "LoginForm" */ "rkallan-ui-library-loc/Form"), {
     fallback: <Loading />,
 });
 
-const Notification = loadable(() => import(/* webpackChunkName: "LoginForm" */ "rkallan-ui-library/Notification"), {
+const Notification = loadable(() => import(/* webpackChunkName: "LoginForm" */ "rkallan-ui-library-loc/Notification"), {
     fallback: <Loading />,
 });
 

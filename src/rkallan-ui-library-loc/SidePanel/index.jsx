@@ -6,7 +6,7 @@ import { ucFirst } from "rkallan-javascript-helpers";
 import { colorWhite, colorBlack, colorWhiteDisabled, colorBigStone } from "../resources/styles/exports/_exports.scss";
 import styles from "./resources/styles/sidePanel.module.scss";
 
-const Icons = loadable(() => import(/* webpackChunkName: "Icons" */ "rkallan-ui-library/Icons"));
+const Icons = loadable(() => import(/* webpackChunkName: "Icons" */ "rkallan-ui-library-loc/Icons"));
 
 const SidePanel = ({ variant, children, buttonText, panelOpen, scrollable, buttonDisabled, buttonHide, onClickFunction, theme }) => {
     const [isPanelOpen, setIsPanelOpen] = useState(panelOpen);

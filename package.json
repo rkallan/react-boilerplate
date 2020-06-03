@@ -43,6 +43,7 @@
         "react-scripts": "3.4.1",
         "react-spring": "9.0.0-rc.3",
         "redux": "^4.0.5",
+        "require-context.macro": "^1.2.2",
         "resize-observer-polyfill": "^1.5.1",
         "rkallan-eslint-config": "^4.0.0",
         "rkallan-eslint-config-react": "^4.0.0",

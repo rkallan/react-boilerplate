@@ -1,10 +1,10 @@
 import React from "react";
 import loadable from "@loadable/component";
 import PropTypes from "prop-types";
-import { Loading } from "rkallan-ui-library";
+import { Loading } from "rkallan-ui-library-loc";
 import styles from "./resources/styles/notification.module.scss";
 
-const Icons = loadable(() => import(/* webpackChunkName: "Icons" */ "rkallan-ui-library/Icons"), {
+const Icons = loadable(() => import(/* webpackChunkName: "Icons" */ "rkallan-ui-library-loc/Icons"), {
     fallback: <Loading />,
 });
 

@@ -6,7 +6,7 @@ import { getType } from "rkallan-javascript-helpers";
 
 import styles from "./resources/styles/button.module.scss";
 
-const Icons = loadable(() => import(/* webpackChunkName: "Icons" */ "rkallan-ui-library/Icons"));
+const Icons = loadable(() => import(/* webpackChunkName: "Icons" */ "rkallan-ui-library-loc/Icons"));
 
 const Button = (props) => {
     const {

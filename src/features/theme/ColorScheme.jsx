@@ -3,14 +3,14 @@ import loadable from "@loadable/component";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { useColorScheme } from "rkallan-react-hooks";
-import { Loading } from "rkallan-ui-library";
+import { Loading } from "rkallan-ui-library-loc";
 import { setThemeColorScheme } from "./themeSlice";
 import colorSchemeRadioObject from "./constants/colorSchemeRadioObject";
 
 // import styles from "./resources/styles/colorScheme.module.scss";
 
 const InputTypeRadio = loadable(
-    () => import(/* webpackChunkName: "InputTypeRadio-themeColorScheme" */ "rkallan-ui-library/InputTypeRadio"),
+    () => import(/* webpackChunkName: "InputTypeRadio-themeColorScheme" */ "rkallan-ui-library-loc/InputTypeRadio"),
     {
         fallback: <Loading />,
     }

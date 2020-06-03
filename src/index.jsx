@@ -8,7 +8,7 @@ import { Provider } from "react-redux";
 import loadable from "@loadable/component";
 import { HelmetProvider } from "react-helmet-async";
 import { createBrowserHistory } from "history";
-import { Loading, TemplateProvider } from "rkallan-ui-library";
+import { Loading, TemplateProvider } from "rkallan-ui-library-loc";
 // import configureMockApi from "mockApi";
 import AuthProvider from "features/authentication/AuthProvider";
 import store from "Store";

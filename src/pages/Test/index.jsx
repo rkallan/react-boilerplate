@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import loadable from "@loadable/component";
-import { Loading } from "rkallan-ui-library";
+import { Loading } from "rkallan-ui-library-loc";
 
-const InputTypeRange = loadable(() => import(/* webpackChunkName: "InputTypeRange" */ "rkallan-ui-library/InputTypeRange"), {
+const InputTypeRange = loadable(() => import(/* webpackChunkName: "InputTypeRange" */ "rkallan-ui-library-loc/InputTypeRange"), {
     fallback: <Loading />,
 });
 

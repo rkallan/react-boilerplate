@@ -5,7 +5,7 @@ import { useSpring, animated } from "react-spring";
 import { useMeasure } from "rkallan-react-hooks";
 import styles from "./resources/styles/accordion.module.scss";
 
-const Icons = loadable(() => import(/* webpackChunkName: "Icons" */ "rkallan-ui-library/Icons"));
+const Icons = loadable(() => import(/* webpackChunkName: "Icons" */ "rkallan-ui-library-loc/Icons"));
 
 const Accordion = ({ title, id, children, prefix, defaultIsOpen, disabled, tabIndex, autoClose, autoOpen, getIsOpen, theme }) => {
     const [isOpen, setIsOpen] = useState(defaultIsOpen);

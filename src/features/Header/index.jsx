@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import loadable from "@loadable/component";
-import { Loading } from "rkallan-ui-library";
+import { Loading } from "rkallan-ui-library-loc";
 import styles from "./resources/styles/header.module.scss";
 
 const Logout = loadable(() => import(/* webpackChunkName: "Logout" */ "features/authentication/Logout"), {
