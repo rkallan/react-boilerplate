@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Icons } from "ravi";
+import { Icons } from "rkallan-ui-library";
 const Homepage = () => {
     return (
         <div>
