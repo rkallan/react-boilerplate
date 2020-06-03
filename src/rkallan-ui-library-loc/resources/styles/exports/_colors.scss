@@ -1,0 +1,24 @@
+@import "../mixins/mixins";
+@import "../variables/variables";
+
+:export {
+    colorWhite: safe-hsla($colorWhite);
+    colorBlack: safe-hsla(map-get($colorBlack, default));
+    colorSkyBlue: safe-hsla(map-get($colorSkyBlue, default));
+    colorSkyBlueDarker: safe-hsla(map-get($colorSkyBlue, darken));
+    colorSkyBlueLighter: safe-hsla(map-get($colorSkyBlue, lighter));
+    colorBigStone: safe-hsla(map-get($colorBigStone, default));
+    colorBigStoneDarker: safe-hsla(map-get($colorBigStone, darken));
+    colorBigStoneLighter: safe-hsla(map-get($colorBigStone, lighter));
+    colorBigStoneExtraLighter: safe-hsla(map-get($colorBigStone, extraLight));
+    colorLaRioja: safe-hsla(map-get($colorLaRioja, default));
+    colorLaRiojaDarker: safe-hsla(map-get($colorLaRioja, darken));
+    colorLaRiojaLighter: safe-hsla(map-get($colorLaRioja, lighter));
+    colorLipstick: safe-hsla(map-get($colorLipstick, default));
+    colorLipstickDarker: safe-hsla(map-get($colorLipstick, darken));
+    colorLipstickLighter: safe-hsla(map-get($colorLipstick, lighter));
+    colorError: safe-hsla(map-get($colorRed, default));
+    colorErrorDarker: safe-hsla(map-get($colorRed, darken));
+    colorErrorLighter: safe-hsla(map-get($colorRed, lighter));
+    colorWhiteDisabled: safe-hsla($colorWhite, map-get($opacity, disabled));
+}

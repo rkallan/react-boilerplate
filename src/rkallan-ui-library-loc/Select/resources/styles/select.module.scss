@@ -1,0 +1,117 @@
+@import "./src/resources/styles/variables/variables";
+@import "./src/resources/styles/mixins/mixins";
+
+.container {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    margin: $gap 0;
+    padding: $gap * 2 0 0 0;
+    overflow: hidden;
+    color: safe-hsla(map-get($colorBigStone, default), 1);
+
+    &[variant~="color-big-stone"] {
+        color: safe-hsla(map-get($colorBigStone, default));
+    }
+
+    &[variant~="disabled"],
+    &[variant~="read-only"] {
+        opacity: map-get($opacity, disabled);
+        pointer-events: none;
+    }
+
+    .unit {
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+
+        .label {
+            position: absolute;
+            display: block;
+            width: 100%;
+            font-weight: 300;
+            top: 0.18725rem;
+            left: 0;
+            padding-left: $gap / 2;
+            user-select: none;
+        }
+
+        .select-container {
+            position: relative;
+            display: flex;
+            width: 100%;
+            align-items: center;
+            border: 0.125rem solid safe-hsla(map-get($colorBigStone, default));
+            border-radius: map-get($borderRadius, small);
+            background: safe-hsla($colorWhite);
+        }
+    }
+
+    &[state~="isFocussed"] {
+        .unit {
+            .select-container {
+                border-color: red;
+            }
+        }
+    }
+
+    .select {
+        position: relative;
+        display: block;
+        font-size: 1rem;
+        line-height: 1.75rem;
+        padding: 0 $gap * 4 0 $gap;
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+        border: 0;
+        color: inherit;
+        box-shadow: 0;
+        border-radius: 0;
+        background-color: transparent;
+        z-index: 10;
+        appearance: none;
+        cursor: pointer;
+        transition: map-get($transition, default);
+
+        &::-ms-expand {
+            display: none;
+        }
+
+        &:focus {
+            outline: none;
+            color: inherit;
+        }
+
+        optgroup {
+            color: safe-hsla(map-get($colorBigStone, default));
+        }
+
+        option {
+            font-weight: normal;
+            color: safe-hsla(map-get($colorBigStone, default));
+            cursor: pointer;
+
+            &:disabled {
+                color: safe-hsla(map-get($colorBigStone, default), map-get($opacity, disabled));
+            }
+        }
+    }
+
+    .carrot {
+        position: absolute;
+        right: -0.125rem;
+        top: -0.125rem;
+        height: calc(100% + 0.125rem * 2);
+        width: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 5;
+        margin: 0 auto;
+        color: safe-hsla($colorWhite);
+        background: safe-hsla($colorGrey);
+        border-top-right-radius: 0.5rem;
+        border-bottom-right-radius: 0.5rem;
+    }
+}

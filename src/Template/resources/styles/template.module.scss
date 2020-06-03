@@ -1,0 +1,9 @@
+@import "./src/resources/styles/variables/variables";
+@import "./src/resources/styles/mixins/mixins";
+
+.main {
+    &[variant~="container"] {
+        position: relative;
+        flex-grow: 2;
+    }
+}

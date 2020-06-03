@@ -1,0 +1,148 @@
+@import "../mixins/mixins";
+@import "colors";
+@import "gap";
+
+$fontFamilyBase: Roboto, sans-serif;
+$fontSizeDefault: (
+    px: 16px,
+    "%": 100%,
+    rem: 1rem,
+);
+
+$font: (
+    default: (
+        font-family: $fontFamilyBase,
+        font-size: map-get($fontSizeDefault, "%"),
+        line-height: 1.25,
+        font-weight: 400,
+        color: safe-hsla(map-get($colorBlack, default)),
+    ),
+    link: (
+        font-size: inherit,
+        line-height: inherit,
+        font-weight: bolder,
+        color: inherit,
+        text-decoration: underline,
+        background-color: transparent,
+        "-webkit-text-decoration-skip": objects,
+        _hover: (
+            outline: 0,
+            text-decoration: none,
+        ),
+    ),
+    heading: (
+        _h1: (
+            font-family: $fontFamilyBase,
+            font-size: 2rem,
+            line-height: 1.25,
+            font-weight: 900,
+            margin: 0,
+            padding: $gap 0,
+            color: safe-hsla(map-get($colorRed, default)),
+        ),
+        _h2: (
+            font-family: $fontFamilyBase,
+            font-size: 1.75rem,
+            line-height: 1.25,
+            font-weight: 700,
+            margin: 0,
+            padding: $gap 0,
+            color: safe-hsla(map-get($colorRed, default)),
+        ),
+        _h3: (
+            font-family: $fontFamilyBase,
+            font-size: 1.5rem,
+            line-height: 1.25,
+            font-weight: 700,
+            margin: 0,
+            padding: $gap 0,
+            color: safe-hsla(map-get($colorRed, default)),
+        ),
+        _h4: (
+            font-family: $fontFamilyBase,
+            font-size: 1.25rem,
+            line-height: 1.25,
+            font-weight: 700,
+            margin: 0,
+            padding: $gap 0,
+            color: safe-hsla(map-get($colorRed, default)),
+        ),
+        _h5: (
+            font-family: $fontFamilyBase,
+            font-size: 1rem,
+            line-height: 1.25,
+            font-weight: 700,
+            margin: 0,
+            padding: $gap 0,
+            color: safe-hsla(map-get($colorRed, default)),
+        ),
+        _h6: (
+            font-family: $fontFamilyBase,
+            font-size: 1rem,
+            line-height: 1.25,
+            font-weight: 400,
+            margin: 0,
+            padding: $gap 0,
+            color: safe-hsla(map-get($colorRed, default)),
+        ),
+    ),
+    paragraph: (
+        font-size: 1rem,
+        line-height: 1.25,
+        font-weight: 400,
+        color: inherit,
+        padding: $gap 0,
+        margin: 0,
+    ),
+);
+
+$fontFamily: (
+    "Roboto-Thin": (
+        fontFamily: "Roboto",
+        fontWeight: 100,
+        fontStyle: (
+            "normal",
+            "italic",
+        ),
+    ),
+    "Roboto-Light": (
+        fontFamily: "Roboto",
+        fontWeight: 200,
+        fontStyle: (
+            "normal",
+            "italic",
+        ),
+    ),
+    "Roboto-Regular": (
+        fontFamily: "Roboto",
+        fontWeight: 300,
+        fontStyle: (
+            "normal",
+            "italic",
+        ),
+    ),
+    "Roboto-Medium": (
+        fontFamily: "Roboto",
+        fontWeight: 400,
+        fontStyle: (
+            "normal",
+            "italic",
+        ),
+    ),
+    "Roboto-Bold": (
+        fontFamily: "Roboto",
+        fontWeight: 700,
+        fontStyle: (
+            "normal",
+            "italic",
+        ),
+    ),
+    "Roboto-Black": (
+        fontFamily: "Roboto",
+        fontWeight: 900,
+        fontStyle: (
+            "normal",
+            "italic",
+        ),
+    ),
+);

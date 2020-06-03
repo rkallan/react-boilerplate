@@ -1,0 +1,192 @@
+@import "./src/resources/styles/variables/variables";
+@import "./src/resources/styles/mixins/mixins";
+
+.container {
+    &[variant~="full-width"] {
+        width: 100%;
+
+        .unit {
+            width: 100%;
+
+            &[variant~="auto-w"] {
+                width: inherit;
+            }
+        }
+    }
+
+    &[variant~="align-start"] {
+        .content {
+            justify-content: flex-start;
+        }
+    }
+
+    &[variant~="align-center"] {
+        .content {
+            justify-content: center;
+        }
+    }
+
+    &[variant~="align-end"] {
+        .content {
+            justify-content: flex-end;
+        }
+    }
+
+    &[variant~="color-grey"] {
+        .unit {
+            background: safe-hsla($colorGrey);
+            border-radius: 0.5rem;
+            color: safe-hsla($colorWhite);
+        }
+    }
+
+    .unit {
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        @include propValueFromMaps(map-get($font, default));
+        border: 0;
+        margin: 0;
+        padding: 0 1rem;
+        width: 100%;
+        cursor: pointer;
+        color: currentColor;
+        background: transparent;
+        transition: map-get($transition, default);
+
+        &[variant~="auto-w"] {
+            width: auto;
+            padding: 0 0.75rem;
+        }
+
+        &[state="is-active"] {
+            color: safe-hsla($colorWhite);
+        }
+
+        &:disabled,
+        &[state="disabled"] {
+            opacity: map-get($opacity, disabled);
+            cursor: default;
+            pointer-events: none;
+        }
+
+        &[draggable]:not([disabled]) {
+            cursor: grab;
+
+            &[state~="on-drag"] {
+                cursor: grabbing;
+            }
+        }
+
+        &:hover:not([disabled]),
+        &:focus:not([disabled]) {
+            color: var(--hover-color, map-get($colorSkyBlue, default));
+            outline: none;
+
+            span {
+                color: currentColor;
+            }
+        }
+
+        .content {
+            position: relative;
+            display: flex;
+            border-bottom: none;
+            min-height: 0;
+
+            .title {
+                padding: 0.3125rem 0.5rem;
+
+                &[variant~="text-center"] {
+                    text-align: center;
+                    justify-content: center;
+                }
+
+                &[variant~="text-left"] {
+                    text-align: left;
+                    justify-content: left;
+                }
+
+                &[variant~="text-right"] {
+                    text-align: right;
+                    justify-content: right;
+                }
+                span {
+                    line-height: 1.25rem;
+                    color: currentColor;
+                }
+            }
+        }
+
+        .icon {
+            position: relative;
+            display: flex;
+
+            align-items: center;
+            padding-top: 0.125rem;
+
+            svg {
+                width: inherit;
+                height: inherit;
+                pointer-events: none;
+
+                circle,
+                line,
+                path,
+                polyline {
+                    stroke: currentColor;
+                }
+            }
+        }
+
+        &[variant~="margin-right"] {
+            margin-right: 0.5rem;
+        }
+
+        &[variant~="icon-left"] {
+            .content {
+                span {
+                    padding-left: 0.25rem;
+                }
+            }
+        }
+
+        &[variant~="icon-right"] {
+            .content {
+                flex-flow: row-reverse;
+                span {
+                    padding-right: 0.25rem;
+                }
+            }
+        }
+
+        &[variant~="icon-only"] {
+            .content {
+                padding: 0 0.25rem;
+                max-height: 2rem;
+
+                .title {
+                    visibility: hidden;
+                    width: 0;
+                    height: 0;
+                }
+            }
+        }
+
+        &[variant~="icon-text-bottom"] {
+            .content {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        &[variant~="text-only"] {
+            .icon {
+                display: none;
+                visibility: hidden;
+                width: 0;
+                height: 0;
+            }
+        }
+    }
+}

@@ -18,24 +18,47 @@
     ],
     "author": "Ravi Kallan <r.kallan@upcmail.nl>",
     "dependencies": {
-        "@testing-library/jest-dom": "^4.2.4",
-        "@testing-library/react": "^9.5.0",
-        "@testing-library/user-event": "^7.2.1",
+        "@firebase/app": "^0.6.4",
+        "@firebase/auth": "^0.14.6",
+        "@firebase/firestore": "^1.14.6",
+        "@loadable/component": "^5.12.0",
+        "@reduxjs/toolkit": "^1.3.6",
+        "@testing-library/jest-dom": "^5.9.0",
+        "@testing-library/react": "^10.0.6",
+        "@testing-library/user-event": "^11.0.0",
+        "crypto-js": "^4.0.0",
+        "eslint-config-react-rkallan": "^1.0.3",
+        "eslint-config-rkallan": "^1.0.3",
+        "firebase": "^7.14.6",
+        "history": "^4.10.1",
+        "i18next": "^19.4.5",
+        "i18next-browser-languagedetector": "^4.2.0",
+        "i18next-xhr-backend": "^3.2.2",
+        "prop-types": "^15.7.2",
         "react": "^16.13.1",
         "react-app-polyfill": "^1.0.6",
         "react-dom": "^16.13.1",
-        "react-scripts": "3.4.1"
+        "react-helmet-async": "^1.0.6",
+        "react-i18next": "^11.5.0",
+        "react-redux": "^7.2.0",
+        "react-router-dom": "^5.2.0",
+        "react-scripts": "3.4.1",
+        "react-spring": "9.0.0-rc.3",
+        "redux": "^4.0.5",
+        "require-context.macro": "^1.2.2",
+        "resize-observer-polyfill": "^1.5.1",
+        "rkallan-prettier-config": "^2.0.2",
+        "rkallan-ui-library": "^1.0.3"
     },
     "devDependencies": {
         "@prettier/plugin-xml": "^0.7.2",
-        "eslint-config-prettier": "^6.10.1",
+        "eslint-config-prettier": "^6.11.0",
         "eslint-plugin-babel": "^5.3.0",
         "eslint-plugin-prettier": "^3.1.3",
         "husky": "^4.2.5",
-        "lint-staged": "^10.1.6",
-        "node-sass": "^4.13.1",
-        "prettier": "^2.0.4",
-        "prop-types": "^15.7.2"
+        "lint-staged": "^10.2.8",
+        "node-sass": "^4.14.1",
+        "prettier": "^2.0.5"
     },
     "scripts": {
         "start": "react-scripts start",
@@ -44,7 +67,7 @@
         "eject": "react-scripts eject",
         "lint": "eslint .",
         "lint:staged": "npm run format",
-        "format": "prettier --write \"src/**/*.{jsx,js,json,css,scss,md,svg}\""
+        "format": "prettier --write \"./**/*.{jsx,js,json,css,scss,md,svg}\" \"!node_modules/**\""
     },
     "eslintConfig": {
         "extends": "react-app"

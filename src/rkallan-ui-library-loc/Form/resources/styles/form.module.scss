@@ -1,0 +1,13 @@
+@import "./src/resources/styles/variables/variables";
+@import "./src/resources/styles/mixins/mixins";
+
+.container {
+    margin-bottom: 1rem;
+    &[variant~="row-reverse"] {
+        display: flex;
+        flex-direction: row-reverse;
+        > * {
+            margin: 0.5rem 0 0.5rem 0.5rem;
+        }
+    }
+}

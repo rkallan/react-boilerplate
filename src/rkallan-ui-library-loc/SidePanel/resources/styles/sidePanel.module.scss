@@ -1,0 +1,129 @@
+@import "./src/resources/styles/mixins/mixins";
+@import "./src/resources/styles/variables/variables";
+
+$panelWidth: (
+    default: "20rem",
+);
+
+.container {
+    position: relative;
+    width: 0rem;
+    transition: all 0.3s ease-in-out;
+    z-index: 6;
+    --panelWidth: #{map-get($panelWidth, default)};
+
+    &[theme="dark-mode"] {
+        background: safe-hsla(map-get($colorBigStone, default));
+    }
+
+    &[theme="light-mode"] {
+        background-color: safe-hsla($colorWhite);
+    }
+
+    .unit {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        height: 100%;
+        max-height: 100%;
+        width: var(--panelWidth);
+        max-width: var(--panelWidth);
+        top: 0;
+        left: 0;
+        transition: map-get($transition, default);
+        overflow-y: scroll;
+
+        &[variant~="no-scroll"] {
+            overflow: hidden;
+        }
+    }
+
+    &[state~="is-open"] {
+        width: var(--panelWidth);
+    }
+
+    &[state~="is-closed"] {
+        width: 0rem;
+    }
+
+    &[variant~="left"] {
+        &[state~="is-open"] {
+            .unit {
+                left: 0;
+            }
+        }
+
+        &[state~="is-closed"] {
+            .unit {
+                left: calc(0rem - var(--panelWidth));
+            }
+        }
+
+        .button {
+            &[variant~="container"] {
+                left: 100%;
+            }
+        }
+    }
+
+    &[variant~="right"] {
+        &[state~="is-open"] {
+            .unit {
+                right: 0;
+            }
+        }
+
+        &[state~="is-closed"] {
+            .unit {
+                right: calc(0rem - var(--panelWidth));
+            }
+        }
+
+        .button {
+            &[variant~="container"] {
+                right: 100%;
+            }
+        }
+    }
+
+    .button {
+        &[variant~="container"] {
+            position: absolute;
+            bottom: 0;
+            width: auto;
+            height: auto;
+            visibility: visible;
+            transition: map-get($transition, default);
+
+            &[state~="visible"] {
+                opacity: 1;
+            }
+
+            &[state~="hidden"] {
+                opacity: 0;
+            }
+        }
+
+        &[variant~="unit"] {
+            display: flex;
+            border: 0;
+            margin: 0;
+            padding: 0.75rem;
+            background: safe-hsla(map-get($colorBlack, default));
+            color: safe-hsla($colorWhite);
+
+            &:disabled,
+            &[state="disabled"] {
+                cursor: default;
+                pointer-events: none;
+                color: safe-hsla($colorWhite, map-get($opacity, disabled));
+            }
+
+            .title {
+                visibility: hidden;
+                width: 0;
+                height: 0;
+            }
+        }
+    }
+}

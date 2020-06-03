@@ -1,0 +1,452 @@
+@import "../variables/variables";
+@import "../mixins/mixins";
+
+@include addFontFace();
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+*:focus {
+    outline: none;
+}
+
+html {
+    position: relative;
+    display: flex;
+    @include propValueFromMaps(map-get($font, default));
+    background: safe-hsla($colorWhite);
+    overflow-y: scroll;
+    overflow-x: hidden;
+    min-width: map-get($breakpoints, xsmall);
+    max-width: 100%;
+    width: 100vw;
+    min-height: 100%;
+    text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    max-width: 100%;
+    min-height: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+article,
+aside,
+dialog,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+nav,
+section {
+    display: block;
+}
+
+@include propValueFromMaps(map-get($font, heading));
+
+p {
+    @include propValueFromMaps(map-get($font, paragraph));
+
+    &[variant~="bold"] {
+        font-weight: 700;
+    }
+
+    &[variant~="smaller"] {
+        font-size: smaller;
+    }
+
+    &[variant~="larger"] {
+        font-size: larger;
+    }
+}
+
+hr {
+    height: 0.25rem;
+    margin: $gap 0;
+    background: safe-hsla(map-get($colorBlack, default));
+    border: none;
+    box-sizing: content-box;
+    overflow: visible;
+    border-radius: map-get($borderRadius, default);
+}
+
+abbr[title],
+abbr[data-original-title] {
+    text-decoration: underline dotted;
+    cursor: help;
+    border-bottom: 0;
+}
+
+address {
+    margin: $gap 0;
+    font-style: inherit;
+    line-height: inherit;
+}
+
+ol,
+ul,
+dl {
+    margin: $gap 0;
+    padding: 0 $gap * 4;
+}
+
+dl dl,
+dl ol,
+dl ul,
+ol dl,
+ul dl,
+ol ol,
+ol ul,
+ul ol,
+ul ul {
+    margin: $gap 0;
+    padding: 0 $gap * 1.5;
+}
+
+dl {
+    padding: 0 $gap;
+}
+
+dt {
+    font-weight: bolder;
+}
+
+dd {
+    margin: 0;
+    padding: 0 $gap;
+}
+
+nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+blockquote {
+    margin: $gap 0;
+}
+
+dfn {
+    font-style: italic;
+}
+
+b,
+strong {
+    font-weight: bolder;
+}
+
+small {
+    font-size: small;
+}
+
+sub,
+sup {
+    position: relative;
+    font-size: small;
+    line-height: 0;
+    vertical-align: baseline;
+}
+
+sub {
+    bottom: -0.25rem;
+}
+sup {
+    top: -0.5rem;
+}
+
+a {
+    @include propValueFromMaps(map-get($font, link));
+}
+
+a:not([href]):not([tabindex]) {
+    color: inherit;
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+        outline: 0;
+        color: inherit;
+        text-decoration: none;
+    }
+}
+
+pre,
+code,
+kbd,
+samp {
+    font-family: "Consolas", monospace;
+    font-size: smaller;
+    border: 0.0625rem solid safe-hsla(map-get($colorBlack, default));
+    padding: 0.125rem;
+    vertical-align: text-top;
+}
+
+pre {
+    margin: $gap 0;
+    overflow: auto;
+}
+
+figure {
+    margin: $gap 0;
+}
+
+svg,
+img {
+    vertical-align: bottom;
+    border-style: none;
+}
+
+a,
+area,
+button,
+[role="button"],
+input,
+label,
+select,
+summary,
+textarea {
+    touch-action: manipulation;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+caption {
+    padding: $gap 0;
+    color: inherit;
+    text-align: left;
+    caption-side: bottom;
+}
+
+th {
+    text-align: left;
+}
+
+label {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+}
+
+button:focus {
+    outline: none;
+}
+
+input,
+button,
+select,
+optgroup,
+textarea {
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+button,
+input {
+    overflow: visible;
+}
+
+button,
+select {
+    text-transform: inherit;
+}
+
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+    cursor: pointer;
+    -webkit-appearance: button;
+}
+
+button::-moz-focus-inner,
+[type="button"]::-moz-focus-inner,
+[type="reset"]::-moz-focus-inner,
+[type="submit"]::-moz-focus-inner {
+    padding: 0;
+    border-style: none;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+    box-sizing: border-box;
+    padding: 0;
+}
+
+input[type="date"],
+input[type="time"],
+input[type="datetime-local"],
+input[type="month"] {
+    -webkit-appearance: listbox;
+}
+
+textarea {
+    overflow: auto;
+    resize: vertical;
+}
+
+fieldset {
+    min-width: 0;
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+legend {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+    margin: $gap 0;
+    font-size: 1.5rem;
+    line-height: inherit;
+    color: inherit;
+    white-space: normal;
+}
+
+progress {
+    vertical-align: baseline;
+}
+
+[type="number"]::-webkit-inner-spin-button,
+[type="number"]::-webkit-outer-spin-button {
+    height: auto;
+}
+
+[type="search"] {
+    outline-offset: -0.125rem;
+    -webkit-appearance: none;
+}
+
+[type="search"]::-webkit-search-cancel-button,
+[type="search"]::-webkit-search-decoration {
+    -webkit-appearance: none;
+}
+
+::-webkit-file-upload-button {
+    font: inherit;
+    -webkit-appearance: button;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    animation: autofill 0s forwards;
+}
+
+::-webkit-inner-spin-button,
+::-webkit-outer-spin-button {
+    height: auto;
+}
+
+::-webkit-input-placeholder {
+    color: inherit;
+    opacity: map-get($opacity, disabled);
+}
+
+::-webkit-search-decoration {
+    -webkit-appearance: none;
+}
+
+::-webkit-file-upload-button {
+    -webkit-appearance: button;
+    font: inherit;
+}
+
+::-moz-focus-inner {
+    border-style: none;
+    padding: 0;
+}
+
+:-moz-focusring {
+    outline: 0.0625rem dotted ButtonText;
+}
+
+:-moz-ui-invalid {
+    box-shadow: none;
+}
+
+@keyframes autofill {
+    100% {
+        background: transparent;
+        color: inherit;
+    }
+}
+
+output {
+    display: inline-block;
+}
+
+summary {
+    display: list-item;
+}
+
+canvas {
+    display: inline-block;
+}
+
+template {
+    display: none;
+}
+
+dialog {
+    background-color: white;
+    border: solid;
+    color: black;
+    display: block;
+    height: -moz-fit-content;
+    height: -webkit-fit-content;
+    height: fit-content;
+    left: 0;
+    margin: auto;
+    padding: 1em;
+    position: absolute;
+    right: 0;
+    width: -moz-fit-content;
+    width: -webkit-fit-content;
+    width: fit-content;
+}
+
+dialog:not([open]) {
+    display: none;
+}
+
+*[hidden],
+[hidden],
+[state="hidden"] {
+    visibility: hidden;
+    width: 0;
+    height: 0;
+}
+
+[tabindex="-1"]:focus {
+    outline: none;
+}
+
+.template {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    min-width: 100%;
+}

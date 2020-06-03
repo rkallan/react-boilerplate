@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -1 32 34">
+    <style type="text/css">
+        .st0 {
+            fill: none;
+            stroke: #000000;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-miterlimit: 10;
+        }
+    </style>
+    <g>
+        <path
+            class="st0"
+            d="M7.38,4.38l16.9,0.06 M1,27.55l23.19,0.09 M31,16.07l-6.81,11.57 M7.81,15.98L1,27.55 M31,16.07L24.28,4.45
+			 M7.81,15.98L1.09,4.36"
+        />
+    </g>
+</svg>

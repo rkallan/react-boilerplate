@@ -1,0 +1,15 @@
+@import "../mixins//mixins";
+@import "variables";
+
+:export {
+    color: {
+        white: safe-hsla($colorWhite);
+        black: safe-hsla(map-get($colorBlack, default));
+        gray: safe-hsla(map-get($colorGray, default));
+        sky-blue: safe-hsla(map-get($colorSkyBlue, default));
+        big-stone: safe-hsla(map-get($colorBigStone, default));
+        la-rioja: safe-hsla(map-get($colorLaRioja, default));
+        lipstick: safe-hsla(map-get($colorLipstick, default));
+        error: safe-hsla(map-get($colorRed, default));
+    }
+}

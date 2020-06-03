@@ -1,0 +1,6 @@
+@import "./src/resources/styles/variables/variables";
+@import "./src/resources/styles/mixins/mixins";
+
+.content {
+    padding: $gap;
+}

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -1 32 34">
+    <style type="text/css">
+        .st0 {
+            fill: none;
+            stroke: #000000;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-miterlimit: 10;
+        }
+        .st1 {
+            stroke: #000000;
+            stroke-miterlimit: 10;
+        }
+    </style>
+    <path class="st0" d="M31,23.25V29c0,1.1-0.9,2-2,2H3c-1.1,0-2-0.9-2-2v-5.75" />
+    <circle class="st1" cx="8.18" cy="23.23" r="1" />
+    <circle class="st1" cx="16" cy="23.23" r="1" />
+    <circle class="st1" cx="23.82" cy="23.23" r="1" />
+    <line class="st0" x1="1" y1="23.25" x2="1" y2="11.04" />
+    <path class="st0" d="M31,12.74h-5.87c-0.83,0-1.52-0.71-1.52-1.58v-5.4c0-0.87,0.68-1.58,1.52-1.58H31" />
+    <path class="st0" d="M19.15,5.88C19.28,3.03,19.99,1,23.73,1c2.94,0,5.7,1.26,7.27,3.18" />
+    <path class="st0" d="M31,12.74c-1.57,1.92-4.33,3.18-7.27,3.18c-3.74,0-4.45-2.03-4.59-4.88" />
+    <line class="st0" x1="19.15" y1="5.88" x2="12.85" y2="5.88" />
+    <line class="st0" x1="19.15" y1="11.04" x2="12.85" y2="11.04" />
+    <line class="st0" x1="12.85" y1="11.04" x2="1" y2="11.04" />
+    <line class="st0" x1="12.85" y1="5.88" x2="1" y2="5.88" />
+    <line class="st0" x1="1" y1="1" x2="1" y2="5.88" />
+</svg>

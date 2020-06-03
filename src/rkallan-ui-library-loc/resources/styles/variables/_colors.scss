@@ -1,0 +1,40 @@
+$colorWhite: hsla(0, 0%, 100%, 1);
+
+$colorBlack: (
+    default: hsla(14, 1%, 17%, 1),
+    lighter: hsla(194, 91%, 74%, 1),
+    darken: hsla(194, 91%, 34%, 1),
+);
+
+$colorRed: (
+    default: hsla(3, 79%, 50%, 1),
+    lighter: hsla(3, 79%, 65%, 1),
+    darken: hsla(3, 79%, 35%, 1),
+);
+
+$colorSkyBlue: (
+    default: hsla(194, 91%, 49%, 1),
+    lighter: hsla(194, 91%, 74%, 1),
+    darken: hsla(194, 91%, 34%, 1),
+);
+
+$colorBigStone: (
+    default: hsla(197, 19%, 22%, 1),
+    lighter: hsla(197, 19%, 47%, 1),
+    extraLight: hsla(197, 19%, 74%, 1),
+    darken: hsla(197, 19%, 14%, 1),
+);
+
+$colorLaRioja: (
+    default: hsla(63, 100%, 41%, 1),
+    lighter: hsla(63, 100%, 66%, 1),
+    darken: hsla(63, 100%, 26%, 1),
+);
+
+$colorLipstick: (
+    default: hsla(328, 62%, 36%, 1),
+    lighter: hsla(328, 62%, 61%, 1),
+    darken: hsla(328, 62%, 21%, 1),
+);
+
+$colorGrey: hsla(210, 9, 43, -1);
